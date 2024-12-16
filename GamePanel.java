@@ -1,5 +1,5 @@
-//Alexander Zhang
-//2024-12-16
+//Alexander Zhang and Stanley Zhou
+//2024-12-17
 //Code for the GamePanel class that controls all the game logic and collisions
 
 //imports
