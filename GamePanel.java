@@ -7,6 +7,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.*;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
@@ -26,6 +27,7 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
     public static Menu menu = new Menu();
     public static int difficulty;
     public static boolean isGameDone = false;
+    public static ArrayList<Plant> plantList = new ArrayList<>();
 
     //Constructor for gamepanel class
     public GamePanel() {
@@ -155,4 +157,8 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
     public void mouseMoved(MouseEvent e) {
 
     }
+    public void removePlant(Plant p){
+        plantList.remove(p);
+    }
+
 }
