@@ -57,6 +57,16 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
         //runs a new thread to allow classes to run simultaneously
         gameThread = new Thread(this);
         gameThread.start();
+
+        //runs a new thread to run a background soundtrack throughout the run of the program
+        //done with help of this stack overflow post https://stackoverflow.com/questions/17758411/java-creating-a-new-thread
+        Thread soundtrackThread = new Thread(new Runnable() {
+            public void run()
+            {
+                SoundTrack.setUp();
+            }});  
+            soundtrackThread.start();
+        
     }
 
     //loads all images
