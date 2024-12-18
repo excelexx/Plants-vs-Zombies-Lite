@@ -2,7 +2,6 @@
 //December 16, 2024
 //Code for playing sounds for soundtrack
 
-// Credit to Max O'Didily and his youtube guide: https://www.youtube.com/watch?v=wJO_cq5XeSA&t=7s&ab_channel=MaxO%27Didily
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
