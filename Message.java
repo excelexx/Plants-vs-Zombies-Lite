@@ -1,6 +1,6 @@
-//Alexander Zhang
-//2024-12-03
-//Code for the message class that draws a string for other classes
+//Alexander Zhang and Stanley Zhou
+//2024-12-17
+//Code for the message class that draws text for other classes
 
 //imports
 import java.awt.*;
