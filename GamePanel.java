@@ -46,6 +46,7 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
     int minimum;
     int tempInt;
     Peashooter tempPeashooter;
+    public static boolean soundPlayed = false;
 
     public static int mouseX;
     public static int mouseY;
@@ -184,7 +185,6 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
             if (furthestZombies[i] != -1) {
                 if (zombieList.get(i).get(furthestZombies[i]).getXEat() <= 0) {
                     System.out.println("You lost the game");
-                    isRunning = false;
                 }
 
                 tempZombie = zombieList.get(i).get(furthestZombies[i]);
@@ -194,6 +194,7 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
                     if (tempPea.getPosX() >= tempZombie.getXEat()) {
                         peaIterator.remove();
                         tempZombie.peaDamage();
+                        Sound.playSingleSound("Sounds\\pea shooter sound effects 1# - Made with Clipchamp.wav", 0);
                     }
                 }
 
@@ -227,8 +228,17 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
                             if (tempZombie.getXEating() <= tempPeashooter.getXEat() && tempZombie.getXEating() >= tempPeashooter.getXEat() - 30) {
                                 tempPeashooter.regularEatPlant();
                                 tempZombie.stop();
+                                
+                                //eating
+                                if (!soundPlayed) {
+                                    Sound.playEatingSounds();
+                                    soundPlayed = true; // Set the flag to true after the sound is played
+                                }
+                                
                             } else {
                                 tempZombie.go();
+
+                                //stop eating
                             }
                         }
                     }
@@ -261,6 +271,7 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
                     peashooter.yesZombie();
                 }
             }
+
         }
     }
     //makes game run constantly, 
@@ -352,7 +363,7 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
     }
 
     public void mousePressed(MouseEvent e) {
-        Sound.playMusic("Sounds\\Select Click V.2 - Sound Effect (HD).wav - Made with Clipchamp.wav");
+        Sound.playSingleSound("Sounds\\Select Click V.2 - Sound Effect (HD).wav - Made with Clipchamp.wav", 0);
     }
 
     public void mouseEntered(MouseEvent e) {

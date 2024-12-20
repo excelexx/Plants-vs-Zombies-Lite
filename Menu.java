@@ -48,7 +48,7 @@ public class Menu extends JPanel implements ChangeListener{
         public Menu() {
             loadImage();
             slidersSetup();
-            Sound.playMusic("Sounds\\Hover Click (Minecraft Sound) - Sound Effect for editing.wav - Made with Clipchamp.wav");
+            Sound.playSingleSound("Sounds\\Hover Click (Minecraft Sound) - Sound Effect for editing.wav - Made with Clipchamp.wav", 0);
         }
         
         //loads all images
@@ -210,7 +210,7 @@ public class Menu extends JPanel implements ChangeListener{
     public static void tryPlayHoverMusic(boolean isHovering) {
         if(!stillHovering) {
             stillHovering = true;
-            Sound.playMusic("Sounds\\Hover Click (Minecraft Sound) - Sound Effect for editing.wav - Made with Clipchamp.wav");
+            Sound.playSingleSound("Sounds\\Hover Click (Minecraft Sound) - Sound Effect for editing.wav - Made with Clipchamp.wav", 0);
         }
     }
 

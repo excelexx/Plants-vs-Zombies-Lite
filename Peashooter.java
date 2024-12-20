@@ -37,7 +37,7 @@ public class Peashooter extends Plant {
                     try {
                         Thread.sleep(1200);
                         game.addPea(new Pea(column, row, game, Peashooter.this), row);
-                        Sound.playMusic("Sounds\\pea shooter sound effects 1# - Made with Clipchamp.wav");
+                        Sound.playSingleSound("Sounds\\pea shooter sound effects 1# - Made with Clipchamp.wav", -20);
                         peaThread.interrupt();
                     } catch (Exception e) {
 

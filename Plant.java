@@ -29,7 +29,7 @@ public class Plant extends Rectangle{
         positionX = Grid.colToX(col);
         game = gme;
         //make plant being planted noise
-        Sound.playMusic("Sounds\\Plant being Planted Sample 1 -Plants vs Zombies Sound Effect - Made with Clipchamp.wav");
+        Sound.playSingleSound("Sounds\\Plant being Planted Sample 1 -Plants vs Zombies Sound Effect - Made with Clipchamp.wav", 0);
     }
     public void draw(Graphics g){
     }
@@ -42,7 +42,7 @@ public class Plant extends Rectangle{
     public void die(){
         game.removePlant(this);
         //make plant being eated noise (same as being planted)
-        Sound.playMusic("Sounds\\Plant being Planted Sample 1 -Plants vs Zombies Sound Effect - Made with Clipchamp.wav");
+        Sound.playSingleSound("Sounds\\Plant being Planted Sample 1 -Plants vs Zombies Sound Effect - Made with Clipchamp.wav", 0);
     }
     public void move(){
 
