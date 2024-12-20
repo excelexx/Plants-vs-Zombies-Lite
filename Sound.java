@@ -11,6 +11,7 @@ import javax.sound.sampled.Clip;
 public class Sound {
 
     public static int volume; // 0 - 100
+    static boolean playingZombieSounds = false;
 
     public static Clip playMusic(String location) {
         try{
@@ -31,5 +32,29 @@ public class Sound {
         return null;
     }
 
+    public static void playZombieSounds() {
+        if(!playingZombieSounds && GamePanel.isRunning) {
+            playingZombieSounds = true;
+            try {
+                File musicPath = new File("Sounds\\Plants vs. Zombies - Groan 4 Sound Effect.wav");
+    
+                if(musicPath.exists()) {
+                    // Plays music
+                    AudioInputStream audioInput = AudioSystem.getAudioInputStream(musicPath);
+                    Clip clip = AudioSystem.getClip();
+                    clip.open(audioInput);
+                    clip.start();
+                    clip.loop(Clip.LOOP_CONTINUOUSLY); //plays continuously, repeats when song ends 
+                } else {
+                    // Error: cannot find file path
+                    System.out.println("Cannot Find File: please ensure code has filepath correctly entered.");
+                }
+    
+            } catch(Exception e) {
+                // All other errors
+                System.out.println("Exception: Error with music playing.");
+            }
+        }
+    }
 
 }

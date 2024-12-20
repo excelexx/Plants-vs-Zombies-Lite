@@ -184,6 +184,7 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
             if (furthestZombies[i] != -1) {
                 if (zombieList.get(i).get(furthestZombies[i]).getXEat() <= 0) {
                     System.out.println("You lost the game");
+                    isRunning = false;
                 }
 
                 tempZombie = zombieList.get(i).get(furthestZombies[i]);
@@ -278,6 +279,7 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
             if (delta >= 1) {
                 move();
                 checkCollision();
+                Sound.playZombieSounds();
                 repaint();
                 delta--;
             }
