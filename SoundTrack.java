@@ -8,9 +8,6 @@ import java.util.List;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
-import javax.swing.JSlider;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
 public class SoundTrack {
     
@@ -24,16 +21,16 @@ public class SoundTrack {
  
         //create list of filepaths
         List<String> soundtrackList = new ArrayList<String>();
-        soundtrackList.add("Sounds\\Plants vs Zombies Soundtrack. [Main Menu].wav");
-        soundtrackList.add("Sounds\\Plants vs Zombies Soundtrack. [Day Stage].wav");
-        soundtrackList.add("Sounds\\Plants vs Zombies Soundtrack. [Night Stage].wav");
-        soundtrackList.add("Sounds\\Plants vs Zombies Soundtrack. [Pool Stage].wav");
-        soundtrackList.add("Sounds\\Plants vs Zombies Soundtrack. [Roof Stage].wav");
-        soundtrackList.add("Sounds\\Plants vs Zombies Soundtrack. [Fog Stage].wav");
-        soundtrackList.add("Sounds\\Plants vs Zombies Music - Daytime in Back Yard (Horde).wav");
-        soundtrackList.add("Sounds\\Plants vs Zombies Music - Night Time in Front Yard (Horde).wav");
-        soundtrackList.add("Sounds\\Plants VS. Zombies Music_ Ultimate Battle.wav");
-        soundtrackList.add("Sounds\\Plants vs Zombies Soundtrack. [Zomboss Stage].wav");
+        soundtrackList.add("Soundtracks\\Plants vs Zombies Soundtrack. [Main Menu].wav");
+        soundtrackList.add("Soundtracks\\Plants vs Zombies Soundtrack. [Day Stage].wav");
+        soundtrackList.add("Soundtracks\\Plants vs Zombies Soundtrack. [Night Stage].wav");
+        soundtrackList.add("Soundtracks\\Plants vs Zombies Soundtrack. [Pool Stage].wav");
+        soundtrackList.add("Soundtracks\\Plants vs Zombies Soundtrack. [Roof Stage].wav");
+        soundtrackList.add("Soundtracks\\Plants vs Zombies Soundtrack. [Fog Stage].wav");
+        soundtrackList.add("Soundtracks\\Plants vs Zombies Music - Daytime in Back Yard (Horde).wav");
+        soundtrackList.add("Soundtracks\\Plants vs Zombies Music - Night Time in Front Yard (Horde).wav");
+        soundtrackList.add("Soundtracks\\Plants VS. Zombies Music_ Ultimate Battle.wav");
+        soundtrackList.add("Soundtracks\\Plants vs Zombies Soundtrack. [Zomboss Stage].wav");
 
         int length = soundtrackList.size();
         try{
@@ -41,7 +38,6 @@ public class SoundTrack {
                 Clip currentClip = PlayMusic(soundtrackList.get(i));
                 while(currentClip.getMicrosecondLength() != currentClip.getMicrosecondPosition()) {
                     //empty while loop to wait until clip finishes playing
-                    
                 } 
 
                 if(i == length - 1) {

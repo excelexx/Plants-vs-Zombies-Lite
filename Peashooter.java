@@ -35,8 +35,9 @@ public class Peashooter extends Plant {
                 public void run() {
                     try {
                         while(isZombie){
-                            Thread.sleep(1000);
+                            Thread.sleep(1050);
                             game.addPea(new Pea(column, row, game, Peashooter.this), row);
+                            Sound.playMusic("Sounds\\pea shooter sound effects 1# - Made with Clipchamp.wav");
                         }
                     } catch (Exception e) {
     

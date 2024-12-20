@@ -10,9 +10,26 @@ import javax.sound.sampled.Clip;
 
 public class Sound {
 
-    Clip gameClip = null;
-    Clip gameEffects = null;
-    static int volume = 0;
+    public static int volume; // 0 - 100
+
+    public static Clip playMusic(String location) {
+        try{
+            File musicPath = new File(location);
+
+            if(musicPath.exists()) {
+                AudioInputStream audioInput = AudioSystem.getAudioInputStream(musicPath);
+                Clip clip = AudioSystem.getClip();
+                clip.open(audioInput);
+                clip.start();
+                return clip;
+            } else {
+                System.out.println("Error: Cannot locate file");
+            }
+        } catch(Exception e) {
+            System.out.println("Exception: Error with music playing.");
+        }
+        return null;
+    }
 
 
 }

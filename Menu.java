@@ -36,6 +36,9 @@ public class Menu extends JPanel implements ChangeListener{
     public static int mouseClickedX;
     public static int mouseClickedY;
     public static int buttonState = 0;
+    public static boolean stillHovering = false;
+    Thread soundThread;
+
 
     public static boolean slidersVisible = false;
         static JSlider soundtrackSlider = new JSlider(0, 100, 50);
@@ -45,6 +48,7 @@ public class Menu extends JPanel implements ChangeListener{
         public Menu() {
             loadImage();
             slidersSetup();
+            Sound.playMusic("Sounds\\Hover Click (Minecraft Sound) - Sound Effect for editing.wav - Made with Clipchamp.wav");
         }
         
         //loads all images
@@ -144,48 +148,69 @@ public class Menu extends JPanel implements ChangeListener{
             case 0:
                 if (782 <= mouseX && mouseX <= 932 && 238 <= mouseY && mouseY <= 327) {
                     signState = 1;
+                    tryPlayHoverMusic(stillHovering);
                 } else if (771 <= mouseX && mouseX <= 771 + 185 && 339 <= mouseY && mouseY <= 339 + 73) {
                     signState = 2;
+                    tryPlayHoverMusic(stillHovering);
                 } else if (759 <= mouseX && mouseX <= 759 + 222 && 427 <= mouseY && mouseY <= 427 + 66) {
                     signState = 3;
+                    tryPlayHoverMusic(stillHovering);
                 } else if (786 <= mouseX && mouseX <= 786 + 169 && 512 <= mouseY && mouseY <= 512 + 67) {
                     signState = 4;
+                    tryPlayHoverMusic(stillHovering);
                 } else {
                     signState = 0;
+                    stillHovering = false;
                 }
                 break;
             //code for if it is on the play page
             case 1:
                 if (268 <= mouseX && mouseX <= 268 + 216 && 294 <= mouseY && mouseY <= 294 + 92) {
                     signState = 6;
+                    tryPlayHoverMusic(stillHovering);
                 } else if (267 <= mouseX && mouseX <= 267 + 219 && 429 <= mouseY && mouseY <= 429 + 88) {
                     signState = 7;
+                    tryPlayHoverMusic(stillHovering);
                 } else if (272 <= mouseX && mouseX <= 272 + 213 && 559 <= mouseY && mouseY <= 559 + 78) {
                     signState = 8;
+                    tryPlayHoverMusic(stillHovering);
                 } else if (954 <= mouseX && mouseX <= 954+54 && 684 <= mouseY && mouseY <= 684 + 54) {
                     signState = 9;
+                    tryPlayHoverMusic(stillHovering);
                 } else {
                     signState = 5;
+                    stillHovering = false;
                 }
                 break;
             //code for if it is on the help page
             case 2:
                 if(954<=mouseX && mouseX<= 954+54 && 684<=mouseY && mouseY <= 684+54){
                     signState = 11;
+                    tryPlayHoverMusic(stillHovering);
                 }
                 else{
                     signState = 10;
+                    stillHovering = false;
                 }
                 break;
             //code for if it is on the options page
             case 3:
                 if(954<= mouseX && mouseX<=954+55 && 683<=mouseY && mouseY<=683+54){
                     signState = 13;
+                    tryPlayHoverMusic(stillHovering);
                 }
                 else{
                     signState = 12;
+                    stillHovering = false;
                 }
                 break;
+        }
+    }
+
+    public static void tryPlayHoverMusic(boolean isHovering) {
+        if(!stillHovering) {
+            stillHovering = true;
+            Sound.playMusic("Sounds\\Hover Click (Minecraft Sound) - Sound Effect for editing.wav - Made with Clipchamp.wav");
         }
     }
 

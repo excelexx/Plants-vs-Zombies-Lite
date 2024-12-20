@@ -90,6 +90,7 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
             }
         });
         soundtrackThread.start();
+
         for (int i = 0; i < 5; i++) {
             peaList.add(new ArrayList<Pea>());
             zombieList.add(new ArrayList<Zombie>());
@@ -262,6 +263,7 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
         if (e.getKeyChar() == ' ') {
             zombieList.get(Grid.yToRow(mouseY) - 1).add(new RegularZombie(Grid.yToRow(mouseY), this));
         }
+        
     }
 
     //checks when a key is released and sends to other classes for processing
@@ -314,6 +316,7 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
     }
 
     public void mousePressed(MouseEvent e) {
+        Sound.playMusic("Sounds\\Select Click V.2 - Sound Effect (HD).wav - Made with Clipchamp.wav");
     }
 
     public void mouseEntered(MouseEvent e) {
