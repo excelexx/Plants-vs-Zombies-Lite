@@ -35,4 +35,7 @@ public class Plant extends Rectangle{
     public void die(){
         game.removePlant(this);
     }
+    public void move(){
+
+    }
 }
