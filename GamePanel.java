@@ -99,7 +99,6 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
         } else {
             Menu.draw(g);
         }
-
     }
 
     //call the move methods in other classes to update positions

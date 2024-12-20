@@ -8,10 +8,11 @@ import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.imageio.ImageIO;
-import javax.swing.JPanel;
+import javax.swing.*;
+import javax.swing.event.*;
 
 //code for menu class
-public class Menu extends JPanel {
+public class Menu extends JPanel implements ChangeListener{
 
     //declares all variables
     public static BufferedImage homeDefault;
@@ -36,87 +37,95 @@ public class Menu extends JPanel {
     public static int mouseClickedY;
     public static int buttonState = 0;
 
-    //constructor
-    public Menu() {
-        loadImage();
-    }
-
-    //loads all images
-    public void loadImage() {
-        try {
-            homeDefault = ImageIO.read(getClass().getResource("/Images/homeDefault.png"));
-            signPlay = ImageIO.read(getClass().getResource("/Images/homePlay.png"));
-            signHelp = ImageIO.read(getClass().getResource("/Images/homeHelp.png"));
-            signOptions = ImageIO.read(getClass().getResource("/Images/homeOptions.png"));
-            signQuit = ImageIO.read(getClass().getResource("/Images/homeQuit.png"));
-            levelsDefault = ImageIO.read(getClass().getResource("/Images/levelsDefault.png"));
-            levelsEasy = ImageIO.read(getClass().getResource("/Images/levelsEasy.png"));
-            levelsMedium = ImageIO.read(getClass().getResource("/Images/levelsMedium.png"));
-            levelsHard = ImageIO.read(getClass().getResource("/Images/levelsHard.png"));
-            levelsClose = ImageIO.read(getClass().getResource("/Images/levelsClose.png"));
-            helpDefault = ImageIO.read(getClass().getResource("/Images/helpDefault.png"));
-            helpClose = ImageIO.read(getClass().getResource("/Images/helpClose.png"));
-            optionsDefault = ImageIO.read(getClass().getResource("/Images/optionsDefault.png"));
-            optionsClose = ImageIO.read(getClass().getResource("/Images/optionsClose.png"));
-        } catch (IOException e) {
-            System.out.println("Error loading images. Please check the files were saved correctly.");
+    public static boolean slidersVisible = false;
+        static JSlider soundtrackSlider = new JSlider(0, 100, 50);
+        static JSlider soundSlider = new JSlider(0, 100, 50);
+        
+        //constructor
+        public Menu() {
+            loadImage();
+            slidersSetup();
         }
-    }
-
-    // called from GamePanel when any key is released
-    // Makes the ball stop moving in that direction
-    public void keyReleased(KeyEvent e) {
-
-    }
-
-    //checks where the mouse was released and sets the states of the buttons accordingly
-    public static void mouseReleased(MouseEvent e) {
-        mouseX = e.getX();
-        mouseY = e.getY();
-        if (signState == 1) {
-            buttonState = 1;
-            signState = 5;
+        
+        //loads all images
+        public void loadImage() {
+            try {
+                homeDefault = ImageIO.read(getClass().getResource("/Images/homeDefault.png"));
+                signPlay = ImageIO.read(getClass().getResource("/Images/homePlay.png"));
+                signHelp = ImageIO.read(getClass().getResource("/Images/homeHelp.png"));
+                signOptions = ImageIO.read(getClass().getResource("/Images/homeOptions.png"));
+                signQuit = ImageIO.read(getClass().getResource("/Images/homeQuit.png"));
+                levelsDefault = ImageIO.read(getClass().getResource("/Images/levelsDefault.png"));
+                levelsEasy = ImageIO.read(getClass().getResource("/Images/levelsEasy.png"));
+                levelsMedium = ImageIO.read(getClass().getResource("/Images/levelsMedium.png"));
+                levelsHard = ImageIO.read(getClass().getResource("/Images/levelsHard.png"));
+                levelsClose = ImageIO.read(getClass().getResource("/Images/levelsClose.png"));
+                helpDefault = ImageIO.read(getClass().getResource("/Images/helpDefault.png"));
+                helpClose = ImageIO.read(getClass().getResource("/Images/helpClose.png"));
+                optionsDefault = ImageIO.read(getClass().getResource("/Images/optionsDefault.png"));
+                optionsClose = ImageIO.read(getClass().getResource("/Images/optionsClose.png"));
+            } catch (IOException e) {
+                System.out.println("Error loading images. Please check the files were saved correctly.");
+            }
         }
-        if (signState == 2) {
-
+        
+        // called from GamePanel when any key is released
+        // Makes the ball stop moving in that direction
+        public void keyReleased(KeyEvent e) {
         }
-        if (signState == 9) {
-            buttonState = 0;
-            signState = 0;
-        }
-        if (signState == 6) {
-            GamePanel.isRunning = true;
-            GamePanel.difficulty = 1;
-        }
-        if (signState == 7) {
-            GamePanel.isRunning = true;
-            GamePanel.difficulty = 2;
-        }
-        if (signState == 8) {
-            GamePanel.isRunning = true;
-            GamePanel.difficulty = 3;
-        }
-        if (signState == 4) {
-            System.exit(0);
-        }
-        if (signState == 2){
-            buttonState = 2;
-            signState = 10;
-        }
-        if (buttonState == 2 && signState == 11){
-            buttonState = 0;
-            signState = 0;
-        }
-
-        if(signState == 3){
-            buttonState = 3;      
-            signState = 12;      
+        
+        //checks where the mouse was released and sets the states of the buttons accordingly
+        public static void mouseReleased(MouseEvent e) {
+            mouseX = e.getX();
+            mouseY = e.getY();
+            if (signState == 1) {
+                buttonState = 1;
+                signState = 5;
+            }
+            if (signState == 2) {
+    
+            }
+            if (signState == 9) {
+                buttonState = 0;
+                signState = 0;
+            }
+            if (signState == 6) {
+                GamePanel.isRunning = true;
+                GamePanel.difficulty = 1;
+            }
+            if (signState == 7) {
+                GamePanel.isRunning = true;
+                GamePanel.difficulty = 2;
+            }
+            if (signState == 8) {
+                GamePanel.isRunning = true;
+                GamePanel.difficulty = 3;
+            }
+            if (signState == 4) {
+                System.exit(0);
+            }
+            if (signState == 2){
+                buttonState = 2;
+                signState = 10;
+            }
+            if (buttonState == 2 && signState == 11){
+                buttonState = 0;
+                signState = 0;
+            }
+        
+            if(signState == 3){
+                buttonState = 3;      
+                signState = 12;
+                slidersVisible = true; // Show sliders
         }
 
         if(buttonState == 3 && signState == 13){
             buttonState = 0;
             signState = 0;
+            slidersVisible = false; // Hide sliders
         }
+
+        updateSlidersVisibility();
     }
 
     //code to get coordinates of the last mouse click
@@ -249,5 +258,39 @@ public class Menu extends JPanel {
                     break;
             }
         }
+        
     }
+
+    // Setup sliders
+    public void slidersSetup() {
+        this.setLayout(null); // Disable layout manager for absolute positioning
+
+        // Configure soundtrack slider
+        soundtrackSlider.setBounds(100, 100, 200, 50);
+        soundtrackSlider.addChangeListener(this);
+        soundtrackSlider.setVisible(false); // Initially hidden
+        this.add(soundtrackSlider);
+
+        // Configure sound effects slider
+        soundSlider.setBounds(100, 180, 200, 50);
+        soundSlider.addChangeListener(this);
+        soundSlider.setVisible(false); // Initially hidden
+        this.add(soundSlider);
+    }
+
+    // Update slider visibility
+    public static void updateSlidersVisibility() {
+        soundtrackSlider.setVisible(slidersVisible);
+        soundSlider.setVisible(slidersVisible);
+    }
+
+    @Override
+    public void stateChanged(ChangeEvent e) {
+        if (e.getSource() == soundtrackSlider) {
+            SoundTrack.volume = soundtrackSlider.getValue();
+        } else if (e.getSource() == soundSlider) {
+            Sound.volume = soundSlider.getValue();
+        }
+    }
+
 }

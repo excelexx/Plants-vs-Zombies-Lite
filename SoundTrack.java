@@ -8,10 +8,13 @@ import java.util.List;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import javax.swing.JSlider;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 public class SoundTrack {
     
-    public int volume; // 1 - 100
+    public static int volume; // 0 - 100
 
     // Method that plays music in loop for soundtrack
     // Credit to Max O'Didily and his youtube guide: https://www.youtube.com/watch?v=wJO_cq5XeSA&t=7s&ab_channel=MaxO%27Didily
@@ -38,6 +41,7 @@ public class SoundTrack {
                 Clip currentClip = PlayMusic(soundtrackList.get(i));
                 while(currentClip.getMicrosecondLength() != currentClip.getMicrosecondPosition()) {
                     //empty while loop to wait until clip finishes playing
+                    
                 } 
 
                 if(i == length - 1) {
@@ -67,7 +71,6 @@ public class SoundTrack {
         }
         return null;
     }
-
 
 }
 
