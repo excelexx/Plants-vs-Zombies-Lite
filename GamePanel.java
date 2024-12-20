@@ -253,6 +253,9 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
                 Peashooter peashooter = peashooterIterator.next();
                 if (furthestZombies[i] == -1) {
                     peashooter.noZombie();
+                    for(int thing : furthestZombies){
+                        System.out.println(thing);
+                    }
                 } else {
                     peashooter.yesZombie();
                 }

@@ -11,7 +11,7 @@ public class Peashooter extends Plant {
     BufferedImage peaImage;
     public final int SHOOTER_DIAMETER = 90;
     Thread peaThread;
-    boolean isZombie = true;
+    boolean isZombie = false;
     boolean isAlive = true;
 
     Peashooter(int col, int rw, GamePanel gme) {
@@ -31,24 +31,22 @@ public class Peashooter extends Plant {
     }
 
     public void move() {
-        
-        if(peaThread == null || !peaThread.isAlive()){
+        if (isZombie && isAlive && (peaThread == null || !peaThread.isAlive())) {
             peaThread = new Thread(new Runnable() {
                 public void run() {
                     try {
-                        while(isZombie){
-                            Thread.sleep(1200);
-                            game.addPea(new Pea(column, row, game, Peashooter.this), row);
-                            Sound.playMusic("Sounds\\pea shooter sound effects 1# - Made with Clipchamp.wav");
-                        }
+                        Thread.sleep(1200);
+                        game.addPea(new Pea(column, row, game, Peashooter.this), row);
+                        Sound.playMusic("Sounds\\pea shooter sound effects 1# - Made with Clipchamp.wav");
+                        peaThread.interrupt();
                     } catch (Exception e) {
-    
+
                     }
                 }
             });
             peaThread.start();
         }
-        
+
     }
 
     public void draw(Graphics g) {
@@ -56,14 +54,16 @@ public class Peashooter extends Plant {
             g.drawImage(peaImage, Grid.colToX(column), Grid.rowToY(row), SHOOTER_DIAMETER, SHOOTER_DIAMETER, null);
         }
     }
-    public void yesZombie(){
+
+    public void yesZombie() {
         isZombie = true;
     }
-    public void noZombie(){
+
+    public void noZombie() {
         isZombie = false;
     }
-    
-    public void die(){
+
+    public void die() {
         isAlive = false;
     }
 }
