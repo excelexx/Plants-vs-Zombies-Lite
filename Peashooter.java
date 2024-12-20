@@ -12,6 +12,7 @@ public class Peashooter extends Plant {
     public final int SHOOTER_DIAMETER = 90;
     Thread peaThread;
     boolean isZombie = true;
+    boolean isAlive = true;
 
     Peashooter(int col, int rw, GamePanel gme) {
         super(col, rw, 100, gme);
@@ -30,13 +31,16 @@ public class Peashooter extends Plant {
     }
 
     public void move() {
+        
         if(peaThread == null || !peaThread.isAlive()){
             peaThread = new Thread(new Runnable() {
                 public void run() {
                     try {
                         while(isZombie){
-                            Thread.sleep(1000);
-                            game.addPea(new Pea(column, row, game, Peashooter.this), row);
+                            if(isAlive){
+                                Thread.sleep(1200);
+                                game.addPea(new Pea(column, row, game, Peashooter.this), row);
+                            }
                         }
                     } catch (Exception e) {
     
@@ -58,5 +62,9 @@ public class Peashooter extends Plant {
     }
     public void noZombie(){
         isZombie = false;
+    }
+    
+    public void die(){
+        isAlive = false;
     }
 }

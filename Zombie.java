@@ -19,6 +19,8 @@ public class Zombie extends Rectangle{
     int speed;
     int state = 1;
     int xOffsetCenter;
+    int xOffsetFront;
+    boolean isStopped;
     
     //constructor
     Zombie(int rw, int dur, GamePanel gme){
@@ -42,13 +44,24 @@ public class Zombie extends Rectangle{
         durability -= GamePanel.PEA_DAMAGE;
     }
     public void move(){
-        state++;
-        if(state>=3){
-            positionX-=speed;
-            state = 0;
+        if(!isStopped){
+            state++;
+            if(state>=2){
+                positionX-=speed;
+                state = 0;
+            }
         }
     }
     public int getXEat(){
         return positionX+xOffsetCenter;
+    }
+    public int getXEating(){
+        return positionX+xOffsetFront;
+    }
+    public void stop(){
+        isStopped = true;
+    }
+    public void go(){
+        isStopped= false;
     }
 }

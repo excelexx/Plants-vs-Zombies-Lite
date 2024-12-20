@@ -18,6 +18,7 @@ public class Plant extends Rectangle{
     int sunCost;
     int reloadTime;
     GamePanel game;
+    int xOffsetEat;
 
     //constructor
     Plant(int col, int rw, int dur, GamePanel gme){
@@ -25,6 +26,7 @@ public class Plant extends Rectangle{
         column = col;
         row = rw;
         durability = dur;
+        positionX = Grid.colToX(col);
         game = gme;
     }
     public void draw(Graphics g){
@@ -32,10 +34,19 @@ public class Plant extends Rectangle{
     public void setDurability(int d){
         durability = d;
     }
+    public int getDurability(){
+        return durability;
+    }
     public void die(){
         game.removePlant(this);
     }
     public void move(){
 
+    }
+    public void regularEatPlant(){
+        durability -= GamePanel.REGULAR_ZOMBIE_DAMAGE;
+    }
+    public int getXEat(){
+        return positionX+xOffsetEat;
     }
 }

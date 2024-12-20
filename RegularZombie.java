@@ -9,7 +9,6 @@ public class RegularZombie extends Zombie {
     GamePanel game;
     BufferedImage zombieImage;
     int state = 1;
-    final int xOffsetCenter = 20;
     final int offsetY = 30;
     RegularZombie(int rw, GamePanel gme) {
         super(rw, 100, gme);
@@ -17,6 +16,8 @@ public class RegularZombie extends Zombie {
         row = rw;
         loadImage();
         durability = 270;
+        xOffsetCenter = 20;
+        xOffsetFront = -40;
         speed = 1;
     }
 
@@ -28,16 +29,10 @@ public class RegularZombie extends Zombie {
         }
     }
 
-    public void shoot() {
-
-    }
 
     public void draw(Graphics g) {
         if (zombieImage != null) {
             g.drawImage(zombieImage, positionX, Grid.rowToY(row)-offsetY, null);
         }
-    }
-    public int getXEat(){
-        return positionX+xOffsetCenter;
     }
 }
