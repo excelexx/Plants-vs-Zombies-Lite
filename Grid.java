@@ -11,7 +11,7 @@ public class Grid {
     public static int rowToY(int ln){
         switch(ln){
             case 1:
-                return 109;
+                return 130;
             case 2:
                 return 251;
             case 3:
@@ -26,7 +26,7 @@ public class Grid {
     
     //Returns the row number based on y coordinate
     public static int yToRow(int y){
-        if(109 <= y && y <= 250){
+        if(130 <= y && y <= 250){
             return 1;
         }
         else if(251<= y && y<=384){
