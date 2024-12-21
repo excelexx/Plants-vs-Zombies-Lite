@@ -12,7 +12,7 @@ import javax.sound.sampled.FloatControl;
 public class Sound {
 
     public static int volume; // 0 - 100
-    static boolean playingZombieSounds = false;
+    static boolean playingZombieGroans = false;
     static boolean playingEatingSounds = false;
 
     public static Clip playSingleSound(String location, float volume) {
@@ -65,11 +65,11 @@ public class Sound {
         }
     }
 
-    public static void playZombieSounds() {
-        if(!playingZombieSounds && GamePanel.isRunning) {
-            playingZombieSounds = true;
+    public static void playZombieGroans() {
+        if(!playingZombieGroans && GamePanel.isRunning) {
+            playingZombieGroans = true;
             playRepeatSounds("Sounds\\Plants vs. Zombies - Groan 4 Sound Effect.wav");
-            //note currently playingzombiesounds is never turned back to false
+            //note currently playingZombieGroans is never turned back to false
         }
     }
 
