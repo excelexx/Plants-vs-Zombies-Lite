@@ -92,4 +92,10 @@ public class Grid {
             }
             return -1;
     }   
+    public static boolean isInGame(int x, int y){
+        if(56<=x && x<=1045 && y>=130 && y<=773){
+            return true;
+        }
+        return false;
+    }
 }

@@ -67,6 +67,8 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
             public void mousePressed(MouseEvent e) {
                 if (!isRunning) {
                     Menu.mouseReleased(e);
+                                   }
+                else{
                     inventory.mouseReleased(e);
                 }
             }
@@ -80,6 +82,8 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
             public void mouseMoved(MouseEvent e) {
                 if (!isRunning) {
                     Menu.mouseMoved(e);
+                }
+                else{
                     inventory.mouseMoved(e);
                 }
                 mouseX = e.getX();
@@ -336,11 +340,7 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
     }
 
     public void mouseReleased(MouseEvent e) {
-        if (isRunning) {
-            mouseX = e.getX();
-            mouseY = e.getY();
-            peashooterList.get(Grid.yToRow(mouseY) - 1).add(new Peashooter(Grid.xToCol(mouseX), Grid.yToRow(mouseY), this));
-        }
+        
     }
 
     public void mouseClicked(MouseEvent e) {

@@ -6,7 +6,7 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.event.*;
 
-public class Inventory {
+public class Inventory{
     int positionX;
     BufferedImage inventoryImage;
     BufferedImage sunflowerSeedSlot;
@@ -41,7 +41,7 @@ public class Inventory {
     public void mouseMoved(MouseEvent e){
         mouseX = e.getX();
         mouseY = e.getY();
-        if(isHolding = false){
+        if(selectedState == 0){
             if(56+107<mouseX && mouseX< 56+107+71 && 8<mouseY && mouseY<108){
                 state = 1;
             }
@@ -85,9 +85,19 @@ public class Inventory {
                 }
                 break;
             case 1:
+            selectedState = 0;
                 break;
             case 2:
-                game.plantPeashooter(Grid.xToCol(mouseX),Grid.yToRow(mouseY));
+                if(Grid.isInGame(mouseX, mouseY)){
+                    game.plantPeashooter(mouseX,mouseY);
+                }
+                selectedState = 0;
+                break;
+            case 3:
+                selectedState = 0;
+                break;
+            case 4:
+                selectedState = 0;
                 break;
 
         }      
