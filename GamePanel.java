@@ -32,6 +32,7 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
 
     public static boolean isRunning = false;
     public static Menu menu = new Menu();
+    public Inventory inventory;
     public static int difficulty;
     public static boolean isGameDone = false;
     public static final int REGULAR_ZOMBIE_DAMAGE = 2;
@@ -60,12 +61,13 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
         this.setFocusable(true); //make everything in this class appear on the screen
         this.addKeyListener(this); //starts listening for keyboard input
         this.addMouseListener(this);
+        inventory = new Inventory(this);
         //adds mouselistener
         addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent e) {
                 if (!isRunning) {
-                    Menu.mouseMoved(e);
                     Menu.mouseReleased(e);
+                    inventory.mouseReleased(e);
                 }
             }
 
@@ -78,6 +80,7 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
             public void mouseMoved(MouseEvent e) {
                 if (!isRunning) {
                     Menu.mouseMoved(e);
+                    inventory.mouseMoved(e);
                 }
                 mouseX = e.getX();
                 mouseY = e.getY();
@@ -126,7 +129,6 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
 
     //calls the draw methods in each class to update positions as things move
     public void draw(Graphics g) {
-
         if (isRunning) {
             if (gameBackground != null) {
                 g.drawImage(gameBackground, 0, 0, GAME_WIDTH, GAME_HEIGHT, null);
@@ -142,6 +144,7 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
                     peashooter.draw(g);
                 }
             }
+            inventory.draw(g);
         } else {
             Menu.draw(g);
         }
@@ -264,9 +267,6 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
                 Peashooter peashooter = peashooterIterator.next();
                 if (furthestZombies[i] == -1) {
                     peashooter.noZombie();
-                    for(int thing : furthestZombies){
-                        System.out.println(thing);
-                    }
                 } else {
                     peashooter.yesZombie();
                 }
@@ -354,6 +354,9 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
     public void removePea(Pea p) {
     }
 
+    public void plantPeashooter(int x, int y){
+        peashooterList.get(Grid.yToRow(y) - 1).add(new Peashooter(Grid.xToCol(x), Grid.yToRow(y), this));
+    }
     public void addPea(Pea p, int rw) {
         peaList.get(rw - 1).add(p);
     }
