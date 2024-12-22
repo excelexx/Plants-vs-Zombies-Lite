@@ -168,6 +168,7 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
                     peashooter.move();
                 }
             }
+            inventory.move();
         }
     }
 
@@ -365,6 +366,12 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
         zombieList.remove(z);
     }
 
+    public void changeSun(int s){
+        sunCount +=s;
+    }
+    public int getSun(){
+        return sunCount;
+    }
     public void mousePressed(MouseEvent e) {
         Sound.playSingleSound("Sounds\\Select Click V.2 - Sound Effect (HD).wav - Made with Clipchamp.wav", 0);
     }

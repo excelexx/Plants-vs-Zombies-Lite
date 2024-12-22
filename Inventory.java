@@ -20,6 +20,7 @@ public class Inventory{
     int mouseY;
     boolean isHolding = false;
     GamePanel game;
+    Message sunAmount = new Message(27+56,  87+23, 50, 50, "50", 30);
 
     Inventory(GamePanel gme){
         game = gme;
@@ -38,6 +39,10 @@ public class Inventory{
             System.out.println("Error loading image files. Please check all files are saved properly.");
         }
     }
+    public void move(){
+        sunAmount.setMessage(game.getSun()+"");
+    }
+
     public void mouseMoved(MouseEvent e){
         mouseX = e.getX();
         mouseY = e.getY();
@@ -90,6 +95,7 @@ public class Inventory{
             case 2:
                 if(Grid.isInGame(mouseX, mouseY)){
                     game.plantPeashooter(mouseX,mouseY);
+                    game.changeSun(-100);
                 }
                 selectedState = 0;
                 break;
@@ -110,6 +116,7 @@ public class Inventory{
             g.drawImage(peashooterSeedSlot,56+181,8, null);
             g.drawImage(potatoMineSeedSlot,56+253,8, null);
             g.drawImage(walnutSeedSlot,56+325,8, null);
+            sunAmount.draw(g);
         }
     }
 }
