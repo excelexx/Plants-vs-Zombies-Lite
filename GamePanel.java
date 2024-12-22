@@ -293,7 +293,7 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
             if (delta >= 1) {
                 move();
                 checkCollision();
-                Sound.playZombieSounds();
+                Sound.playZombieGroans();
                 repaint();
                 delta--;
             }
