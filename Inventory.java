@@ -94,8 +94,10 @@ public class Inventory{
                 break;
             case 2:
                 if(Grid.isInGame(mouseX, mouseY)){
+                    if(game.getSun()>=100){
                     game.plantPeashooter(mouseX,mouseY);
                     game.changeSun(-100);
+                    }
                 }
                 selectedState = 0;
                 break;

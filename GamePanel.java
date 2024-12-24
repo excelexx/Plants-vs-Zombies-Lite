@@ -24,6 +24,7 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
     public static final int PEA_DAMAGE = 20;
     Iterator<Zombie> zombieIterator;
     Iterator<Peashooter> peashooterIterator;
+    Iterator<Sun> sunIterator;
     public Thread gameThread;
     public Image image;
     Thread soundtrackThread;
@@ -44,8 +45,12 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
     public static int[] furthestZombies = new int[5];
     public static int sunCount = 50;
     Zombie secondTempZombie;
+    Sun sun;
+    public static Thread sunThread;
     int minimum;
     int tempInt;
+    public static boolean hasStartedSun =false;
+    
     Peashooter tempPeashooter;
     public static boolean soundPlayed = false;
 
@@ -149,6 +154,9 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
                 }
             }
             inventory.draw(g);
+            for(Sun sun : sunList){
+                sun.draw(g);
+            }
         } else {
             Menu.draw(g);
         }
@@ -168,8 +176,31 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
                     peashooter.move();
                 }
             }
+            for(Sun sun : sunList){
+                sun.move();
+            }
             inventory.move();
         }
+        if(!hasStartedSun){
+            spawnSun();
+        }
+    }
+
+    public void spawnSun(){
+            if (isRunning && (sunThread == null || !sunThread.isAlive())) {
+                sunThread = new Thread(new Runnable() {
+                    public void run() {
+                        try {
+                            Thread.sleep((int)(Math.random() * /* 10000 + 6000*/ 5000));
+                            addSun(new Sun((int)(Math.random() * (GAME_WIDTH - 100) + 50),(int)(Math.random() * (GAME_HEIGHT - 300) + 50),GamePanel.this));
+                            sunThread.interrupt();
+                        } catch (Exception e) {
+    
+                        }
+                    }
+                });
+                sunThread.start();
+            }
     }
 
     //handles all collision detection and responds accordingly
@@ -276,7 +307,15 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
                     peashooter.yesZombie();
                 }
             }
+        }
 
+        sunIterator = sunList.iterator();
+        while(sunIterator.hasNext() ){
+            Sun tempSun = sunIterator.next();
+            if(tempSun.getIsGone()){
+                sunIterator.remove();
+                tempSun.die();
+            }
         }
     }
     //makes game run constantly, 
@@ -341,7 +380,9 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
     }
 
     public void mouseReleased(MouseEvent e) {
-        
+        for (Sun sun : sunList) {
+            sun.mouseReleased(e);
+        }        
     }
 
     public void mouseClicked(MouseEvent e) {
@@ -356,10 +397,14 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
     }
 
     public void plantPeashooter(int x, int y){
+        if(sunCount>=100){
+            //add beep sound effect or something to indicate not enough sun
         peashooterList.get(Grid.yToRow(y) - 1).add(new Peashooter(Grid.xToCol(x), Grid.yToRow(y), this));
+        }
     }
     public void addPea(Pea p, int rw) {
-        peaList.get(rw - 1).add(p);
+
+            peaList.get(rw - 1).add(p);
     }
 
     public void removeZombie(Zombie z) {
@@ -380,6 +425,9 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
     }
 
     public void mouseExited(MouseEvent e) {
+    }
+    public static void addSun(Sun s){
+        sunList.add(s);
     }
 
 }
