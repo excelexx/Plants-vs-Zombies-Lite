@@ -15,7 +15,7 @@ public class RegularZombie extends Zombie {
         game = gme;
         row = rw;
         loadImage();
-        durability = 270;
+        durability = 1;
         xOffsetCenter = 20;
         xOffsetFront = -40;
         speed = 1;
