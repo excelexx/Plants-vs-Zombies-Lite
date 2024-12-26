@@ -14,7 +14,8 @@ public class Sun extends Rectangle {
     int column;
     GamePanel game;
     public static final int DIAMETER = 90;
-    BufferedImage sunImage;
+    BufferedImage sunSprite1;
+    BufferedImage sunSprite2;
     public static final int xOffset = 45;
     public static final int yOffset = 45;
     public static final int SPEED = 1;
@@ -25,6 +26,8 @@ public class Sun extends Rectangle {
     int threshold;
     int mouseX;
     int mouseY;
+    int spriteCounter = 0;
+    int spriteToggle = 1;
 
     Sun(int x, int y, GamePanel gme) {
         super(x, y, DIAMETER, DIAMETER);
@@ -68,7 +71,8 @@ public class Sun extends Rectangle {
 
     public void loadImage() {
         try {
-            sunImage = ImageIO.read(getClass().getResource("/Images/sunGif.gif"));
+            sunSprite1 = ImageIO.read(getClass().getResource("Images\\sunt1.png"));
+            sunSprite2 = ImageIO.read(getClass().getResource("Images\\sunt2.png"));
         } catch (IOException e) {
 
         }
@@ -101,8 +105,24 @@ public class Sun extends Rectangle {
     }
 
     public void draw(Graphics g) {
-        if (sunImage != null && !isGone) {
-            g.drawImage(sunImage, positionX, positionY, DIAMETER, DIAMETER, null);
+        if (sunSprite1 != null && sunSprite2 != null && !isGone) {
+            spriteCounter++;
+
+            if(spriteCounter > 50) {
+                if(spriteToggle == 1) {
+                    spriteToggle = 2;
+                } else {
+                    spriteToggle = 1;
+                }
+                spriteCounter = 0;
+            }
+
+            if(spriteToggle == 1) {
+                g.drawImage(sunSprite1, positionX, positionY, DIAMETER, DIAMETER, null);
+            }
+            if(spriteToggle == 2) {
+                g.drawImage(sunSprite2, positionX, positionY, DIAMETER, DIAMETER, null);
+            }
         }
     }
 

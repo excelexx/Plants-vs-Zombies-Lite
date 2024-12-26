@@ -8,11 +8,16 @@ public class Sunflower extends Plant {
 
     public final int PEA_DURABILITY = 100;
     GamePanel game;
-    BufferedImage peaImage;
+    BufferedImage sunflowerSprite1;
+    BufferedImage sunflowerSprite2;
+    BufferedImage sunflowerSprite3;
+    BufferedImage sunflowerSprite4;
     Thread sunThread;
     boolean isAlive = true;
     int xOffset = 40;
     int yOffset = 40;
+    int spriteCounter = 0;
+    int spriteToggle = 1;
 
     Sunflower(int col, int rw, GamePanel gme) {
         super(col, rw, 100, gme);
@@ -24,7 +29,10 @@ public class Sunflower extends Plant {
 
     public void loadImage() {
         try {
-            peaImage = ImageIO.read(getClass().getResource("/Images/sunflowerImage.png"));
+            sunflowerSprite1 = ImageIO.read(getClass().getResource("Images\\sunflowert1.png"));
+            sunflowerSprite2 = ImageIO.read(getClass().getResource("Images\\sunflowert2.png"));
+            sunflowerSprite3 = ImageIO.read(getClass().getResource("Images\\sunflowert1.png"));
+            sunflowerSprite4 = ImageIO.read(getClass().getResource("Images\\sunflowert3.png"));
         } catch (IOException e) {
 
         }
@@ -49,8 +57,34 @@ public class Sunflower extends Plant {
     }
 
     public void draw(Graphics g) {
-        if (peaImage != null) {
-            g.drawImage(peaImage, Grid.colToX(column), Grid.rowToY(row), null);
+        if (sunflowerSprite1 != null) {
+
+            spriteCounter++;
+
+            if(spriteCounter > 0 && spriteCounter <= 30) {
+                spriteToggle = 1;
+            } else if(spriteCounter > 30 && spriteCounter < 60) {
+                spriteToggle = 2;
+            } else if(spriteCounter > 60 && spriteCounter < 90) {
+                spriteToggle = 3;
+            } else if(spriteCounter > 90 && spriteCounter < 120) {
+                spriteToggle = 4;
+            } else if(spriteCounter > 120) {
+                spriteCounter = 0;
+            }
+
+            if(spriteToggle == 1) {
+                g.drawImage(sunflowerSprite1, Grid.colToX(column), Grid.rowToY(row), null);
+            }
+            if(spriteToggle == 2) {
+                g.drawImage(sunflowerSprite2, Grid.colToX(column), Grid.rowToY(row), null);
+            }
+            if(spriteToggle == 3) {
+                g.drawImage(sunflowerSprite3, Grid.colToX(column), Grid.rowToY(row), null);
+            }
+            if(spriteToggle == 4) {
+                g.drawImage(sunflowerSprite4, Grid.colToX(column), Grid.rowToY(row), null);
+            }
         }
     }
 

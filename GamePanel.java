@@ -502,7 +502,6 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
 
     public void plantPeashooter(int x, int y) {
         if (sunCount >= 100) {
-            //add beep sound effect or something to indicate not enough sun
             peashooterList.get(Grid.yToRow(y) - 1).add(new Peashooter(Grid.xToCol(x), Grid.yToRow(y), this));
         }
     }
@@ -517,12 +516,14 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
     }
 
     public void changeSun(int s) {
+        if(s > 0) {
+            Sound.playSingleSound("Sounds\\Sun Being Collected (sound effect).wav", 0);
+        }
         sunCount += s;
     }
 
     public void plantSunflower(int x, int y){
         if (sunCount >= 50) {
-            //add beep sound effect or something to indicate not enough sun
             sunflowerList.get(Grid.yToRow(y) - 1).add(new Sunflower(Grid.xToCol(x), Grid.yToRow(y), this));
         }
     }

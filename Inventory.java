@@ -3,8 +3,6 @@ import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.imageio.ImageIO;
-import javax.swing.*;
-import javax.swing.event.*;
 
 public class Inventory{
     int positionX;
@@ -104,6 +102,7 @@ public class Inventory{
                                 //play sound effect here
                                 Thread.sleep(200);
                                 sunAmount.setColorRed(false);
+                                Sound.playSingleSound("Sounds\\Not Enough Sun Sound Effect - Plants VS Zombies (Free To Use).wav", 20);
                             } catch (Exception e) {
         
                             }
@@ -129,6 +128,7 @@ public class Inventory{
                                     //play sound effect here
                                     Thread.sleep(200);
                                     sunAmount.setColorRed(false);
+                                    Sound.playSingleSound("Sounds\\Not Enough Sun Sound Effect - Plants VS Zombies (Free To Use).wav", 20);
                                 } catch (Exception e) {
             
                                 }

@@ -9,10 +9,9 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.event.*;
 
 //code for menu class
-public class Menu extends JPanel implements ChangeListener{
+public class Menu extends JPanel{
 
     //declares all variables
     public static BufferedImage homeDefault;
@@ -47,7 +46,6 @@ public class Menu extends JPanel implements ChangeListener{
         //constructor
         public Menu() {
             loadImage();
-            slidersSetup();
             Sound.playSingleSound("Sounds\\Hover Click (Minecraft Sound) - Sound Effect for editing.wav - Made with Clipchamp.wav", 0);
         }
         
@@ -128,8 +126,6 @@ public class Menu extends JPanel implements ChangeListener{
             signState = 0;
             slidersVisible = false; // Hide sliders
         }
-
-        updateSlidersVisibility();
     }
 
     //code to get coordinates of the last mouse click
@@ -284,38 +280,6 @@ public class Menu extends JPanel implements ChangeListener{
             }
         }
         
-    }
-
-    // Setup sliders
-    public void slidersSetup() {
-        this.setLayout(null); // Disable layout manager for absolute positioning
-
-        // Configure soundtrack slider
-        soundtrackSlider.setBounds(100, 100, 200, 50);
-        soundtrackSlider.addChangeListener(this);
-        soundtrackSlider.setVisible(false); // Initially hidden
-        this.add(soundtrackSlider);
-
-        // Configure sound effects slider
-        soundSlider.setBounds(100, 180, 200, 50);
-        soundSlider.addChangeListener(this);
-        soundSlider.setVisible(false); // Initially hidden
-        this.add(soundSlider);
-    }
-
-    // Update slider visibility
-    public static void updateSlidersVisibility() {
-        soundtrackSlider.setVisible(slidersVisible);
-        soundSlider.setVisible(slidersVisible);
-    }
-
-    @Override
-    public void stateChanged(ChangeEvent e) {
-        if (e.getSource() == soundtrackSlider) {
-            SoundTrack.volume = soundtrackSlider.getValue();
-        } else if (e.getSource() == soundSlider) {
-            Sound.volume = soundSlider.getValue();
-        }
     }
 
 }

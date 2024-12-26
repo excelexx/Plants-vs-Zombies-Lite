@@ -30,7 +30,7 @@ public class Pea extends Rectangle {
 
     public void loadImage() {
         try {
-            projectileImage = ImageIO.read(getClass().getResource("/Images/pea.png"));
+            projectileImage = ImageIO.read(getClass().getResource("Images\\peat2.png"));
         } catch (IOException e) {
 
         }
