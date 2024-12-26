@@ -16,7 +16,7 @@ public class Sun extends Rectangle {
     public static final int DIAMETER = 90;
     BufferedImage sunImage;
     public static final int xOffset = 45;
-    public static final int yOffset = 25;
+    public static final int yOffset = 45;
     public static final int SPEED = 1;
     boolean isGone = false;
     boolean isFalling;
@@ -42,15 +42,13 @@ public class Sun extends Rectangle {
         startTimer();
     }
 
-    Sun(int col, int rw, GamePanel gme, boolean isFalling){
-        super(Grid.colToX(col),Grid.rowToY(rw),DIAMETER, DIAMETER);
+    Sun(int x, int y, GamePanel gme, boolean isFalling){
+        super(x,y,DIAMETER, DIAMETER);
         game = gme;
         loadImage();
-        positionX = Grid.colToX(col);
-        positionY = Grid.rowToY(rw);
+        positionX = x-xOffset;
+        positionY = y-yOffset;
         isFalling = false;
-        row = rw;
-        column = col;
         startTimer();
     }
 
@@ -91,11 +89,13 @@ public class Sun extends Rectangle {
         return isGone;
     }
     public void move() {
-        if(positionY<=threshold){
-            state++;
-            if(state>=2){
-                positionY+=SPEED;
-                state = 0;
+        if(isFalling){
+            if(positionY<=threshold){
+                state++;
+                if(state>=2){
+                    positionY+=SPEED;
+                    state = 0;
+                }
             }
         }
     }

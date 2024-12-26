@@ -27,6 +27,7 @@ public class Plant extends Rectangle{
         row = rw;
         durability = dur;
         positionX = Grid.colToX(col);
+        positionY = Grid.rowToY(row);
         game = gme;
         //make plant being planted noise
         Sound.playSingleSound("Sounds\\Plant being Planted Sample 1 -Plants vs Zombies Sound Effect - Made with Clipchamp.wav", 0);
