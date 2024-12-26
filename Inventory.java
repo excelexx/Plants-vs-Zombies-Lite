@@ -19,6 +19,7 @@ public class Inventory{
     int mouseX;
     int mouseY;
     boolean isHolding = false;
+    Thread colorThread;
     GamePanel game;
     Message sunAmount = new Message(27+56,  87+23, 50, 50, "50", 30);
 
@@ -90,12 +91,52 @@ public class Inventory{
                 }
                 break;
             case 1:
+            if(Grid.isInGame(mouseX, mouseY)){
+                if(game.getSun()>=50){
+                game.plantSunflower(mouseX,mouseY);
+                game.changeSun(-50);
+                }
+                else{
+                    colorThread = new Thread(new Runnable() {
+                        public void run() {
+                            try {
+                                sunAmount.setColorRed(true);
+                                //play sound effect here
+                                Thread.sleep(200);
+                                sunAmount.setColorRed(false);
+                            } catch (Exception e) {
+        
+                            }
+                        }
+                    });
+                    colorThread.start();
+                }
+                
+            }
             selectedState = 0;
                 break;
             case 2:
                 if(Grid.isInGame(mouseX, mouseY)){
+                    if(game.getSun()>=100){
                     game.plantPeashooter(mouseX,mouseY);
                     game.changeSun(-100);
+                    }
+                    else{
+                        colorThread = new Thread(new Runnable() {
+                            public void run() {
+                                try {
+                                    sunAmount.setColorRed(true);
+                                    //play sound effect here
+                                    Thread.sleep(200);
+                                    sunAmount.setColorRed(false);
+                                } catch (Exception e) {
+            
+                                }
+                            }
+                        });
+                        colorThread.start();
+                    }
+                    
                 }
                 selectedState = 0;
                 break;

@@ -9,13 +9,13 @@ public class RegularZombie extends Zombie {
     GamePanel game;
     BufferedImage zombieImage;
     int state = 1;
-    final int offsetY = 30;
+    int offsetY = 30;
     RegularZombie(int rw, GamePanel gme) {
         super(rw, 100, gme);
         game = gme;
         row = rw;
         loadImage();
-        durability = 270;
+        durability = 1;
         xOffsetCenter = 20;
         xOffsetFront = -40;
         speed = 1;

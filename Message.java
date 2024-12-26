@@ -14,6 +14,7 @@ public class Message extends Rectangle {
     public int xPos;
     public int yPos;
     public int size;
+    boolean isRed;
 
     //constructor which sets initial parameters of message
     public Message(int x, int y, int w, int h, String s, int si) {
@@ -38,6 +39,16 @@ public class Message extends Rectangle {
     //draws message
     public void draw(Graphics g) {
         g.setFont(new Font("Arial", Font.BOLD, size));
+        if(isRed){
+            g.setColor(Color.RED);
+        }
+        else{
+            g.setColor(Color.BLACK);
+        }
         g.drawString(message, xPos, yPos);
+    }
+
+    public void setColorRed(boolean t){
+        isRed = t;
     }
 }
