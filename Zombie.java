@@ -19,6 +19,7 @@ public class Zombie extends Rectangle{
     int speed;
     int state = 1;
     int xOffsetCenter;
+    int fps = 4;
     int xOffsetFront;
     boolean isStopped=false;
     //constructor
@@ -45,7 +46,7 @@ public class Zombie extends Rectangle{
     public void move(){
         if(!isStopped){
             state++;
-            if(state>=2){
+            if(state>=fps){
                 positionX-=speed;
                 state = 0;
             }
@@ -77,5 +78,8 @@ public class Zombie extends Rectangle{
     }
     public int getYPosition(){
         return positionY;
+    }
+    public void potatoMineDamage(){
+        durability -= GamePanel.POTATO_MINE_DAMAGE;
     }
 }
