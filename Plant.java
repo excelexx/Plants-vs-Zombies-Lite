@@ -38,6 +38,9 @@ public class Plant extends Rectangle{
     public int getRow(){
         return row;
     }
+    public int getCol(){
+        return column;
+    }
     public void setDurability(int d){
         durability = d;
     }
@@ -53,7 +56,7 @@ public class Plant extends Rectangle{
     }
     public void regularEatPlant(){
         state++;
-            if(state>=5){
+            if(state>=2){
                 durability -= GamePanel.REGULAR_ZOMBIE_DAMAGE;
                 state = 0;
             }
@@ -61,5 +64,8 @@ public class Plant extends Rectangle{
     }
     public int getXEat(){
         return positionX+xOffsetEat;
+    }
+    public void gargantuarEatPlant(){
+        durability -= GamePanel.GARGANTUAR_DAMAGE;
     }
 }

@@ -66,7 +66,16 @@ public class Zombie extends Rectangle{
     public int getRow(){
         return row;
     }
-    public boolean isStopped(){
+    public synchronized boolean isStopped(){
         return isStopped;
+    }
+    public String toString(){
+        return isStopped+"";
+    }
+    public int getXPosition(){
+        return positionX;
+    }
+    public int getYPosition(){
+        return positionY;
     }
 }

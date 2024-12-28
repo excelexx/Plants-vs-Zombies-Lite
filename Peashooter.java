@@ -6,7 +6,7 @@ import javax.imageio.ImageIO;
 
 public class Peashooter extends Plant {
 
-    public final int PEA_DURABILITY = 100;
+    int PEA_DURABILITY = 100;
     GamePanel game;
     BufferedImage peashooterSprite1;
     BufferedImage peashooterSprite2;
@@ -27,7 +27,8 @@ public class Peashooter extends Plant {
         column = col;
         row = rw;
         loadImage();
-        xOffsetEat = 50;
+        xOffsetEat = 10;
+        durability = PEA_DURABILITY;
     }
 
     public void loadImage() {
@@ -106,5 +107,8 @@ public class Peashooter extends Plant {
 
     public void die() {
         isAlive = false;
+    }
+    public String toString(){
+        return durability+"";
     }
 }
