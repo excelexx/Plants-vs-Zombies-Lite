@@ -24,6 +24,7 @@ public class Sunflower extends Plant {
         game = gme;
         column = col;
         row = rw;
+        xOffsetEat = 20;
         loadImage();
     }
 

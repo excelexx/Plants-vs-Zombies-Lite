@@ -27,12 +27,14 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
     Iterator<Sun> sunIterator;
     public Thread gameThread;
     public Image image;
+    public static final int GARGANTUAR_DAMAGE = 1000;
     Thread soundtrackThread;
     public Graphics graphics;
     Pea tempPea;
     int secondTempInt;
 
     public static boolean isRunning = false;
+    boolean exists;
     public static Menu menu = new Menu();
     public Inventory inventory;
     public static int difficulty = 1;
@@ -76,7 +78,7 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
     Zombie tempZombie;
     Sunflower tempSunflower;
     int zombieDeathCount;
-    int[][][] zombieSpawnList = {{{5, 5, 3, 4, 5, 6, 7},{5,0,1,1,1,2,3}}, {{1, 1, 1, 1, 1, 2, 3, 4},{0,0,1,2,2,2,3}}, {{1, 2, 3, 4, 5, 6, 7, 8},{0,0,1,2,3,3,5}}};
+    int[][][] zombieSpawnList = {{{5, 5, 3, 4, 5, 6, 7},{5,0,1,1,1,2,3},{5,1,1,1,1,1,1}}, {{1, 1, 1, 1, 1, 2, 3, 4},{0,0,1,2,2,2,3},{1,1,1,1,1,1,1}}, {{1, 2, 3, 4, 5, 6, 7, 8},{0,0,1,2,3,3,5},{1,1,1,1,1,1,1}}};
     int[][] zombieTimes = {{2000, 2000, 2000, 2000, 2000, 2000, 2000}, {10000, 2000, 3000, 6000, 7000, 8000, 10000}, {10000, 2000, 3000, 6000, 7000, 8000, 10000}};
 
     //Constructor for gamepanel class 
@@ -256,11 +258,20 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
                             for (int i = 0; i < zombieSpawnList[difficulty - 1][0][levelProgressState]; i++) {
                                 tempInt = (int) (Math.random() * 5) + 1;
                                 zombieListAdd.get(tempInt - 1).add(new RegularZombie(tempInt, GamePanel.this));
+                                zombieListAdd.get(tempInt - 1).add(new Gargantuar(tempInt, GamePanel.this));
                                 Thread.sleep((int)(Math.random()*1000+1000));
+                            }
+                            for (int i = 0; i < zombieSpawnList[difficulty - 1][1][levelProgressState]; i++) {
                                 tempInt = (int) (Math.random() * 5) + 1;
                                 zombieListAdd.get(tempInt - 1).add(new ConeZombie(tempInt, GamePanel.this));
                                 Thread.sleep((int)(Math.random()*1000+1000));
                             }
+                            for (int i = 0; i < zombieSpawnList[difficulty - 1][2][levelProgressState]; i++){
+                                tempInt = (int) (Math.random() * 5) + 1;
+                                zombieListAdd.get(tempInt - 1).add(new Gargantuar(tempInt, GamePanel.this));
+                                Thread.sleep((int)(Math.random()*1000+1000));
+                            }
+                        
 
                             levelProgressState++;
 
@@ -331,41 +342,53 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
                 if (tempPeashooter.getDurability() <= 0) {
                     peashooterListRemove.get(i).add(tempPeashooter);
                     tempPeashooter.die();
-                } else {
+                    }
+                else {
                     zombieIterator = zombieList.get(i).iterator();
                     while (zombieIterator.hasNext()) {
                         tempZombie = zombieIterator.next();
-                        if (tempZombie.getXEating() <= tempPeashooter.getXEat() && tempZombie.getXEating() >= tempPeashooter.getXEat() - 30) {
-                            tempPeashooter.regularEatPlant();
-                            tempZombie.stop();
-                            System.out.print("stop");
+                        if (furthestZombies[i] == -1) {
+                            tempPeashooter.noZombie();
+                        } else if(tempZombie.getXPosition()>=tempPeashooter.getXEat()){
+                            tempPeashooter.yesZombie();
+                        }
+                    }
+                }
+            }
 
+            zombieIterator = zombieList.get(i).iterator();
+            while (zombieIterator.hasNext()) {
+                exists = false;
+                tempZombie = zombieIterator.next();
+                if (peashooterList.get(i).isEmpty() && sunflowerList.get(i).isEmpty()) {
+                    tempZombie.go();
+                    continue;
+                }
+                else {
+                    peashooterIterator = peashooterList.get(i).iterator();
+                    while (peashooterIterator.hasNext()){
+                        tempPeashooter = peashooterIterator.next();
+                        if (tempZombie.getXPosition() <= Grid.colToX(tempPeashooter.getCol())+50 && tempZombie.getXPosition() >=  Grid.colToX(tempPeashooter.getCol())) {
+                            if(tempZombie instanceof RegularZombie || tempZombie instanceof ConeZombie){
+                                tempPeashooter.regularEatPlant();
+                                
+                            }
+                            else if(tempZombie instanceof Gargantuar){
+                                tempPeashooter.gargantuarEatPlant();
+                            }
+                            tempZombie.stop();
+                            exists = true;
+                           
+                            
                             //eating
                             if (!soundPlayed) {
                                 Sound.playEatingSounds();
                                 soundPlayed = true; // Set the flag to true after the sound is played
                             }
-
-                        } else {
-                            tempZombie.go();
-
-                            //stop eating
                         }
                     }
-                }
-            }
-            zombieIterator = zombieList.get(i).iterator();
-            while (zombieIterator.hasNext()) {
-                tempZombie = zombieIterator.next();
-                if (peashooterList.get(i).isEmpty()) {
-                    tempZombie.go();
-                    continue;
-                }
-                while (peashooterIterator.hasNext()) {
-                    tempPeashooter = peashooterIterator.next();
-                    if (!(tempZombie.getXEating() <= tempPeashooter.getXEat() && tempZombie.getXEating() >= tempPeashooter.getXEat() - 30)) {
+                    if(!exists){
                         tempZombie.go();
-                        System.out.print("go");
                     }
                 }
             }
@@ -381,7 +404,7 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
                         zombieIterator = zombieList.get(i).iterator();
                         while (zombieIterator.hasNext()) {
                             tempZombie = zombieIterator.next();
-                            if (tempZombie.getXEating() <= tempSunflower.getXEat() && tempZombie.getXEating() >= tempSunflower.getXEat() - 30) {
+                            if (tempZombie.getXEating() <= 20+tempSunflower.getXEat() && tempZombie.getXEating() >= tempSunflower.getXEat() - 30) {
                                 tempSunflower.regularEatPlant();
                                 tempZombie.stop();
 
@@ -399,32 +422,6 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
                         }
                     }
                 }
-                zombieIterator = zombieList.get(i).iterator();
-                while (zombieIterator.hasNext()) {
-                    tempZombie = zombieIterator.next();
-                    if (sunflowerList.get(i).isEmpty()) {
-                        tempZombie.go();
-                        continue;
-                    }
-                    while (sunflowerIterator.hasNext()) {
-                        tempSunflower = sunflowerIterator.next();
-                        if (!(tempZombie.getXEating() <= tempSunflower.getXEat() && tempZombie.getXEating() >= tempSunflower.getXEat() - 30)) {
-                            tempZombie.go();
-                        }
-                    }
-                }
-            
-                
-
-            peashooterIterator = peashooterList.get(i).iterator();
-            while (peashooterIterator.hasNext()) {
-                Peashooter peashooter = peashooterIterator.next();
-                if (furthestZombies[i] == -1) {
-                    peashooter.noZombie();
-                } else {
-                    peashooter.yesZombie();
-                }
-            }
         }
 
         sunIterator = sunList.iterator();
@@ -538,7 +535,11 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
             //only move objects around and update screen if enough time has passed
             if (delta >= 1) {
                 move();
-                checkCollision();
+                try{
+                    checkCollision();
+                }
+                catch(Exception e){
+                }
                 Sound.playZombieGroans();
                 addAndRemove();
                 repaint();
@@ -576,8 +577,12 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
     }
 
     public void mouseReleased(MouseEvent e) {
-        for (Sun sun : sunList) {
-            sun.mouseReleased(e);
+        try{
+            for (Sun sun : sunList) {
+                sun.mouseReleased(e);
+            }
+        }
+        catch(Exception h){
         }
     }
 
