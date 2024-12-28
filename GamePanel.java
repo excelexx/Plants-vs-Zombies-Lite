@@ -37,7 +37,7 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
     public Inventory inventory;
     public static int difficulty = 1;
     public static boolean isGameDone = false;
-    public static final int REGULAR_ZOMBIE_DAMAGE = 2;
+    public static final int REGULAR_ZOMBIE_DAMAGE = 1;
     public static ArrayList<ArrayList<ArrayList<Plant>>> plantList = new ArrayList<>();
     public static ArrayList<ArrayList<Peashooter>> peashooterList = new ArrayList<>();
     public static ArrayList<ArrayList<Sunflower>> sunflowerList = new ArrayList<>();
@@ -46,7 +46,7 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
     public static ArrayList<Sun> sunList = new ArrayList<>();
     public static int[] furthestZombies = new int[5];
     Iterator<Sunflower> sunflowerIterator;
-    public static int sunCount = 500;
+    public static int sunCount = 50000;
     public boolean zombiesAllDead = true;
     Zombie secondTempZombie;
     public static Thread zombieSpawnThread;
@@ -151,21 +151,21 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
                 g.drawImage(gameBackground, 0, 0, GAME_WIDTH, GAME_HEIGHT, null);
             }
             for (int i = 0; i < 5; i++) {
-                for (Pea pea : peaList.get(i)) {
+                for (Pea pea : new ArrayList<>(peaList.get(i))) {
                     pea.draw(g);
                 }
-                for (Zombie zombie : zombieList.get(i)) {
+                for (Zombie zombie : new ArrayList<>(zombieList.get(i))) {
                     zombie.draw(g);
                 }
-                for (Peashooter peashooter : peashooterList.get(i)) {
+                for (Peashooter peashooter : new ArrayList<>(peashooterList.get(i))) {
                     peashooter.draw(g);
                 }
-                for (Sunflower sunflower : sunflowerList.get(i)){
+                for (Sunflower sunflower : new ArrayList<>(sunflowerList.get(i))){
                     sunflower.draw(g);
                 }
             }
             inventory.draw(g);
-            for (Sun sun : sunList) {
+            for (Sun sun : new ArrayList<>(sunList)) {
                 sun.draw(g);
             }
         } else {

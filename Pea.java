@@ -13,7 +13,7 @@ public class Pea extends Rectangle {
     GamePanel game;
     public static final int DIAMETER = 30;
     BufferedImage projectileImage;
-    public static final int SPEED = 5;
+    public static final int SPEED = 6;
     public static final int xOffset = 45;
     public static final int yOffset = 25;
     Peashooter peashooter;
