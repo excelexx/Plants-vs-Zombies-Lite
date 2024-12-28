@@ -12,44 +12,72 @@ import javax.sound.sampled.Clip;
 public class SoundTrack {
     
     public static int volume; // 0 - 100
+    static int length;
+    static List<String> soundtrackList = new ArrayList<>();
+    private static Clip currentClip;
 
     // Method that plays music in loop for soundtrack
     // Credit to Max O'Didily and his youtube guide: https://www.youtube.com/watch?v=wJO_cq5XeSA&t=7s&ab_channel=MaxO%27Didily
     //                and additional playlist guide: https://www.youtube.com/watch?v=DkQFO6IMwi8&ab_channel=MaxO%27Didily
     // Modified guide slightly to fit needs of this program
     public static void setUp() {
- 
-        //create list of filepaths
-        List<String> soundtrackList = new ArrayList<String>();
-        soundtrackList.add("Soundtracks\\Plants vs Zombies Soundtrack. [Main Menu].wav");
-        soundtrackList.add("Soundtracks\\Plants vs Zombies Soundtrack. [Day Stage].wav");
-        soundtrackList.add("Soundtracks\\Plants vs Zombies Soundtrack. [Night Stage].wav");
-        soundtrackList.add("Soundtracks\\Plants vs Zombies Soundtrack. [Pool Stage].wav");
-        soundtrackList.add("Soundtracks\\Plants vs Zombies Soundtrack. [Roof Stage].wav");
-        soundtrackList.add("Soundtracks\\Plants vs Zombies Soundtrack. [Fog Stage].wav");
-        soundtrackList.add("Soundtracks\\Plants vs Zombies Music - Daytime in Back Yard (Horde).wav");
-        soundtrackList.add("Soundtracks\\Plants vs Zombies Music - Night Time in Front Yard (Horde).wav");
-        soundtrackList.add("Soundtracks\\Plants VS. Zombies Music_ Ultimate Battle.wav");
-        soundtrackList.add("Soundtracks\\Plants vs Zombies Soundtrack. [Zomboss Stage].wav");
+        refreshSoundtrackList();
 
-        int length = soundtrackList.size();
-        try{
-            for(int i = 0; i < length; i++) {
-                Clip currentClip = PlayMusic(soundtrackList.get(i));
-                while(currentClip.getMicrosecondLength() != currentClip.getMicrosecondPosition()) {
-                    //empty while loop to wait until clip finishes playing
-                } 
+        new Thread(() -> {
+            try {
+                int i = 0;
+                while (true) {
+                    if (i >= soundtrackList.size()) {
+                        i = 0; // Loop the playlist
+                    }
 
-                if(i == length - 1) {
-                    i = -1;
+                    currentClip = playMusic(soundtrackList.get(i));
+                    if (currentClip != null) {
+                        while (currentClip.getMicrosecondLength() != currentClip.getMicrosecondPosition()) {
+                            // Check if game status changes mid-song
+                            if ((GamePanel.isRunning && length == 1) || (!GamePanel.isRunning && length != 1)) {
+                                currentClip.stop();
+                                refreshSoundtrackList();
+                                i = 0; // Reset to start of the new list
+                                currentClip = playMusic(soundtrackList.get(i));
+                                continue;
+                            }
+                            // Empty while loop to wait until the clip finishes playing
+                        }
+                    } else {
+                        System.out.println("Error: Failed to play music at index " + i);
+                    }
+
+                    i++;
                 }
+            } catch (Exception e) {
+                System.out.println("Exception: Error with music playback.");
+                e.printStackTrace();
             }
-        } catch(Exception e) {
-            System.out.println("Exception: Error with music playing.");
-        }
+        }).start();
     }
 
-    private static Clip PlayMusic(String location) {
+    private static void refreshSoundtrackList() {
+        soundtrackList.clear();
+        if (!GamePanel.isRunning) {
+            // Menu soundtrack
+            soundtrackList.add("Soundtracks\\Plants vs Zombies Soundtrack. [Main Menu].wav");
+        } else {
+            // In-game soundtrack
+            soundtrackList.add("Soundtracks\\Plants vs Zombies Soundtrack. [Day Stage].wav");
+            soundtrackList.add("Soundtracks\\Plants vs Zombies Soundtrack. [Night Stage].wav");
+            soundtrackList.add("Soundtracks\\Plants vs Zombies Soundtrack. [Pool Stage].wav");
+            soundtrackList.add("Soundtracks\\Plants vs Zombies Soundtrack. [Roof Stage].wav");
+            soundtrackList.add("Soundtracks\\Plants vs Zombies Soundtrack. [Fog Stage].wav");
+            soundtrackList.add("Soundtracks\\Plants vs Zombies Music - Daytime in Back Yard (Horde).wav");
+            soundtrackList.add("Soundtracks\\Plants vs Zombies Music - Night Time in Front Yard (Horde).wav");
+            soundtrackList.add("Soundtracks\\Plants VS. Zombies Music_ Ultimate Battle.wav");
+            soundtrackList.add("Soundtracks\\Plants vs Zombies Soundtrack. [Zomboss Stage].wav");
+        }
+        length = soundtrackList.size();
+    }
+
+    private static Clip playMusic(String location) {
         try{
             File musicPath = new File(location);
 

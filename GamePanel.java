@@ -27,7 +27,6 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
     Iterator<Sun> sunIterator;
     public Thread gameThread;
     public Image image;
-    Thread soundtrackThread;
     public Graphics graphics;
     Pea tempPea;
     int secondTempInt;
@@ -119,14 +118,7 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
         gameThread = new Thread(this);
         gameThread.start();
 
-        //runs a new thread to run a background soundtrack throughout the run of the program
-        //done with help of this stack overflow post https://stackoverflow.com/questions/17758411/java-creating-a-new-thread
-        soundtrackThread = new Thread(new Runnable() {
-            public void run() {
-                SoundTrack.setUp();
-            }
-        });
-        soundtrackThread.start();
+        SoundTrack.setUp();
 
         for (int i = 0; i < 5; i++) {
             peaList.add(new ArrayList<Pea>());
