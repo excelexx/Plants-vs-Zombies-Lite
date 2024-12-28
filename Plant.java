@@ -17,6 +17,7 @@ public class Plant extends Rectangle{
     int positionY;
     int sunCost;
     int reloadTime;
+    int state = 1;
     GamePanel game;
     int xOffsetEat;
 
@@ -34,6 +35,9 @@ public class Plant extends Rectangle{
     }
     public void draw(Graphics g){
     }
+    public int getRow(){
+        return row;
+    }
     public void setDurability(int d){
         durability = d;
     }
@@ -41,7 +45,6 @@ public class Plant extends Rectangle{
         return durability;
     }
     public void die(){
-        game.removePlant(this);
         //make plant being eated noise (same as being planted)
         Sound.playSingleSound("Sounds\\Plant being Planted Sample 1 -Plants vs Zombies Sound Effect - Made with Clipchamp.wav", 0);
     }
@@ -49,7 +52,12 @@ public class Plant extends Rectangle{
 
     }
     public void regularEatPlant(){
-        durability -= GamePanel.REGULAR_ZOMBIE_DAMAGE;
+        state++;
+            if(state>=5){
+                durability -= GamePanel.REGULAR_ZOMBIE_DAMAGE;
+                state = 0;
+            }
+        
     }
     public int getXEat(){
         return positionX+xOffsetEat;

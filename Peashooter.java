@@ -16,6 +16,8 @@ public class Peashooter extends Plant {
     Thread peaThread;
     boolean isZombie = false;
     boolean isAlive = true;
+    int xOffset = 40;
+    int yOffset = 40;
     int spriteCounter = 0;
     int spriteToggle = 1;
 
@@ -25,6 +27,7 @@ public class Peashooter extends Plant {
         column = col;
         row = rw;
         loadImage();
+        xOffsetEat = 50;
     }
 
     public void loadImage() {

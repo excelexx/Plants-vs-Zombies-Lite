@@ -20,8 +20,7 @@ public class Zombie extends Rectangle{
     int state = 1;
     int xOffsetCenter;
     int xOffsetFront;
-    boolean isStopped;
-    
+    boolean isStopped=false;
     //constructor
     Zombie(int rw, int dur, GamePanel gme){
         super(GamePanel.GAME_WIDTH,Grid.rowToY(rw),110,110);
@@ -63,5 +62,11 @@ public class Zombie extends Rectangle{
     }
     public void go(){
         isStopped= false;
+    }
+    public int getRow(){
+        return row;
+    }
+    public boolean isStopped(){
+        return isStopped;
     }
 }

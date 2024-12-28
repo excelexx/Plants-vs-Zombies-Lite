@@ -12,6 +12,8 @@ public class ConeZombie extends RegularZombie{
         super(rw,gme);
         offsetY = 55;
         durability = 640;
+        xOffsetCenter = 20;
+        xOffsetFront = -40;
     }
 
     public void loadImage() {
