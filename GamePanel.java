@@ -258,7 +258,6 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
                             for (int i = 0; i < zombieSpawnList[difficulty - 1][0][levelProgressState]; i++) {
                                 tempInt = (int) (Math.random() * 5) + 1;
                                 zombieListAdd.get(tempInt - 1).add(new RegularZombie(tempInt, GamePanel.this));
-                                zombieListAdd.get(tempInt - 1).add(new Gargantuar(tempInt, GamePanel.this));
                                 Thread.sleep((int)(Math.random()*1000+1000));
                             }
                             for (int i = 0; i < zombieSpawnList[difficulty - 1][1][levelProgressState]; i++) {
