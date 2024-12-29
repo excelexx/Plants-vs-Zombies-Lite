@@ -28,7 +28,6 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
     public Thread gameThread;
     public Image image;
     public static final int GARGANTUAR_DAMAGE = 1000;
-    Thread soundtrackThread;
     public Graphics graphics;
     Pea tempPea;
     int secondTempInt;
@@ -164,6 +163,7 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
             if (gameBackground != null) {
                 g.drawImage(gameBackground, 0, 0, GAME_WIDTH, GAME_HEIGHT, null);
             }
+
             for (int i = 0; i < 5; i++) {
                 for (Pea pea : new ArrayList<>(peaList.get(i))) {
                     pea.draw(g);
@@ -339,7 +339,7 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
                     zombieIterator = zombieList.get(i).iterator();
                     while (zombieIterator.hasNext()) {
                         tempZombie = zombieIterator.next();
-                        if (furthestZombies[i] == -1) {
+                        if (furthestZombies[i] == -1 || tempZombie.getXPosition() < tempPeashooter.getXEat()) {
                             tempPeashooter.noZombie();
                         } else if(tempZombie.getXPosition()>=tempPeashooter.getXEat()){
                             tempPeashooter.yesZombie();

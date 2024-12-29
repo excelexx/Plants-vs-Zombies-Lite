@@ -7,7 +7,13 @@ import javax.imageio.ImageIO;
 public class RegularZombie extends Zombie {
 
     GamePanel game;
-    BufferedImage zombieImage;
+    BufferedImage zombieWalkingSprite1;
+    BufferedImage zombieWalkingSprite2;
+    BufferedImage zombieEatingSprite1;
+    BufferedImage zombieEatingSprite2;
+    BufferedImage zombieDeadSprite;
+    int spriteCounter = 0;
+    int spriteToggle = 1;
     int state = 1;
     int offsetY = 30;
     RegularZombie(int rw, GamePanel gme) {
@@ -23,16 +29,65 @@ public class RegularZombie extends Zombie {
 
     public void loadImage() {
         try {
-            zombieImage = ImageIO.read(getClass().getResource("/Images/regularZombieImage.png"));
+            zombieWalkingSprite1 = ImageIO.read(getClass().getResource("Images\\regularZombieWalkingt1.png"));
+            zombieWalkingSprite2 = ImageIO.read(getClass().getResource("Images\\regularZombieWalkingt2.png"));
+            zombieEatingSprite1 = ImageIO.read(getClass().getResource("Images\\regularZombieEatingt1.png"));
+            zombieEatingSprite2 = ImageIO.read(getClass().getResource("Images\\regularZombieEatingt2.png"));
+            zombieDeadSprite = ImageIO.read(getClass().getResource("Images\\regularZombieDeadt1.png"));
         } catch (IOException e) {
 
         }
     }
 
-
     public void draw(Graphics g) {
-        if (zombieImage != null) {
-            g.drawImage(zombieImage, positionX, Grid.rowToY(row)-offsetY, null);
+        System.out.println("got here");
+        if (zombieWalkingSprite1 != null) {
+
+            spriteCounter++;
+            if(durability <= 0) {
+                //dead
+                spriteToggle = 5;
+            } else {
+                if(isStopped) {
+                    //display eating
+                    if(!(spriteToggle == 3 || spriteToggle == 4)) {
+                        //previously displaying walking
+                        spriteCounter = 0;
+                    }
+                    if(spriteCounter > 0 && spriteCounter <= 50) {
+                        spriteToggle = 3;
+                    } else if(spriteCounter > 50 && spriteCounter < 100) {
+                        spriteToggle = 4;
+                    }
+                } else {
+                    //display walking
+                    if(!(spriteToggle == 1 || spriteToggle == 2)) {
+                        //previously displaying eating
+                        spriteCounter = 0;
+                    }
+                    if(spriteCounter > 0 && spriteCounter <= 50) {
+                        spriteToggle = 1;
+                    } else if(spriteCounter > 50 && spriteCounter < 100) {
+                        spriteToggle = 2;
+                    }
+                }
+            }
+
+            if(spriteToggle == 1) {
+                g.drawImage(zombieWalkingSprite1, Grid.colToX(column), Grid.rowToY(row), null);
+            }
+            if(spriteToggle == 2) {
+                g.drawImage(zombieWalkingSprite2, Grid.colToX(column), Grid.rowToY(row), null);
+            }
+            if(spriteToggle == 3) {
+                g.drawImage(zombieEatingSprite1, Grid.colToX(column), Grid.rowToY(row), null);
+            }
+            if(spriteToggle == 4) {
+                g.drawImage(zombieEatingSprite2, Grid.colToX(column), Grid.rowToY(row), null);
+            }
+            if(spriteToggle == 5) {
+                g.drawImage(zombieDeadSprite, Grid.colToX(column), Grid.rowToY(row), null);
+            }
         }
     }
 }
