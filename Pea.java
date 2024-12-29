@@ -37,7 +37,7 @@ public class Pea extends Rectangle {
     }
 
     public int getPosX() {
-        return positionX;
+        return positionX+DIAMETER;
     }
 
     public int getRow() {
@@ -68,5 +68,7 @@ public class Pea extends Rectangle {
     public void die() {
         game.removePea(this);
     }
-
+    public int getPeashooterX(){
+        return peashooter.getXEat();
+    }
 }

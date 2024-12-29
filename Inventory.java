@@ -141,9 +141,55 @@ public class Inventory{
                 selectedState = 0;
                 break;
             case 3:
-                selectedState = 0;
+                if(Grid.isInGame(mouseX, mouseY)){
+                    if(game.getSun()>=25){
+                    game.plantPotatoMine(mouseX,mouseY);
+                    game.changeSun(-25);
+                    }
+                    else{
+                        colorThread = new Thread(new Runnable() {
+                            public void run() {
+                                try {
+                                    sunAmount.setColorRed(true);
+                                    //play sound effect here
+                                    Thread.sleep(200);
+                                    sunAmount.setColorRed(false);
+                                    Sound.playSingleSound("Sounds\\Not Enough Sun Sound Effect - Plants VS Zombies (Free To Use).wav", 20);
+                                } catch (Exception e) {
+            
+                                }
+                            }
+                        });
+                        colorThread.start();
+                    }
+                    
+                }
+                    selectedState = 0;
                 break;
             case 4:
+                if(Grid.isInGame(mouseX, mouseY)){
+                    if(game.getSun()>=50){
+                    game.plantWalnut(mouseX,mouseY);
+                    game.changeSun(-50);
+                    }
+                    else{
+                        colorThread = new Thread(new Runnable() {
+                            public void run() {
+                                try {
+                                    sunAmount.setColorRed(true);
+                                    //play sound effect here
+                                    Thread.sleep(200);
+                                    sunAmount.setColorRed(false);
+                                    Sound.playSingleSound("Sounds\\Not Enough Sun Sound Effect - Plants VS Zombies (Free To Use).wav", 20);
+                                } catch (Exception e) {
+            
+                                }
+                            }
+                        });
+                        colorThread.start();
+                    }
+                    
+                }
                 selectedState = 0;
                 break;
 
