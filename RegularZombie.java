@@ -40,7 +40,6 @@ public class RegularZombie extends Zombie {
     }
 
     public void draw(Graphics g) {
-        System.out.println("got here");
         if (zombieWalkingSprite1 != null) {
 
             spriteCounter++;
@@ -50,43 +49,40 @@ public class RegularZombie extends Zombie {
             } else {
                 if(isStopped) {
                     //display eating
-                    if(!(spriteToggle == 3 || spriteToggle == 4)) {
-                        //previously displaying walking
-                        spriteCounter = 0;
-                    }
                     if(spriteCounter > 0 && spriteCounter <= 50) {
                         spriteToggle = 3;
-                    } else if(spriteCounter > 50 && spriteCounter < 100) {
+                    } else if(spriteCounter > 50 && spriteCounter <= 100) {
                         spriteToggle = 4;
+                    } else if(spriteCounter > 100){
+                        spriteCounter = 0;
                     }
                 } else {
                     //display walking
-                    if(!(spriteToggle == 1 || spriteToggle == 2)) {
-                        //previously displaying eating
-                        spriteCounter = 0;
-                    }
+                    
                     if(spriteCounter > 0 && spriteCounter <= 50) {
                         spriteToggle = 1;
-                    } else if(spriteCounter > 50 && spriteCounter < 100) {
+                    } else if(spriteCounter > 50 && spriteCounter <= 100) {
                         spriteToggle = 2;
+                    } else if(spriteCounter > 100) {
+                        spriteCounter = 0;
                     }
                 }
             }
 
             if(spriteToggle == 1) {
-                g.drawImage(zombieWalkingSprite1, Grid.colToX(column), Grid.rowToY(row), null);
+                g.drawImage(zombieWalkingSprite1, positionX, Grid.rowToY(row), null);
             }
             if(spriteToggle == 2) {
-                g.drawImage(zombieWalkingSprite2, Grid.colToX(column), Grid.rowToY(row), null);
+                g.drawImage(zombieWalkingSprite2, positionX, Grid.rowToY(row), null);
             }
             if(spriteToggle == 3) {
-                g.drawImage(zombieEatingSprite1, Grid.colToX(column), Grid.rowToY(row), null);
+                g.drawImage(zombieEatingSprite1, positionX, Grid.rowToY(row), null);
             }
-            if(spriteToggle == 4) {
-                g.drawImage(zombieEatingSprite2, Grid.colToX(column), Grid.rowToY(row), null);
+            if(spriteToggle == 4) { 
+                g.drawImage(zombieEatingSprite2, positionX, Grid.rowToY(row), null);
             }
             if(spriteToggle == 5) {
-                g.drawImage(zombieDeadSprite, Grid.colToX(column), Grid.rowToY(row), null);
+                g.drawImage(zombieDeadSprite, positionX, Grid.rowToY(row), null);
             }
         }
     }

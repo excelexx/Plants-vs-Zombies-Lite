@@ -294,7 +294,7 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
                                 zombieListAdd.get(tempInt - 1).add(new Gargantuar(tempInt, GamePanel.this));
                                 Thread.sleep((int)(Math.random()*1000+1000));
                             }
-                        
+
 
                             levelProgressState++;
 
@@ -366,7 +366,6 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
                             break;
                         }
                     }
-
                     if (zombieList.get(i).isEmpty()) {
                         furthestZombies[i] = -1;
                     } else {
@@ -545,20 +544,53 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
     }
     //makes game run constantly, 
 
-    public void addAndRemove(){
+    
+
+    public void addAndRemove() {
+        // First do all the additions
         for (int i = 0; i < 5; i++) {
-            for (Pea pea : peaListAdd.get(i)) {
-                peaList.get(i).add(pea);
-            }
-            for (Zombie zombie : zombieListAdd.get(i)) {
-                zombieList.get(i).add(zombie);
-            }
-            for (Peashooter peashooter : peashooterListAdd.get(i)) {
-                peashooterList.get(i).add(peashooter);
-            }
-            for (Sunflower sunflower : sunflowerListAdd.get(i)){
-                sunflowerList.get(i).add(sunflower);
-            }
+            
+            zombieList.get(i).addAll(zombieListAdd.get(i));
+            peaList.get(i).addAll(peaListAdd.get(i));
+            peashooterList.get(i).addAll(peashooterListAdd.get(i));
+            sunflowerList.get(i).addAll(sunflowerListAdd.get(i));
+            walnutList.get(i).addAll(walnutListAdd.get(i));
+            potatoMineList.get(i).addAll(potatoMineListAdd.get(i));
+
+            zombieListAdd.get(i).clear();
+            peaListAdd.get(i).clear();
+            peashooterListAdd.get(i).clear();
+            sunflowerListAdd.get(i).clear();
+            walnutListAdd.get(i).clear();
+            potatoMineListAdd.get(i).clear();
+        }
+        
+        // Then do all the removals
+        for (int i = 0; i < 5; i++) {
+            zombieList.get(i).removeAll(zombieListRemove.get(i));
+            peaList.get(i).removeAll(peaListRemove.get(i));
+            peashooterList.get(i).removeAll(peashooterListRemove.get(i));
+            sunflowerList.get(i).removeAll(sunflowerListRemove.get(i));
+            walnutList.get(i).removeAll(walnutListRemove.get(i));
+            potatoMineList.get(i).removeAll(potatoMineListRemove.get(i));
+            
+            zombieListRemove.get(i).clear();
+            peaListRemove.get(i).clear();
+            peashooterListRemove.get(i).clear();
+            sunflowerListRemove.get(i).clear();
+            walnutListRemove.get(i).clear();
+            potatoMineListRemove.get(i).clear();
+        }
+        
+        // Handle sun list separately since it's not row-based
+        sunList.addAll(sunListAdd);
+        sunList.removeAll(sunListRemove);
+        sunListRemove.clear();
+        sunListAdd.clear();
+    }
+    
+    public void addAndRemoveOld(){
+        for (int i = 0; i < 5; i++) {
             for (Pea pea : peaListRemove.get(i)) {
                 peaList.get(i).remove(pea);
             }
@@ -574,11 +606,24 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
             for (Walnut walnut : walnutListRemove.get(i)){
                 walnutList.get(i).remove(walnut);
             }
-            for (Walnut walnut : walnutListAdd.get(i)){
-                walnutList.get(i).add(walnut);
-            }
             for (PotatoMine potatoMine : potatoMineListRemove.get(i)){
                 potatoMineList.get(i).remove(potatoMine);
+            }
+
+            for (Pea pea : peaListAdd.get(i)) {
+                peaList.get(i).add(pea);
+            }
+            for (Zombie zombie : zombieListAdd.get(i)) {
+                zombieList.get(i).add(zombie);
+            }
+            for (Peashooter peashooter : peashooterListAdd.get(i)) {
+                peashooterList.get(i).add(peashooter);
+            }
+            for (Sunflower sunflower : sunflowerListAdd.get(i)){
+                sunflowerList.get(i).add(sunflower);
+            }
+            for (Walnut walnut : walnutListAdd.get(i)){
+                walnutList.get(i).add(walnut);
             }
             for (PotatoMine potatoMine : potatoMineListAdd.get(i)){
                 potatoMineList.get(i).add(potatoMine);
@@ -619,6 +664,7 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
         sunListRemove.clear();
         sunListAdd.clear();
     }
+
     public void run() {
         //ensure that code is run at 60 ticks per second
         long lastTime = System.nanoTime();
