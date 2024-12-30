@@ -339,64 +339,6 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
         }
     }    
     
-
-    public void spawnZombieOld() {
-        if (levelProgressState < zombieSpawnList[difficulty - 1][0].length && isRunning && (zombieSpawnThread == null || !zombieSpawnThread.isAlive())) {
-            zombieSpawnThread = new Thread(new Runnable() {
-                public void run() {
-                    try {
-                        for (int j = 0; j < 5; j++) {
-                            zombieListAdd.add(new ArrayList<Zombie>());
-                        }
-
-                        while (true) {
-                            Thread.sleep(100);
-                            while (!zombiesAllDead) {
-                                Thread.sleep(100);
-                            }
-                            
-                            Thread.sleep((int) ((Math.random() * 1 / 4 + 1) * zombieTimes[difficulty - 1][levelProgressState]));
-                            for (int i = 0; i < zombieSpawnList[difficulty - 1][0][levelProgressState]; i++) {
-                                tempInt = (int) (Math.random() * 5) + 1;
-                                zombieListAdd.get(tempInt - 1).add(new RegularZombie(tempInt, GamePanel.this));
-                                // System.out.println("added regular");
-                                // System.out.println(zombieListAdd.get(tempInt-1).size());
-
-                                System.out.println("Before add: " + zombieListAdd.get(tempInt - 1));
-                                zombieListAdd.get(tempInt - 1).add(new RegularZombie(tempInt, GamePanel.this));
-                                System.out.println("After add: " + zombieListAdd.get(tempInt - 1));
-                                System.out.println(zombieListAdd);
-
-                                Thread.sleep((int)(Math.random()*1000+1000));
-
-                                
-                            }
-                            for (int i = 0; i < zombieSpawnList[difficulty - 1][1][levelProgressState]; i++) {
-                                tempInt = (int) (Math.random() * 5) + 1;
-                                zombieListAdd.get(tempInt - 1).add(new ConeZombie(tempInt, GamePanel.this));
-                                Thread.sleep((int)(Math.random()*1000+1000));
-                                System.out.println("added cone");
-                            }
-                            for (int i = 0; i < zombieSpawnList[difficulty - 1][2][levelProgressState]; i++){
-                                tempInt = (int) (Math.random() * 5) + 1;
-                                zombieListAdd.get(tempInt - 1).add(new Gargantuar(tempInt, GamePanel.this));
-                                Thread.sleep((int)(Math.random()*1000+1000));
-                                System.out.println("added garg");
-                            }
-
-
-                            levelProgressState++;
-
-                        }
-                    } catch (Exception e) {
-
-                    }
-                }
-            });
-            zombieSpawnThread.start();
-        }
-    }
-
     //handles all collision detection and responds accordingly
     public void checkCollision() {
      for (int i = 0; i < 5; i++) {
@@ -424,6 +366,10 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
                 while (peaIterator.hasNext()) {
                     tempPea = peaIterator.next();
                     for(Zombie z : zombieList.get(i)){
+                        if(z.getXPosition() - tempPea.getPosX() <= 5){
+                            //Show pea splat
+                            tempPea.showPeaSplat = true;
+                        }
                         if(z.getXEat()>=tempPea.getPosX()-20 && z.getXEat()<= tempPea.getPosX()+10){
                             peaListRemove.get(i).add(tempPea);
                             z.peaDamage();
@@ -461,7 +407,7 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
                         furthestZombies[i] = 0;
                     }
                 }
-                
+
             }
             peashooterIterator = peashooterList.get(i).iterator();
             while (peashooterIterator.hasNext()) {
