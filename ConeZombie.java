@@ -22,9 +22,10 @@ public class ConeZombie extends RegularZombie{
     int spriteCounter = 0;
     int spriteToggle = 1;
 
+
     ConeZombie(int rw, GamePanel gme){
         super(rw,gme);
-        offsetY = 55;
+        offsetY = 40;
         loadImage();
         durability = 640;
         xOffsetCenter = 20;
@@ -54,6 +55,7 @@ public class ConeZombie extends RegularZombie{
     public void draw(Graphics g){
         if (zombieWalkingSprite1 != null) {
 
+            spriteCounter++;
             if(isStopped) {
                 //display eating
                 

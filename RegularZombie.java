@@ -18,6 +18,7 @@ public class RegularZombie extends Zombie {
     int offsetY = 30;
     RegularZombie(int rw, GamePanel gme) {
         super(rw, 100, gme);
+        //System.out.println("spawned");
         game = gme;
         row = rw;
         loadImage();
