@@ -43,11 +43,11 @@ public class ConeZombie extends RegularZombie{
             coneZombieDamagedWalkingSprite2 = ImageIO.read(getClass().getResource("Images\\coneZombieDamagedWalkingt2.png"));
             coneZombieDamagedEatingSprite1 = ImageIO.read(getClass().getResource("Images\\coneZombieDamagedEatingt1.png"));
             coneZombieDamagedEatingSprite2 = ImageIO.read(getClass().getResource("Images\\coneZombieDamagedEatingt2.png"));
-            zombieWalkingSprite1 = ImageIO.read(getClass().getResource("Images\\regularZombieWalkingt1.png"));
-            zombieWalkingSprite2 = ImageIO.read(getClass().getResource("Images\\regularZombieWalkingt2.png"));
-            zombieEatingSprite1 = ImageIO.read(getClass().getResource("Images\\regularZombieEatingt1.png"));
-            zombieEatingSprite2 = ImageIO.read(getClass().getResource("Images\\regularZombieEatingt2.png"));
-            zombieDeadSprite = ImageIO.read(getClass().getResource("Images\\regularZombieDeadt1.png"));
+            zombieWalkingSprite1 = ImageIO.read(getClass().getResource("Images\\regularZombieWalkingt1.1.png"));
+            zombieWalkingSprite2 = ImageIO.read(getClass().getResource("Images\\regularZombieWalkingt2.1.png"));
+            zombieEatingSprite1 = ImageIO.read(getClass().getResource("Images\\regularZombieEatingt1.1.png"));
+            zombieEatingSprite2 = ImageIO.read(getClass().getResource("Images\\regularZombieEatingt2.1.png"));
+            zombieDeadSprite = ImageIO.read(getClass().getResource("Images\\regularZombieDeadt1.1.png"));
         } catch (IOException e) {
         }
     }
@@ -92,43 +92,43 @@ public class ConeZombie extends RegularZombie{
             }
 
             if(spriteToggle == 1) {
-                g.drawImage(coneZombieWalkingSprite1, positionX, Grid.rowToY(row), null);
+                g.drawImage(coneZombieWalkingSprite1, positionX, positionY, null);
             }
             if(spriteToggle == 2) {
-                g.drawImage(coneZombieWalkingSprite2, positionX, Grid.rowToY(row), null);
+                g.drawImage(coneZombieWalkingSprite2, positionX, positionY, null);
             }
             if(spriteToggle == 3) {
-                g.drawImage(coneZombieEatingSprite1, positionX, Grid.rowToY(row), null);
+                g.drawImage(coneZombieEatingSprite1, positionX, positionY, null);
             }
             if(spriteToggle == 4) {
-                g.drawImage(coneZombieEatingSprite2, positionX, Grid.rowToY(row), null);
+                g.drawImage(coneZombieEatingSprite2, positionX, positionY, null);
             }
             if(spriteToggle == 5) {
-                g.drawImage(coneZombieDamagedWalkingSprite1, positionX, Grid.rowToY(row), null);
+                g.drawImage(coneZombieDamagedWalkingSprite1, positionX, positionY, null);
             }
             if(spriteToggle == 6) {
-                g.drawImage(coneZombieDamagedWalkingSprite2, positionX, Grid.rowToY(row), null);
+                g.drawImage(coneZombieDamagedWalkingSprite2, positionX, positionY, null);
             }
             if(spriteToggle == 7) {
-                g.drawImage(coneZombieDamagedEatingSprite1, positionX, Grid.rowToY(row), null);
+                g.drawImage(coneZombieDamagedEatingSprite1, positionX, positionY, null);
             }
             if(spriteToggle == 8) {
-                g.drawImage(coneZombieDamagedEatingSprite2, positionX, Grid.rowToY(row), null);
+                g.drawImage(coneZombieDamagedEatingSprite2, positionX, positionY, null);
             }
             if(spriteToggle == 9) {
-                g.drawImage(zombieWalkingSprite1, positionX, Grid.rowToY(row), null);
+                g.drawImage(zombieWalkingSprite1, positionX, positionY, null);
             }
             if(spriteToggle == 10) {
-                g.drawImage(zombieWalkingSprite2, positionX, Grid.rowToY(row), null);
+                g.drawImage(zombieWalkingSprite2, positionX, positionY, null);
             }
             if(spriteToggle == 11) {
-                g.drawImage(zombieEatingSprite1, positionX, Grid.rowToY(row), null);
+                g.drawImage(zombieEatingSprite1, positionX, positionY, null);
             }
             if(spriteToggle == 12) {
-                g.drawImage(zombieEatingSprite2, positionX, Grid.rowToY(row), null);
+                g.drawImage(zombieEatingSprite2, positionX, positionY, null);
             }
             if(spriteToggle == 13) {
-                g.drawImage(zombieDeadSprite, positionX, Grid.rowToY(row), null);
+                g.drawImage(zombieDeadSprite, positionX, positionY, null);
             }
         }
     }

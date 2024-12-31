@@ -29,6 +29,7 @@ public class Zombie extends Rectangle{
         durability = dur;
         game = gme;
         positionX = GamePanel.GAME_WIDTH;
+        positionY = Grid.rowToY(row) - 35 + (int)(Math.random() * -6 + 3);
     }
     public void draw(Graphics g){
     }
