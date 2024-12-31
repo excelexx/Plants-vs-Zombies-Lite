@@ -11,6 +11,7 @@ public class Inventory{
     BufferedImage peashooterSeedSlot;
     BufferedImage potatoMineSeedSlot;
     BufferedImage walnutSeedSlot;
+    BufferedImage zombieHead;
     int positionY;
     int state;
     int selectedState;
@@ -20,10 +21,14 @@ public class Inventory{
     Thread colorThread;
     GamePanel game;
     Message sunAmount = new Message(27+56,  87+23, 50, 50, "50", 30);
+    int progress;
+    int progressBarWidth=200;
+    int totalProgress;
 
     Inventory(GamePanel gme){
         game = gme;
         loadImage();
+        totalProgress = game.zombieSpawnList[game.getDifficulty()][0].length;
     }
 
     public void loadImage(){
@@ -33,6 +38,8 @@ public class Inventory{
             peashooterSeedSlot = ImageIO.read(getClass().getResource("/Images/peashooterSeedSlot.png"));
             potatoMineSeedSlot = ImageIO.read(getClass().getResource("/Images/potatoMineSeedSlot.png"));
             walnutSeedSlot = ImageIO.read(getClass().getResource("/Images/walnutSeedSlot.png"));
+            zombieHead = ImageIO.read(getClass().getResource("/Images/zombieHead.png"));
+
         }
         catch(IOException e){
             System.out.println("Error loading image files. Please check all files are saved properly.");
@@ -40,6 +47,7 @@ public class Inventory{
     }
     public void move(){
         sunAmount.setMessage(game.getSun()+"");
+        progress = (int)(1.0*game.levelProgressState/totalProgress*(progressBarWidth-30))+30;
     }
 
     public void mouseMoved(MouseEvent e){
@@ -204,6 +212,11 @@ public class Inventory{
             g.drawImage(potatoMineSeedSlot,56+253,8, null);
             g.drawImage(walnutSeedSlot,56+325,8, null);
             sunAmount.draw(g);
+            g.setColor(Color.BLACK);
+            g.fillRect(850,755,progressBarWidth, 25);
+            g.setColor(new Color(75,190,68));
+            g.fillRect(850, 755, progress-10, 25);
+            g.drawImage(zombieHead, 820+progress,745,null);
         }
     }
 }

@@ -73,7 +73,7 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
     int minimum;
     int tempInt;
     public static boolean hasStartedSun = false;
-    public static int levelProgressState = 0;
+    public int levelProgressState = 0;
     Iterator<Plant> plantIterator;
     Peashooter tempPeashooter;
     public static boolean soundPlayed = false;
@@ -90,7 +90,7 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
     Zombie tempZombie;
     Sunflower tempSunflower;
     int zombieDeathCount;
-    int[][][] zombieSpawnList = {{{5, 5, 3, 4, 5, 6, 7},{5,0,1,1,1,2,3},{2,0,0,1,1,1,1}}, {{1, 1, 1, 1, 1, 2, 3, 4},{0,0,1,2,2,2,3},{1,1,1,1,1,1,1}}, {{1, 2, 3, 4, 5, 6, 7, 8},{0,0,1,2,3,3,5},{1,1,1,1,1,1,1}}};
+    public int[][][] zombieSpawnList = {{{5, 5, 3, 4, 5, 6, 7},{5,0,1,1,1,2,3},{2,0,0,1,1,1,1}}, {{1, 1, 1, 1, 1, 2, 3, 4},{0,0,1,2,2,2,3},{1,1,1,1,1,1,1}}, {{1, 2, 3, 4, 5, 6, 7, 8},{0,0,1,2,3,3,5},{1,1,1,1,1,1,1}}};
     int[][] zombieTimes = {{2000, 2000, 2000, 2000, 2000, 2000, 2000}, {10000, 2000, 3000, 6000, 7000, 8000, 10000}, {10000, 2000, 3000, 6000, 7000, 8000, 10000}};
 
     //Constructor for gamepanel class 
@@ -366,7 +366,7 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
                 while (peaIterator.hasNext()) {
                     tempPea = peaIterator.next();
                     for(Zombie z : zombieList.get(i)){
-                        if(z.getXPosition() - tempPea.getPosX() <= 5){
+                        if(z.getXPosition() - tempPea.getPosX() <= 1){
                             //Show pea splat
                             tempPea.showPeaSplat = true;
                         }
@@ -819,6 +819,9 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
 
     public void addSun(Sun s) {
         sunListAdd.add(s);
+    }
+    public int getDifficulty(){
+        return difficulty;
     }
 
 }
