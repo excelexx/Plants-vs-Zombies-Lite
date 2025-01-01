@@ -12,6 +12,8 @@ public class Inventory{
     BufferedImage potatoMineSeedSlot;
     BufferedImage walnutSeedSlot;
     BufferedImage zombieHead;
+    BufferedImage shovelImage;
+    BufferedImage shovelOnlyImage;
     int positionY;
     int state;
     int selectedState;
@@ -39,6 +41,8 @@ public class Inventory{
             potatoMineSeedSlot = ImageIO.read(getClass().getResource("/Images/potatoMineSeedSlot.png"));
             walnutSeedSlot = ImageIO.read(getClass().getResource("/Images/walnutSeedSlot.png"));
             zombieHead = ImageIO.read(getClass().getResource("/Images/zombieHead.png"));
+            shovelImage = ImageIO.read(getClass().getResource("/Images/shovelImage.png"));
+            shovelOnlyImage = ImageIO.read(getClass().getResource("/Images/shovelOnlyImage.png"));
 
         }
         catch(IOException e){
@@ -66,6 +70,9 @@ public class Inventory{
             else if(56+325 < mouseX && mouseX<56+325+71 && 8<mouseY && mouseY<108){
                 state = 4;
             }
+            else if(465<mouseX && mouseX <465+107 && 8 < mouseY && mouseY<108){
+                state = 5;
+            }
             else{
                 state = 0;
             }
@@ -82,7 +89,6 @@ public class Inventory{
                         selectedState = 0;
                         break;
                     case 1:
-                        isHolding = true;
                         selectedState = 1;
                         break;
                     case 2:
@@ -94,10 +100,14 @@ public class Inventory{
                     case 4:
                         selectedState = 4;
                         break;
+                    case 5:
+                        selectedState = 5;
+                        isHolding = true;
+                        break;
                 }
                 break;
             case 1:
-            if(Grid.isInGame(mouseX, mouseY)){
+            if(Grid.isInGame(mouseX, mouseY) && !game.isPlant(Grid.yToRow(mouseY), Grid.xToCol(mouseX))){
                 if(game.getSun()>=50){
                 game.plantSunflower(mouseX,mouseY);
                 game.changeSun(-50);
@@ -123,7 +133,7 @@ public class Inventory{
             selectedState = 0;
                 break;
             case 2:
-                if(Grid.isInGame(mouseX, mouseY)){
+                if(Grid.isInGame(mouseX, mouseY) && !game.isPlant(Grid.yToRow(mouseY), Grid.xToCol(mouseX))){
                     if(game.getSun()>=100){
                     game.plantPeashooter(mouseX,mouseY);
                     game.changeSun(-100);
@@ -149,7 +159,7 @@ public class Inventory{
                 selectedState = 0;
                 break;
             case 3:
-                if(Grid.isInGame(mouseX, mouseY)){
+                if(Grid.isInGame(mouseX, mouseY) && !game.isPlant(Grid.yToRow(mouseY), Grid.xToCol(mouseX))){
                     if(game.getSun()>=25){
                     game.plantPotatoMine(mouseX,mouseY);
                     game.changeSun(-25);
@@ -175,7 +185,7 @@ public class Inventory{
                     selectedState = 0;
                 break;
             case 4:
-                if(Grid.isInGame(mouseX, mouseY)){
+                if(Grid.isInGame(mouseX, mouseY) && !game.isPlant(Grid.yToRow(mouseY), Grid.xToCol(mouseX))){
                     if(game.getSun()>=50){
                     game.plantWalnut(mouseX,mouseY);
                     game.changeSun(-50);
@@ -200,7 +210,13 @@ public class Inventory{
                 }
                 selectedState = 0;
                 break;
-
+                case 5:
+                    if(Grid.isInGame(mouseX, mouseY)){
+                        game.removePlant(Grid.yToRow(mouseY),Grid.xToCol(mouseX));
+                    }
+                    selectedState = 0;
+                    isHolding = false;
+                    break;
         }      
     }
 
@@ -211,12 +227,19 @@ public class Inventory{
             g.drawImage(peashooterSeedSlot,56+181,8, null);
             g.drawImage(potatoMineSeedSlot,56+253,8, null);
             g.drawImage(walnutSeedSlot,56+325,8, null);
+            g.drawImage(shovelImage, 464, 0, null);
+            if(!isHolding){
+                g.drawImage(shovelOnlyImage, 480,10,null);
+            }
             sunAmount.draw(g);
             g.setColor(Color.BLACK);
             g.fillRect(850,755,progressBarWidth, 25);
             g.setColor(new Color(75,190,68));
             g.fillRect(850, 755, progress-10, 25);
             g.drawImage(zombieHead, 820+progress,745,null);
+            if(isHolding){
+                g.drawImage(shovelOnlyImage, mouseX-20, mouseY-20, null);
+            }
         }
     }
 }

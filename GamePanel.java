@@ -22,6 +22,7 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
     Iterator<Pea> peaIterator;
     public BufferedImage gameBackground;
     public static final int PEA_DAMAGE = 20;
+    boolean success = false;
     Iterator<Zombie> zombieIterator;
     Iterator<Peashooter> peashooterIterator;
     Iterator<Sun> sunIterator;
@@ -817,11 +818,75 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
     public void mouseExited(MouseEvent e) {
     }
 
+    public boolean isPlant(int row, int col){
+        while(true){
+            try{
+                for(Peashooter p : peashooterList.get(row-1)){
+                    if(p.getCol()==col){
+                        return true;
+                    }
+                }
+                for(Sunflower s : sunflowerList.get(row-1)){
+                    if(s.getCol()==col){
+                        return true;
+                    }
+                }
+                for(PotatoMine p : potatoMineList.get(row-1)){
+                    if(p.getCol()==col){
+                        return true;
+                    }
+                }
+                for(Walnut w : walnutList.get(row-1)){
+                    if(w.getCol()==col){
+                        return true;
+                    }
+                }
+                break;
+            }
+            catch(Exception e){
+            }
+        }
+        return false;
+    }
+
     public void addSun(Sun s) {
         sunListAdd.add(s);
     }
     public int getDifficulty(){
         return difficulty;
+    }
+    public void removePlant(int row, int col){
+        while(true){
+            try{
+                for(Peashooter p : peashooterList.get(row-1)){
+                    if(p.getCol()==col){
+                        peashooterListRemove.get(row-1).add(p);
+                        break;
+                    }
+                }
+                for(Sunflower s : sunflowerList.get(row-1)){
+                    if(s.getCol()==col){
+                        sunflowerListRemove.get(row-1).add(s);
+                        break;
+                    }
+                }
+                for(PotatoMine p : potatoMineList.get(row-1)){
+                    if(p.getCol()==col){
+                        potatoMineListRemove.get(row-1).add(p);
+                        break;
+                    }
+                }
+                for(Walnut w : walnutList.get(row-1)){
+                    if(w.getCol()==col){
+                        walnutListRemove.get(row-1).add(w);
+                        break;
+                    }
+                }
+                break;
+            }
+            catch(Exception e){
+            }
+        }
     }
 
 }
