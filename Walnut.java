@@ -8,7 +8,9 @@ public class Walnut extends Plant {
 
     public final int WALNUT_DURABILITY = 1500;
     GamePanel game;
-    BufferedImage walnutImage;
+    BufferedImage walnutSprite1;
+    BufferedImage walnutSprite2;
+    BufferedImage walnutSprite3;
     boolean isAlive = true;
     int xOffset = 40;
     int yOffset = 40;
@@ -27,14 +29,25 @@ public class Walnut extends Plant {
 
     public void loadImage() {
         try {
-            walnutImage = ImageIO.read(getClass().getResource("Images\\walnutt2.png"));
+            walnutSprite1 = ImageIO.read(getClass().getResource("Images\\walnutt1.png"));
+            walnutSprite2 = ImageIO.read(getClass().getResource("Images\\walnutDamagedt1.png"));
+            walnutSprite3 = ImageIO.read(getClass().getResource("Images\\walnutDamagedt2.png"));
         } catch (IOException e) {
 
         }
     }
 
     public void draw(Graphics g) {
-        g.drawImage(walnutImage, Grid.colToX(column), Grid.rowToY(row), null);
+        if(durability >= 1000) {
+            //not damaged
+            g.drawImage(walnutSprite1, Grid.colToX(column), Grid.rowToY(row), null);
+        } else if(durability >= 500) {
+            //slightly damaged
+            g.drawImage(walnutSprite2, Grid.colToX(column), Grid.rowToY(row), null);
+        } else {
+            //very damaged
+            g.drawImage(walnutSprite3, Grid.colToX(column), Grid.rowToY(row), null);
+        }
     }
 
     public void die() {

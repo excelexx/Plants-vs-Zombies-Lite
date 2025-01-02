@@ -374,6 +374,7 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
                         if(z.getXEat()>=tempPea.getPosX()-20 && z.getXEat()<= tempPea.getPosX()+10){
                             peaListRemove.get(i).add(tempPea);
                             z.peaDamage();
+                            tempPea.showPeaSplat = true;
                             Sound.playSingleSound("Sounds\\pea shooter sound effects 1# - Made with Clipchamp.wav", 0);
                             break;
                         }
@@ -385,9 +386,15 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
                     tempPotatoMine = potatoMineIterator.next();
                     if(tempPotatoMine.isArmed()){
                         for(Zombie z : zombieList.get(i)){
+                            if(z.getXEat() - tempPotatoMine.getPosX() <= 51){
+                                //Show explosion 
+                                tempPotatoMine.showExplosion = true;
+                                Sound.playSingleSound("Sounds\\Potato Mine Explosion - Plants vs Zombies Sound Effect - Made with Clipchamp.wav", 0);
+                            }
                             if(z.getXEat()>= tempPotatoMine.getXEat()+10 && z.getXEat()<=tempPotatoMine.getXEat()+70){
                                 z.potatoMineDamage();
                                 potatoMineListRemove.get(i).add(tempPotatoMine);
+                                tempPotatoMine.showExplosion = true;
                             }
                         }
                     }
@@ -583,19 +590,23 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
 
     public void addAndRemove(){
         for (int i = 0; i < 5; i++) {
-            for (Pea pea : peaListAdd.get(i)) {
-                peaList.get(i).add(pea);
+            for (Walnut walnut : walnutListAdd.get(i)){
+                walnutList.get(i).add(walnut);
             }
-            //System.out.println(zombieListAdd.get(i).size());
-            for (Zombie zombie : (zombieListAdd.get(i))) {
-                zombieList.get(i).add(zombie);
-                //System.out.println("added");
+            for (PotatoMine potatoMine : potatoMineListAdd.get(i)){
+                potatoMineList.get(i).add(potatoMine);
             }
             for (Peashooter peashooter : peashooterListAdd.get(i)) {
                 peashooterList.get(i).add(peashooter);
             }
             for (Sunflower sunflower : sunflowerListAdd.get(i)){
                 sunflowerList.get(i).add(sunflower);
+            }
+            for (Zombie zombie : (zombieListAdd.get(i))) {
+                zombieList.get(i).add(zombie);
+            }
+            for (Pea pea : peaListAdd.get(i)) {
+                peaList.get(i).add(pea);
             }
             for (Pea pea : peaListRemove.get(i)) {
                 peaList.get(i).remove(pea);
@@ -612,14 +623,8 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
             for (Walnut walnut : walnutListRemove.get(i)){
                 walnutList.get(i).remove(walnut);
             }
-            for (Walnut walnut : walnutListAdd.get(i)){
-                walnutList.get(i).add(walnut);
-            }
             for (PotatoMine potatoMine : potatoMineListRemove.get(i)){
                 potatoMineList.get(i).remove(potatoMine);
-            }
-            for (PotatoMine potatoMine : potatoMineListAdd.get(i)){
-                potatoMineList.get(i).add(potatoMine);
             }
         }
         for (Sun sun : sunListAdd){

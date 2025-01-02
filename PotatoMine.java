@@ -10,14 +10,16 @@ public class PotatoMine extends Plant {
     GamePanel game;
     BufferedImage unarmedPotatoMineImage;
     BufferedImage armedPotatoMineImage;
+    BufferedImage explodedPotatoMineImage;
     boolean isAlive = true;
     int xOffset = 40;
     int yOffset = 40;
     int spriteCounter = 0;
     boolean isArmed;
-    boolean isExploded;
     Thread walnutThread;
     int spriteToggle = 1;
+    boolean showExplosion = false;
+    int positionX;
 
     PotatoMine(int col, int rw, GamePanel gme) {
         super(col, rw, 100, gme);
@@ -29,14 +31,14 @@ public class PotatoMine extends Plant {
         loadImage();
         isArmed = false;
         startTimer();
-
+        positionX = Grid.colToX(col) + xOffset;
     }
 
     public void startTimer(){
         walnutThread = new Thread(new Runnable(){
             public void run(){
                 try{
-                    Thread.sleep(1000);
+                    Thread.sleep(2500);
                     arm();
                 }
                 catch(Exception e){
@@ -50,17 +52,20 @@ public class PotatoMine extends Plant {
         try {
             unarmedPotatoMineImage = ImageIO.read(getClass().getResource("Images\\unarmedPotatoMineImage.png"));
             armedPotatoMineImage = ImageIO.read(getClass().getResource("Images\\armedPotatoMineImage.png"));
+            explodedPotatoMineImage = ImageIO.read(getClass().getResource("Images\\explodedPotatoMineImaget1.png"));
         } catch (IOException e) {
 
         }
     }
 
     public void draw(Graphics g) {
-        if(isArmed){
-            g.drawImage(armedPotatoMineImage, Grid.colToX(column), Grid.rowToY(row), null);
-        }
-        else{
+        if(!isArmed){
             g.drawImage(unarmedPotatoMineImage, Grid.colToX(column), Grid.rowToY(row), null);
+        }
+        else if(!showExplosion){
+            g.drawImage(armedPotatoMineImage, Grid.colToX(column), Grid.rowToY(row), null);
+        } else {
+            g.drawImage(explodedPotatoMineImage, Grid.colToX(column), Grid.rowToY(row), null);
         }
     }
 
@@ -73,11 +78,12 @@ public class PotatoMine extends Plant {
     public void arm(){
         isArmed = true;
     }
-    public void explode(){
-        isExploded = true;
-        die();
-    }
+
     public boolean isArmed(){
         return isArmed;
+    }
+
+    public int getPosX() {
+        return positionX;
     }
 }

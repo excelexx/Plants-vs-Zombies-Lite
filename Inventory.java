@@ -40,9 +40,9 @@ public class Inventory{
             peashooterSeedSlot = ImageIO.read(getClass().getResource("/Images/peashooterSeedSlot.png"));
             potatoMineSeedSlot = ImageIO.read(getClass().getResource("/Images/potatoMineSeedSlot.png"));
             walnutSeedSlot = ImageIO.read(getClass().getResource("/Images/walnutSeedSlot.png"));
-            zombieHead = ImageIO.read(getClass().getResource("/Images/zombieHead.png"));
-            shovelImage = ImageIO.read(getClass().getResource("/Images/shovelImage.png"));
-            shovelOnlyImage = ImageIO.read(getClass().getResource("/Images/shovelOnlyImage.png"));
+            zombieHead = ImageIO.read(getClass().getResource("/Images/zombieHeadt1.png"));
+            shovelImage = ImageIO.read(getClass().getResource("/Images/shovelFramet1.png"));
+            shovelOnlyImage = ImageIO.read(getClass().getResource("/Images/shovelt1.png"));
 
         }
         catch(IOException e){
@@ -232,10 +232,14 @@ public class Inventory{
                 g.drawImage(shovelOnlyImage, 480,10,null);
             }
             sunAmount.draw(g);
+            
+            g.setColor(new Color(139, 69, 19)); 
+            g.fillRoundRect(845, 750, progressBarWidth + 10, 35, 15, 15);
             g.setColor(Color.BLACK);
-            g.fillRect(850,755,progressBarWidth, 25);
-            g.setColor(new Color(75,190,68));
-            g.fillRect(850, 755, progress-10, 25);
+            g.fillRect(850, 755, progressBarWidth, 25);  
+            g.setColor(new Color(75, 190, 68));
+            g.fillRect(850, 755, progress - 10, 25); 
+
             g.drawImage(zombieHead, 820+progress,745,null);
             if(isHolding){
                 g.drawImage(shovelOnlyImage, mouseX-20, mouseY-20, null);
