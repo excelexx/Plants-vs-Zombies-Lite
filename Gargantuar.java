@@ -34,11 +34,11 @@ public class Gargantuar extends Zombie{
         if (gargantuarSprite1 != null) {
 
             spriteCounter++;
-            if(spriteCounter <= 50) {
+            if(spriteCounter <= 40) {
                 spriteToggle = 1;
-            } else if (spriteCounter <= 100) {
+            } else if (spriteCounter <= 80) {
                 spriteToggle = 2;
-            } else if (spriteCounter > 100) {
+            } else if (spriteCounter > 80) {
                 spriteCounter = 0;
             }
 
