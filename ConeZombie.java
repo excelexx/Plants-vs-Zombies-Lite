@@ -18,7 +18,6 @@ public class ConeZombie extends RegularZombie{
     BufferedImage zombieWalkingSprite2;
     BufferedImage zombieEatingSprite1;
     BufferedImage zombieEatingSprite2;
-    BufferedImage zombieDeadSprite;
     int spriteCounter = 0;
     int spriteToggle = 1;
 
@@ -47,7 +46,6 @@ public class ConeZombie extends RegularZombie{
             zombieWalkingSprite2 = ImageIO.read(getClass().getResource("Images\\regularZombieWalkingt2.1.png"));
             zombieEatingSprite1 = ImageIO.read(getClass().getResource("Images\\regularZombieEatingt1.1.png"));
             zombieEatingSprite2 = ImageIO.read(getClass().getResource("Images\\regularZombieEatingt2.1.png"));
-            zombieDeadSprite = ImageIO.read(getClass().getResource("Images\\regularZombieDeadt1.1.png"));
         } catch (IOException e) {
         }
     }
@@ -88,7 +86,6 @@ public class ConeZombie extends RegularZombie{
                 spriteToggle += 8;
             } else {
                 //dead zombie
-                spriteToggle = 13;
             }
 
             if(spriteToggle == 1) {
@@ -126,9 +123,6 @@ public class ConeZombie extends RegularZombie{
             }
             if(spriteToggle == 12) {
                 g.drawImage(zombieEatingSprite2, positionX, positionY, null);
-            }
-            if(spriteToggle == 13) {
-                g.drawImage(zombieDeadSprite, positionX, positionY, null);
             }
         }
     }
