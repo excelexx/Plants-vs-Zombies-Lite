@@ -7,10 +7,6 @@ import javax.imageio.ImageIO;
 public class Inventory{
     int positionX;
     BufferedImage inventoryImage;
-    BufferedImage sunflowerSeedSlot;
-    BufferedImage peashooterSeedSlot;
-    BufferedImage potatoMineSeedSlot;
-    BufferedImage walnutSeedSlot;
     BufferedImage zombieHead;
     BufferedImage shovelImage;
     BufferedImage shovelOnlyImage;
@@ -22,7 +18,7 @@ public class Inventory{
     boolean isHolding = false;
     Thread colorThread;
     GamePanel game;
-    Message sunAmount = new Message(27+56,  87+23, 50, 50, "50", 30);
+    Message sunAmount = new Message(34+40,  87+10, 50, 50, "50", 20);
     int progress;
     int progressBarWidth=200;
     int totalProgress;
@@ -36,10 +32,6 @@ public class Inventory{
     public void loadImage(){
         try{
             inventoryImage = ImageIO.read(getClass().getResource("/Images/inventoryImage.png"));
-            sunflowerSeedSlot = ImageIO.read(getClass().getResource("/Images/sunflowerSeedSlot.png"));
-            peashooterSeedSlot = ImageIO.read(getClass().getResource("/Images/peashooterSeedSlot.png"));
-            potatoMineSeedSlot = ImageIO.read(getClass().getResource("/Images/potatoMineSeedSlot.png"));
-            walnutSeedSlot = ImageIO.read(getClass().getResource("/Images/walnutSeedSlot.png"));
             zombieHead = ImageIO.read(getClass().getResource("/Images/zombieHeadt1.png"));
             shovelImage = ImageIO.read(getClass().getResource("/Images/shovelFramet1.png"));
             shovelOnlyImage = ImageIO.read(getClass().getResource("/Images/shovelt1.png"));
@@ -61,10 +53,10 @@ public class Inventory{
             if(56+107<mouseX && mouseX< 56+107+71 && 8<mouseY && mouseY<108){
                 state = 1;
             }
-            else if(56+181<mouseX && mouseX<56+181+71&& 8<mouseY && mouseY<108){
+            else if(56+181<mouseX && mouseX<56+170+71&& 8<mouseY && mouseY<108){
                 state = 2;
             }
-            else if(56+253<mouseX && mouseX<56+253+71 && 8<mouseY && mouseY<108){
+            else if(56+245<mouseX && mouseX<56+253+71 && 8<mouseY && mouseY<108){
                 state = 3;
             }
             else if(56+325 < mouseX && mouseX<56+325+71 && 8<mouseY && mouseY<108){
@@ -223,10 +215,6 @@ public class Inventory{
     public void draw(Graphics g){
         if(inventoryImage != null){
             g.drawImage(inventoryImage,56,0, null);
-            g.drawImage(sunflowerSeedSlot,56+108,8, null);
-            g.drawImage(peashooterSeedSlot,56+181,8, null);
-            g.drawImage(potatoMineSeedSlot,56+253,8, null);
-            g.drawImage(walnutSeedSlot,56+325,8, null);
             g.drawImage(shovelImage, 464, 0, null);
             if(!isHolding){
                 g.drawImage(shovelOnlyImage, 480,10,null);
