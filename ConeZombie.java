@@ -6,7 +6,6 @@ import javax.imageio.ImageIO;
 
 public class ConeZombie extends RegularZombie{
     //declaring all variables
-    int firstDurability;
     BufferedImage coneZombieWalkingSprite1;
     BufferedImage coneZombieWalkingSprite2;
     BufferedImage coneZombieEatingSprite1;
