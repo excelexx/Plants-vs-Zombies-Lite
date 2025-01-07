@@ -15,6 +15,9 @@ public class Sound {
     static boolean playingZombieGroans = false;
     static boolean playingEatingSounds = false;
 
+    public void setVolume(int v){
+        volume = v;
+    }
     public static Clip playSingleSound(String location, float volume) {
         try{
             File musicPath = new File(location);

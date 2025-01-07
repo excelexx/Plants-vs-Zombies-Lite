@@ -48,6 +48,14 @@ public class Menu extends JPanel{
             loadImage();
             Sound.playSingleSound("Sounds\\Hover Click (Minecraft Sound) - Sound Effect for editing.wav - Made with Clipchamp.wav", 0);
         }
+
+        public static void endGame(){
+            buttonState = 0;
+            stillHovering = false;
+            signState = 0;
+            mouseClickedX = -1;
+            mouseClickedY = -1;
+        }
         
         //loads all images
         public void loadImage() {

@@ -62,7 +62,7 @@ public class SoundTrack {
         if (!GamePanel.isRunning) {
             // Menu soundtrack
             soundtrackList.add("Soundtracks\\Plants vs Zombies Soundtrack. [Main Menu].wav");
-        } else {
+        } else if(GamePanel.difficulty == 1){
             // In-game soundtrack
             soundtrackList.add("Soundtracks\\Plants vs Zombies Soundtrack. [Day Stage].wav");
             soundtrackList.add("Soundtracks\\Plants vs Zombies Soundtrack. [Night Stage].wav");
@@ -73,7 +73,14 @@ public class SoundTrack {
             soundtrackList.add("Soundtracks\\Plants vs Zombies Music - Night Time in Front Yard (Horde).wav");
             soundtrackList.add("Soundtracks\\Plants VS. Zombies Music_ Ultimate Battle.wav");
             soundtrackList.add("Soundtracks\\Plants vs Zombies Soundtrack. [Zomboss Stage].wav");
+        } else{
+            //jazzy soundtrack
+            soundtrackList.add("Soundtracks\\Graze The Roof Jazz.wav");
+            soundtrackList.add("Soundtracks\\Grasswalk and Moongrains Jazz.wav");
+            soundtrackList.add("Soundtracks\\Loonboon Jazz.wav");
+            soundtrackList.add("Soundtracks\\Battle For Brains Jazz.wav");
         }
+
         length = soundtrackList.size();
     }
 

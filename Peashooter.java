@@ -45,6 +45,7 @@ public class Peashooter extends Plant {
     public void move() {
         if (isZombie && isAlive && (peaThread == null || !peaThread.isAlive())) {
             peaThread = new Thread(new Runnable() {
+                @Override
                 public void run() {
                     try {
                         Thread.sleep(2000);
@@ -65,6 +66,7 @@ public class Peashooter extends Plant {
 
     }
 
+    @Override
     public void draw(Graphics g) {
         if (peashooterSprite1 != null) {
 
@@ -105,9 +107,11 @@ public class Peashooter extends Plant {
         isZombie = false;
     }
 
+    @Override
     public void die() {
         isAlive = false;
     }
+    @Override
     public String toString(){
         return durability+"";
     }

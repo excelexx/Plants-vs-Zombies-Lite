@@ -1,4 +1,6 @@
-//imports
+//Alexander Zhang and Stanley Zhou
+//2024-12-17
+//Code for the gameframe class that defines information about the window
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
