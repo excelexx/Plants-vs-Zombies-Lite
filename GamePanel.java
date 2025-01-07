@@ -385,6 +385,7 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
                 while(potatoMineIterator.hasNext()){
                     tempPotatoMine = potatoMineIterator.next();
                     if(tempPotatoMine.isArmed()){
+                        
                         for(Zombie z : zombieList.get(i)){
                             if(z.getXEat() - tempPotatoMine.getPosX() <= 51){
                                 //Show explosion 
@@ -400,6 +401,7 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
                                 tempPotatoMine.showExplosion = true;
                             }
                         }
+
                     }
                 }
 
