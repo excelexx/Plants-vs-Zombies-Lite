@@ -5,23 +5,21 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 public class Inventory{
-    int positionX;
-    BufferedImage inventoryImage;
-    BufferedImage zombieHead;
-    BufferedImage shovelImage;
-    BufferedImage shovelOnlyImage;
-    int positionY;
-    int state;
-    int selectedState;
-    int mouseX;
-    int mouseY;
-    boolean isHolding = false;
-    Thread colorThread;
-    GamePanel game;
-    Message sunAmount = new Message(34+40,  87+10, 50, 50, "50", 20);
-    int progress;
-    int progressBarWidth=200;
-    int totalProgress;
+    private BufferedImage inventoryImage;
+    private BufferedImage zombieHead;
+    private BufferedImage shovelImage;
+    private BufferedImage shovelOnlyImage;
+    private int state;
+    private int selectedState;
+    private int mouseX;
+    private int mouseY;
+    private boolean isHolding = false;
+    private Thread colorThread;
+    private GamePanel game;
+    private Message sunAmount = new Message(34+40,  87+10, 50, 50, "50", 20);
+    private int progress;
+    private int progressBarWidth=200;
+    private int totalProgress;
 
     Inventory(GamePanel gme){
         game = gme;

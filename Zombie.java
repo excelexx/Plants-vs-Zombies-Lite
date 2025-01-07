@@ -10,12 +10,9 @@ import java.awt.Rectangle;
 public class Zombie extends Rectangle{
     //declares all variables
     int durability;
-    int damage;
     int positionX;
     int row;
-    int column;
     int positionY;
-    GamePanel game;
     int speed;
     int state = 1;
     int xOffsetCenter;
@@ -27,7 +24,6 @@ public class Zombie extends Rectangle{
         super(GamePanel.GAME_WIDTH,Grid.rowToY(rw),110,110);
         row = rw;
         durability = dur;
-        game = gme;
         positionX = GamePanel.GAME_WIDTH;
         positionY = Grid.rowToY(row) - 35 + (int)(Math.random() * -6 + 3);
     }

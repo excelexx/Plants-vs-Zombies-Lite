@@ -11,7 +11,6 @@ public class RegularZombie extends Zombie {
     BufferedImage zombieWalkingSprite2;
     BufferedImage zombieEatingSprite1;
     BufferedImage zombieEatingSprite2;
-    BufferedImage zombieDeadSprite;
     int spriteCounter = 0;
     int spriteToggle = 1;
     int offsetY = 30;
@@ -34,7 +33,6 @@ public class RegularZombie extends Zombie {
             zombieWalkingSprite2 = ImageIO.read(getClass().getResource("Images\\regularZombieWalkingt2.1.png"));
             zombieEatingSprite1 = ImageIO.read(getClass().getResource("Images\\regularZombieEatingt1.1.png"));
             zombieEatingSprite2 = ImageIO.read(getClass().getResource("Images\\regularZombieEatingt2.1.png"));
-            zombieDeadSprite = ImageIO.read(getClass().getResource("Images\\regularZombieDeadt1.1.png"));
         } catch (IOException e) {
 
         }
@@ -47,7 +45,6 @@ public class RegularZombie extends Zombie {
             spriteCounter++;
             if (durability <= 0) {
                 //dead
-                spriteToggle = 5;
             } else {
                 if (isStopped) {
                     //display eating
@@ -82,9 +79,6 @@ public class RegularZombie extends Zombie {
             }
             if (spriteToggle == 4) {
                 g.drawImage(zombieEatingSprite2, positionX, positionY, null);
-            }
-            if (spriteToggle == 5) {
-                g.drawImage(zombieDeadSprite, positionX, positionY, null);
             }
         }
     }

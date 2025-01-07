@@ -10,7 +10,7 @@ import javax.swing.*;
 public class GameFrame extends JFrame {
 
     //creates a new GamePanel
-    GamePanel panel;
+    private GamePanel panel;
 
     public GameFrame() {
         panel = new GamePanel(); //runs GamePanel constructor
