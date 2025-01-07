@@ -437,15 +437,11 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
                 potatoMineIterator = potatoMineList.get(i).iterator();
                 while (potatoMineIterator.hasNext()) {
                     tempPotatoMine = potatoMineIterator.next();
-                    if(tempPotatoMine.isArmed()){
-                        
-                        for(Zombie z : zombieList.get(i)){
-                            if(z.getXEat() - tempPotatoMine.getPosX() <= 51){
+                    if (tempPotatoMine.isArmed()) {
+                        for (Zombie z : zombieList.get(i)) {
+                            if (z.getXEat() - tempPotatoMine.getPosX() <= 51) {
                                 //Show explosion 
                                 tempPotatoMine.showExplosion = true;
-                            }
-                            if(z.getXEat() - tempPotatoMine.getPosX() <= 50){
-                                //play explosion 
                                 Sound.playSingleSound("Sounds\\Potato Mine Explosion - Plants vs Zombies Sound Effect - Made with Clipchamp.wav", 0);
                             }
                             if (z.getXEat() >= tempPotatoMine.getXEat() + 10 && z.getXEat() <= tempPotatoMine.getXEat() + 70) {
@@ -454,7 +450,6 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
                                 tempPotatoMine.showExplosion = true;
                             }
                         }
-
                     }
                 }
 
@@ -730,11 +725,19 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
                 move();
                 try {
                     checkCollision();
+                } catch (Exception e) {
                 }
-                catch(Exception e){
+                //Sound.playZombieGroans();
+                while(true){
+                    try{
+                        addAndRemove();
+                        break;
+                    }
+                    catch(Exception e){
+
+                    }
                 }
-                Sound.playZombieGroans();
-                addAndRemove();
+                
                 repaint();
                 delta--;
             }
