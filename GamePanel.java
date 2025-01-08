@@ -1,5 +1,5 @@
 //Alexander Zhang and Stanley Zhou
-//2024-12-17
+//2025-01-09
 //Code for the GamePanel class that controls all the game logic and collisions`
 
 //imports
@@ -38,7 +38,6 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
     int mouseClickedY;
     int mouseClickedX;
     Pea tempPea;
-
     public static boolean isRunning = false;
     boolean exists;
     public static Menu menu = new Menu();
@@ -71,7 +70,7 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
     public static ArrayList<ArrayList<PotatoMine>> potatoMineListRemove = new ArrayList<>();
     public static int[] furthestZombies = new int[5];
     Iterator<Sunflower> sunflowerIterator;
-    public static int sunCount = 50;
+    public static int sunCount = 50000;
     public boolean zombiesAllDead = true;
     Zombie secondTempZombie;
     public static Thread zombieSpawnThread;
@@ -95,14 +94,13 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
 
     //Constructor for gamepanel class 
     public GamePanel() {
-
+        //loading all images
         loadImage();
         this.setFocusable(true); //make everything in this class appear on the screen
         this.addKeyListener(this); //starts listening for keyboard input
         this.addMouseListener(this);
         inventory = new Inventory(this);
         //adds mouselistener
-        
         addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
@@ -113,6 +111,7 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
                 }
             }
 
+            //overriding mousereleased method
             @Override
             public void mouseReleased(MouseEvent e) {
 
@@ -136,9 +135,9 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
         //runs a new thread to allow classes to run simultaneously
         gameThread = new Thread(this);
         gameThread.start();
-
+        //initializes soundtrack
         SoundTrack.setUp();
-
+        //initializes all arraylists
         for (int i = 0; i < 5; i++) {
             peaList.add(new ArrayList<>());
             zombieList.add(new ArrayList<>());
@@ -188,11 +187,12 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
     //calls the draw methods in each class to update positions as things move
     public void draw(Graphics g) {
         if (isRunning) {
-
+            //draws stuff if game is running
             if (!gameEnded) {
                 if (gameBackground != null) {
                     g.drawImage(gameBackground, 0, 0, GAME_WIDTH, GAME_HEIGHT, null);
                 }
+                //draws plants and zombies
                 for (int i = 0; i < 5; i++) {
                     for (Pea pea : new ArrayList<>(peaList.get(i))) {
                         pea.draw(g);
@@ -213,12 +213,14 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
                         potatoMine.draw(g);
                     }
                 }
+                //draws inventory
                 inventory.draw(g);
+                //draws sun
                 for (Sun sun : new ArrayList<>(sunList)) {
                     sun.draw(g);
                 }
             }
-
+            //draws endscreens depending on if the player lost or won
             if (gameEnded && !isLost) {
                 if (350 <= mouseX && mouseX <= 350 + 167 && 631 <= mouseY && mouseY <= 631 + 73) {
                     g.drawImage(gameBackground, 0, 0, GAME_WIDTH, GAME_HEIGHT, null);
@@ -244,6 +246,7 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
 
             }
         } else {
+            //draws the main menu
             Menu.draw(g);
         }
     }
@@ -252,8 +255,10 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
     public void move() {
         if (isRunning && !gameEnded) {
             if (zombiesAllDead) {
+                //spawns zombies once all zombies have died
                 spawnZombie();
             }
+            //makes peas and zombies move
             for (int i = 0; i < 5; i++) {
                 for (Pea pea : peaList.get(i)) {
                     pea.move();
@@ -274,18 +279,22 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
                     potatoMine.move();
                 }
             }
+            //makes sun move
             for (Sun sun : sunList) {
                 sun.move();
             }
+            //makes inventory move
             inventory.move();
 
         }
         if (!hasStartedSun && !gameEnded) {
+            //spawns sun
             spawnSun();
         }
 
     }
 
+    //spawns sun
     public void spawnSun() {
         if (isRunning && (sunThread == null || !sunThread.isAlive())) {
             sunThread = new Thread(new Runnable() {
@@ -293,6 +302,7 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
                 @SuppressWarnings("UseSpecificCatch")
                 public void run() {
                     try {
+                        //spawns sun at random intervals using a thread
                         Thread.sleep((int) (Math.random() * /* 10000 + 6000*/ 5000));
                         addSun(new Sun((int) (Math.random() * (GAME_WIDTH - 100) + 50), (int) (Math.random() * (GAME_HEIGHT - 300) + 50), GamePanel.this));
                         sunThread.interrupt();
@@ -305,6 +315,7 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
         }
     }
 
+    //spawns zombies
     public void spawnZombie() {
         if (levelProgressState < zombieSpawnList[difficulty - 1][0].length-1 && isRunning
                 && (zombieSpawnThread == null || !zombieSpawnThread.isAlive())) {
@@ -341,7 +352,7 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
                                 RegularZombie zombie = new RegularZombie(tempInt, GamePanel.this);
                                 zombieListAdd.get(tempInt - 1).add(zombie);
                             }
-                            Thread.sleep((int) (Math.random() * 1000 + 1000));
+                            Thread.sleep((int) (Math.random() * 5000 + 1000));
                         }
 
                         // Spawn Cone Zombies
@@ -351,7 +362,7 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
                                 ConeZombie zombie = new ConeZombie(tempInt, GamePanel.this);
                                 zombieListAdd.get(tempInt - 1).add(zombie);
                             }
-                            Thread.sleep((int) (Math.random() * 1000 + 1000));
+                            Thread.sleep((int) (Math.random() * 5000 + 1000));
                         }
 
                         // Spawn Gargantuars
@@ -361,7 +372,7 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
                                 Gargantuar zombie = new Gargantuar(tempInt, GamePanel.this);
                                 zombieListAdd.get(tempInt - 1).add(zombie);
                             }
-                            Thread.sleep((int) (Math.random() * 1000 + 1000));
+                            Thread.sleep((int) (Math.random() * 5000 + 1000));
                         }
 
                         // Advance level progress
@@ -383,13 +394,14 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
                     e.printStackTrace(); // Log the exception for debugging
                 }
             });
-
+            //starts zombie thread
             zombieSpawnThread.start();
         }
     }
 
     //handles all collision detection and responds accordingly
     public void checkCollision() {
+        //finds the furthest zombie
         for (int i = 0; i < 5; i++) {
             if (zombieList.get(i).isEmpty()) {
                 furthestZombies[i] = -1;
@@ -404,6 +416,7 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
             furthestZombies[i] = minimum;
         }
 
+        //if the furthest zombie is at house, ends game
         for (int i = 0; i < 5; i++) {
             if (furthestZombies[i] != -1) {
                 if (zombieList.get(i).get(furthestZombies[i]).getXEat() <= 0) {
@@ -417,29 +430,29 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
 
                 }
 
+                //handles pea collisions with zombies
                 tempZombie = zombieList.get(i).get(furthestZombies[i]);
                 peaIterator = peaList.get(i).iterator();
                 while (peaIterator.hasNext()) {
                     tempPea = peaIterator.next();
                     for (Zombie z : zombieList.get(i)) {
-                        if (z.getXPosition() - tempPea.getPosX() <= 5) {
-                            peaListRemove.get(i).add(tempPea);                 
-                        }
                         if (z.getXEat() >= tempPea.getPosX() - 20 && z.getXEat() <= tempPea.getPosX() + 10) {
+                            
                             peaListRemove.get(i).add(tempPea);
                             z.peaDamage();
-                            Sound.playSingleSound("Sounds\\pea shooter sound effects 1# - Made with Clipchamp.wav", 0);
+                            Sound.playSingleSound("Sounds\\pea shooter sound effects 1# - Made with Clipchamp.wav", 30);
                             break;
                         }
                     }
                 }
 
+                //checks if potato mine has been stepped on
                 potatoMineIterator = potatoMineList.get(i).iterator();
                 while (potatoMineIterator.hasNext()) {
                     tempPotatoMine = potatoMineIterator.next();
                     if (tempPotatoMine.isArmed()) {
                         for (Zombie z : zombieList.get(i)) {
-                            if(!tempPotatoMine.showExplosion){
+                            //if(!tempPotatoMine.showExplosion){
                                 if (z.getXEat() - tempPotatoMine.getPosX() <= 51) {
                                     //show explosion
                                     tempPotatoMine.showExplosion = true;
@@ -453,11 +466,12 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
                                     potatoMineListRemove.get(i).add(tempPotatoMine);
                                     tempPotatoMine.showExplosion = true;
                                 }
-                            }                            
+                            //}                            
                         }
                     }
                 }
 
+                //if a zombie has no durability, it kills the zombie
                 if (tempZombie.getDurability() <= 0) {
                     zombieIterator = zombieList.get(i).iterator();
                     while (zombieIterator.hasNext()) {
@@ -475,6 +489,7 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
                 }
 
             }
+            //handles collisions between peashooters and zombies
             peashooterIterator = peashooterList.get(i).iterator();
             while (peashooterIterator.hasNext()) {
                 tempPeashooter = peashooterIterator.next();
@@ -482,7 +497,7 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
                     tempPeashooter.noZombie();
                     continue;
                 }
-                if (tempPeashooter.getDurability() <= 0) {
+                if (tempPeashooter.getDurability() <= 0) {//removes peashooters if they are dead
                     peashooterListRemove.get(i).add(tempPeashooter);
                     tempPeashooter.die();
                 } else {
@@ -498,6 +513,7 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
                 }
             }
 
+            //iterates through all plants to determine if a zombie is eating them
             zombieIterator = zombieList.get(i).iterator();
             while (zombieIterator.hasNext()) {
                 exists = false;
@@ -525,6 +541,7 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
                             }
                         }
                     }
+                    //iterates through sunflowers to see if they are being eaten
                     sunflowerIterator = sunflowerList.get(i).iterator();
                     while (sunflowerIterator.hasNext()) {
                         tempSunflower = sunflowerIterator.next();
@@ -545,6 +562,7 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
                             }
                         }
                     }
+                    //iterates through walnuts to see if they are being eaten
                     walnutIterator = walnutList.get(i).iterator();
                     while (walnutIterator.hasNext()) {
                         tempWalnut = walnutIterator.next();
@@ -565,6 +583,7 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
                             }
                         }
                     }
+                    //iterates through potato mines to see if they are being eaten
                     potatoMineIterator = potatoMineList.get(i).iterator();
                     while (potatoMineIterator.hasNext()) {
                         tempPotatoMine = potatoMineIterator.next();
@@ -585,12 +604,13 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
                         }
                     }
                     if (!exists) {
+                        //if there is no plant in front of it, the zombie moves forward
                         tempZombie.go();
                     }
                 }
             }
 
-            //sunflower iterator
+            //removes sunflowers once they die
             sunflowerIterator = sunflowerList.get(i).iterator();
             while (sunflowerIterator.hasNext()) {
                 tempSunflower = sunflowerIterator.next();
@@ -599,6 +619,8 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
                     tempSunflower.die();
                 }
             }
+            
+            //removes walnuts once they die
             walnutIterator = walnutList.get(i).iterator();
             while (walnutIterator.hasNext()) {
                 tempWalnut = walnutIterator.next();
@@ -607,6 +629,7 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
                     tempWalnut.die();
                 }
             }
+            //removes potatomines  once they die
             potatoMineIterator = potatoMineList.get(i).iterator();
             while (potatoMineIterator.hasNext()) {
                 tempPotatoMine = potatoMineIterator.next();
@@ -617,6 +640,7 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
             }
         }
 
+        //removes sun once they are clicked
         sunIterator = sunList.iterator();
         while (sunIterator.hasNext()) {
             Sun tempSun = sunIterator.next();
@@ -626,6 +650,7 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
             }
         }
 
+        //checks if all the zombies have died
         zombiesAllDead = true;
         for (int i = 0; i < 5; i++) {
             if (!zombieList.get(i).isEmpty()) {
@@ -634,10 +659,12 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
             }
         }
     }
-    //makes game run constantly, 
 
+    //everything is added into a seperate array and then added and removed later
     public void addAndRemove() {
+        //iterates through all lanes
         for (int i = 0; i < 5; i++) {
+            //adds everything to be added into the necessary arraylists
             for (Walnut walnut : walnutListAdd.get(i)) {
                 walnutList.get(i).add(walnut);
             }
@@ -656,6 +683,7 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
             for (Pea pea : peaListAdd.get(i)) {
                 peaList.get(i).add(pea);
             }
+            //removes everything to be removed
             for (Pea pea : peaListRemove.get(i)) {
                 peaList.get(i).remove(pea);
             }
@@ -675,12 +703,14 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
                 potatoMineList.get(i).remove(potatoMine);
             }
         }
+        //adds and removes sun that must be removed
         for (Sun sun : sunListAdd) {
             sunList.add(sun);
         }
         for (Sun sun : sunListRemove) {
             sunList.remove(sun);
         }
+        //clears all the lists
         peashooterListRemove.clear();
         sunflowerListRemove.clear();
         peaListRemove.clear();
@@ -693,6 +723,7 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
         walnutListRemove.clear();
         potatoMineListAdd.clear();
         potatoMineListRemove.clear();
+        //iterates through the array of each lane, and reinitializes them
         for (int i = 0; i < 5; i++) {
             peaListAdd.add(new ArrayList<>());
             zombieListAdd.add(new ArrayList<>());
@@ -707,10 +738,12 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
             walnutListRemove.add(new ArrayList<>());
             potatoMineListRemove.add(new ArrayList<>());
         }
+        //reinitializes the sunlist
         sunListRemove.clear();
         sunListAdd.clear();
     }
 
+    //ensures that the game keeps running
     @Override
     public void run() {
         //ensure that code is run at 60 ticks per second
@@ -729,12 +762,13 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
             if (delta >= 1) {
                 move();
                 try {
+                    //tries to check for collisions
                     checkCollision();
                 } catch (Exception e) {
                 }
-                //Sound.playZombieGroans();
                 while(true){
                     try{
+                        //keeps trying to add and remove stuff until successful
                         addAndRemove();
                         break;
                     }
@@ -747,6 +781,7 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
                 delta--;
             }
         }
+        //ends the game
         System.exit(0);
     }
 
@@ -782,6 +817,7 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
         mouseY = e.getY();
     }
 
+    //overrides mousereleased interface, and checks if any sun has been clicked on.
     @Override
     public void mouseReleased(MouseEvent e) {
         try {
@@ -799,26 +835,27 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
 
     }
 
-    public void removePea(Pea p) {
-    }
-
+    //plants a peashooter
     public void plantPeashooter(int x, int y) {
         peashooterList.get(Grid.yToRow(y) - 1).add(new Peashooter(Grid.xToCol(x), Grid.yToRow(y), this));
     }
 
+    //plants a potatomine
     public void plantPotatoMine(int x, int y) {
         potatoMineList.get(Grid.yToRow(y) - 1).add(new PotatoMine(Grid.xToCol(x), Grid.yToRow(y), this));
     }
 
+    //adds a pea in a row
     public void addPea(Pea p, int rw) {
-
         peaListAdd.get(rw - 1).add(p);
     }
 
+    //plants a walnut
     public void plantWalnut(int x, int y) {
         walnutList.get(Grid.yToRow(y) - 1).add(new Walnut(Grid.xToCol(x), Grid.yToRow(y), this));
     }
 
+    //increments the sun count
     public void changeSun(int s) {
         if (s > 0) {
             Sound.playSingleSound("Sounds\\Sun Being Collected (sound effect).wav", 0);
@@ -826,29 +863,36 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
         sunCount += s;
     }
 
+    //plants a sunflower
     public void plantSunflower(int x, int y) {
         if (sunCount >= 50) {
             sunflowerList.get(Grid.yToRow(y) - 1).add(new Sunflower(Grid.xToCol(x), Grid.yToRow(y), this));
         }
     }
 
+    //returns suncount
     public int getSun() {
         return sunCount;
     }
 
+    //overrides mousepressed interface
     @Override
     public void mousePressed(MouseEvent e) {
+        //plays click sound effect
         Sound.playSingleSound("Sounds\\Select Click V.2 - Sound Effect (HD).wav - Made with Clipchamp.wav", -60);
     }
 
+    //overrides mouseentered interface
     @Override
     public void mouseEntered(MouseEvent e) {
     }
 
+    //overrides mouseexited interface
     @Override
     public void mouseExited(MouseEvent e) {
     }
 
+    //checks if there is a plant in a row/column
     public boolean isPlant(int row, int col) {
         while (true) {
             try {
@@ -879,15 +923,19 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
         return false;
     }
 
+    //adds sun to gamepanel
     public void addSun(Sun s) {
         sunListAdd.add(s);
     }
 
+    //returns difficulty
     public int getDifficulty() {
         return difficulty;
     }
 
+    //ends game
     public void endGame() {
+        //resets all booleans and values
         gameEnded = false;
         isRunning = false;
         isGameDone = false;
@@ -897,6 +945,7 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
         levelProgressState = 0;
         hasStartedSun = false;
         soundPlayed = false;
+        //reinitializes and clears all arraylists
         peaList.clear();
         zombieList.clear();
         peashooterList.clear();
@@ -918,6 +967,7 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
         walnutListAdd.clear();
         potatoMineListAdd.clear();
         sunListAdd.clear();
+        //reinitializes the lists
         for (int i = 0; i < 5; i++) {
             peaList.add(new ArrayList<>());
             zombieList.add(new ArrayList<>());
@@ -938,10 +988,12 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
             walnutListAdd.add(new ArrayList<>());
             potatoMineListAdd.add(new ArrayList<>());
         }
-        
+        //ends the game for menu
         Menu.endGame();
+        //resets the inventory
         inventory = new Inventory(this);
 
+        //restarts the game
         if (gameThread != null && gameThread.isAlive()) {
             gameThread.interrupt();
             while (true) {
@@ -955,27 +1007,33 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
         }
     }
 
+    //removes a plant in a row/column by adding to to the remove list
     public void removePlant(int row, int col) {
+        //keeps trying until successful
         while (true) {
             try {
+                //removes peashooter
                 for (Peashooter p : peashooterList.get(row - 1)) {
                     if (p.getCol() == col) {
                         peashooterListRemove.get(row - 1).add(p);
                         break;
                     }
                 }
+                //removes sunflowers
                 for (Sunflower s : sunflowerList.get(row - 1)) {
                     if (s.getCol() == col) {
                         sunflowerListRemove.get(row - 1).add(s);
                         break;
                     }
                 }
+                //removes potatomines
                 for (PotatoMine p : potatoMineList.get(row - 1)) {
                     if (p.getCol() == col) {
                         potatoMineListRemove.get(row - 1).add(p);
                         break;
                     }
                 }
+                //removes walnuts
                 for (Walnut w : walnutList.get(row - 1)) {
                     if (w.getCol() == col) {
                         walnutListRemove.get(row - 1).add(w);
@@ -987,5 +1045,7 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
             }
         }
     }
-
+    public void removePea(Pea p){
+        peaListRemove.get(p.getRow()-1).add(p);
+    }
 }

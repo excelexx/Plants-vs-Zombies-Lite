@@ -1,5 +1,5 @@
 //Alexander Zhang and Stanley Zhou
-//2024-12-17
+//2025-01-09
 //Code for the Main Menu class that handles rules and instructions
 
 //imports
@@ -38,7 +38,7 @@ public class Menu extends JPanel{
     public static boolean stillHovering = false;
     Thread soundThread;
 
-
+    //volume slider
     public static boolean slidersVisible = false;
         static JSlider soundtrackSlider = new JSlider(0, 100, 50);
         static JSlider soundSlider = new JSlider(0, 100, 50);
@@ -49,6 +49,7 @@ public class Menu extends JPanel{
             Sound.playSingleSound("Sounds\\Hover Click (Minecraft Sound) - Sound Effect for editing.wav - Made with Clipchamp.wav", 0);
         }
 
+        //ends the game
         public static void endGame(){
             buttonState = 0;
             stillHovering = false;
@@ -80,7 +81,6 @@ public class Menu extends JPanel{
         }
         
         // called from GamePanel when any key is released
-        // Makes the ball stop moving in that direction
         public void keyReleased(KeyEvent e) {
         }
         
@@ -211,6 +211,7 @@ public class Menu extends JPanel{
         }
     }
 
+    //plays the sound when mouse is hovering
     public static void tryPlayHoverMusic(boolean isHovering) {
         if(!stillHovering) {
             stillHovering = true;

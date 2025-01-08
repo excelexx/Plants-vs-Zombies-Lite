@@ -1,5 +1,5 @@
 //Alexander Zhang and Stanley Zhou
-//2024-12-17
+//2025-01-09
 //Code for the message class that draws text for other classes
 
 //imports
@@ -48,6 +48,7 @@ public class Message extends Rectangle {
         g.drawString(message, xPos, yPos);
     }
 
+    //sets color to red
     public void setColorRed(boolean t){
         isRed = t;
     }

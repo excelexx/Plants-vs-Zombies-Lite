@@ -1,5 +1,5 @@
 //Alexander Zhang and Stanley Zhou
-//2024-12-17
+//2025-01-09
 //Code for the Grid class that converts grid coordinates to x and y coordinates
 
 public class Grid {
@@ -92,6 +92,7 @@ public class Grid {
             }
             return -1;
     }   
+    //checks if a coordinate is on the grid
     public static boolean isInGame(int x, int y){
         if(56<=x && x<=1045 && y>=130 && y<=773){
             return true;
