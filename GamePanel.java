@@ -440,8 +440,11 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
                     if (tempPotatoMine.isArmed()) {
                         for (Zombie z : zombieList.get(i)) {
                             if (z.getXEat() - tempPotatoMine.getPosX() <= 51) {
-                                //Show explosion 
+                                //show explosion
                                 tempPotatoMine.showExplosion = true;
+                            }
+                            if (z.getXEat() - tempPotatoMine.getPosX() <= 50) {
+                                //play explosion sound
                                 Sound.playSingleSound("Sounds\\Potato Mine Explosion - Plants vs Zombies Sound Effect - Made with Clipchamp.wav", 0);
                             }
                             if (z.getXEat() >= tempPotatoMine.getXEat() + 10 && z.getXEat() <= tempPotatoMine.getXEat() + 70) {
