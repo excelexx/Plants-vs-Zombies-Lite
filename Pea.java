@@ -18,8 +18,8 @@ public class Pea extends Rectangle {
     BufferedImage projectileImage;
     BufferedImage projectileSplatImage;
     public static final int SPEED = 6;
-    public static final int xOffset = 45;
-    public static final int yOffset = 25;
+    public static final int X_OFFSET = 45;
+    public static final int Y_OFFSET = 25;
     public boolean showPeaSplat = false;
     Peashooter peashooter;
 
@@ -28,8 +28,8 @@ public class Pea extends Rectangle {
         super(Grid.colToX(col), Grid.rowToY(rw), DIAMETER, DIAMETER);
         game = gme;
         loadImage();
-        positionX = Grid.colToX(col) + xOffset;
-        positionY = Grid.rowToY(rw) + yOffset;
+        positionX = Grid.colToX(col) + X_OFFSET;
+        positionY = Grid.rowToY(rw) + Y_OFFSET;
         peashooter = p;
         row = rw;
     }
