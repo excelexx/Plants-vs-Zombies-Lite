@@ -24,7 +24,7 @@ public class Inventory{
     Inventory(GamePanel gme){
         game = gme;
         loadImage();
-        totalProgress = game.zombieSpawnList[game.getDifficulty()][0].length;
+        totalProgress = game.zombieSpawnList[game.getDifficulty()][0].length-1;
     }
 
     public void loadImage(){
