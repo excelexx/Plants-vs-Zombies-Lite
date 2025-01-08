@@ -16,8 +16,8 @@ public class Sun extends Rectangle {
     public static final int DIAMETER = 90;
     BufferedImage sunSprite1;
     BufferedImage sunSprite2;
-    public static final int xOffset = 45;
-    public static final int yOffset = 45;
+    public static final int X_OFFSET = 45;
+    public static final int Y_OFFSET = 45;
     public static final int SPEED = 1;
     boolean isGone = false;
     boolean isFalling;
@@ -49,8 +49,8 @@ public class Sun extends Rectangle {
         super(x,y,DIAMETER, DIAMETER);
         game = gme;
         loadImage();
-        positionX = x-xOffset;
-        positionY = y-yOffset;
+        positionX = x-X_OFFSET;
+        positionY = y-Y_OFFSET;
         isFalling = false;
         startTimer();
     }
