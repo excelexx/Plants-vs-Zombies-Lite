@@ -71,7 +71,7 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
     public static ArrayList<ArrayList<PotatoMine>> potatoMineListRemove = new ArrayList<>();
     public static int[] furthestZombies = new int[5];
     Iterator<Sunflower> sunflowerIterator;
-    public static int sunCount = 50000;
+    public static int sunCount = 50;
     public boolean zombiesAllDead = true;
     Zombie secondTempZombie;
     public static Thread zombieSpawnThread;
@@ -79,7 +79,7 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
     int minimum;
     int tempInt;
     public static boolean hasStartedSun = false;
-    public int levelProgressState = 6;
+    public int levelProgressState = 0;
     Peashooter tempPeashooter;
     public static boolean soundPlayed = false;
     Iterator<Walnut> walnutIterator;
