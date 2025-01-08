@@ -6,7 +6,7 @@ import javax.imageio.ImageIO;
 
 public class Sunflower extends Plant {
 
-    public final int SUNFLOWER_DURABILITY = 100;
+    public static final int SUNFLOWER_DURABILITY = 100;
     GamePanel game;
     BufferedImage sunflowerSprite1;
     BufferedImage sunflowerSprite2;
@@ -20,7 +20,7 @@ public class Sunflower extends Plant {
     int spriteToggle = 1;
 
     Sunflower(int col, int rw, GamePanel gme) {
-        super(col, rw, 100, gme);
+        super(col, rw, SUNFLOWER_DURABILITY, gme);
         game = gme;
         column = col;
         row = rw;

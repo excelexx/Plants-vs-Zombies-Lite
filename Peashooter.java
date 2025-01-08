@@ -6,13 +6,13 @@ import javax.imageio.ImageIO;
 
 public class Peashooter extends Plant {
 
-    int PEA_DURABILITY = 100;
+    public static final int PEA_DURABILITY = 100;
     GamePanel game;
     BufferedImage peashooterSprite1;
     BufferedImage peashooterSprite2;
     BufferedImage peashooterSprite3;
     BufferedImage peashooterSprite4;
-    public final int SHOOTER_DIAMETER = 90;
+    //public final int SHOOTER_DIAMETER = 90;
     Thread peaThread;
     boolean isZombie = false;
     boolean isAlive = true;
@@ -22,7 +22,7 @@ public class Peashooter extends Plant {
     int spriteToggle = 1;
 
     Peashooter(int col, int rw, GamePanel gme) {
-        super(col, rw, 100, gme);
+        super(col, rw, PEA_DURABILITY, gme);
         game = gme;
         column = col;
         row = rw;
