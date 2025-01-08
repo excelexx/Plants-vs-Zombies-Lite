@@ -62,7 +62,11 @@ public class PotatoMine extends Plant {
     @Override
     public void draw(Graphics g) {
         if(!isArmed){
-            g.drawImage(unarmedPotatoMineImage, Grid.colToX(column), Grid.rowToY(row), null);
+            if(!showExplosion) {
+                g.drawImage(unarmedPotatoMineImage, Grid.colToX(column), Grid.rowToY(row), null);
+            } else {
+                g.drawImage(explodedPotatoMineImage, Grid.colToX(column), Grid.rowToY(row), null);
+            }
         }
         else if(!showExplosion){
             g.drawImage(armedPotatoMineImage, Grid.colToX(column), Grid.rowToY(row), null);
