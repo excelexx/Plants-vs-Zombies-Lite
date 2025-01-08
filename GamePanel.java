@@ -439,19 +439,21 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
                     tempPotatoMine = potatoMineIterator.next();
                     if (tempPotatoMine.isArmed()) {
                         for (Zombie z : zombieList.get(i)) {
-                            if (z.getXEat() - tempPotatoMine.getPosX() <= 51) {
-                                //show explosion
-                                tempPotatoMine.showExplosion = true;
-                            }
-                            if (z.getXEat() - tempPotatoMine.getPosX() <= 50) {
-                                //play explosion sound
-                                Sound.playSingleSound("Sounds\\Potato Mine Explosion - Plants vs Zombies Sound Effect - Made with Clipchamp.wav", 0);
-                            }
-                            if (z.getXEat() >= tempPotatoMine.getXEat() + 10 && z.getXEat() <= tempPotatoMine.getXEat() + 70) {
-                                z.potatoMineDamage();
-                                potatoMineListRemove.get(i).add(tempPotatoMine);
-                                tempPotatoMine.showExplosion = true;
-                            }
+                            if(!tempPotatoMine.showExplosion){
+                                if (z.getXEat() - tempPotatoMine.getPosX() <= 51) {
+                                    //show explosion
+                                    tempPotatoMine.showExplosion = true;
+                                }
+                                if (z.getXEat() - tempPotatoMine.getPosX() <= 50) {
+                                    //play explosion sound
+                                    Sound.playSingleSound("Sounds\\Potato Mine Explosion - Plants vs Zombies Sound Effect - Made with Clipchamp.wav", 0);
+                                }
+                                if (z.getXEat() >= tempPotatoMine.getXEat() + 10 && z.getXEat() <= tempPotatoMine.getXEat() + 70) {
+                                    z.potatoMineDamage();
+                                    potatoMineListRemove.get(i).add(tempPotatoMine);
+                                    tempPotatoMine.showExplosion = true;
+                                }
+                            }                            
                         }
                     }
                 }
