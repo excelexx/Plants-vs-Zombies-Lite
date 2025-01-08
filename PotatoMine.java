@@ -16,7 +16,7 @@ public class PotatoMine extends Plant {
     int yOffset = 40;
     int spriteCounter = 0;
     boolean isArmed;
-    Thread walnutThread;
+    Thread potatoMineThread;
     int spriteToggle = 1;
     boolean showExplosion = false;
     int positionX;
@@ -35,7 +35,8 @@ public class PotatoMine extends Plant {
     }
 
     public void startTimer(){
-        walnutThread = new Thread(new Runnable(){
+        potatoMineThread = new Thread(new Runnable(){
+            @Override
             public void run(){
                 try{
                     Thread.sleep(2500);
@@ -46,7 +47,7 @@ public class PotatoMine extends Plant {
                 }
             }
         });
-        walnutThread.start();
+        potatoMineThread.start();
     }
     public void loadImage() {
         try {
@@ -58,6 +59,7 @@ public class PotatoMine extends Plant {
         }
     }
 
+    @Override
     public void draw(Graphics g) {
         if(!isArmed){
             g.drawImage(unarmedPotatoMineImage, Grid.colToX(column), Grid.rowToY(row), null);
@@ -69,9 +71,11 @@ public class PotatoMine extends Plant {
         }
     }
 
+    @Override
     public void die() {
         isAlive = false;
     }
+    @Override
     public String toString(){
         return durability +"";
     }
