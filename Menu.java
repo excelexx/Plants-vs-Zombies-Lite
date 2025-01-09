@@ -211,7 +211,7 @@ public class Menu extends JPanel {
         if (!stillHovering) {
             stillHovering = true;
             Sound.playSingleSound(
-                    "Sounds\\Hover Click (Minecraft Sound) - Sound Effect for editing.wav - Made with Clipchamp.wav",
+                    "Sounds\\hover.wav",
                     0);
         }
     }

@@ -120,7 +120,7 @@ public class Inventory {
                                     //play sound effect here
                                     Thread.sleep(200);
                                     sunAmount.setColorRed(false);
-                                    Sound.playSingleSound("Sounds\\Not Enough Sun Sound Effect - Plants VS Zombies (Free To Use).wav", 0);
+                                    Sound.playSingleSound("Sounds\\x.wav", 0);
                                 } catch (Exception e) {
 
                                 }
@@ -146,7 +146,7 @@ public class Inventory {
                                     //play sound effect here
                                     Thread.sleep(200);
                                     sunAmount.setColorRed(false);
-                                    Sound.playSingleSound("Sounds\\Not Enough Sun Sound Effect - Plants VS Zombies (Free To Use).wav", 20);
+                                    Sound.playSingleSound("Sounds\\x.wav", 20);
                                 } catch (Exception e) {
 
                                 }
@@ -172,7 +172,7 @@ public class Inventory {
                                     //play sound effect here
                                     Thread.sleep(200);
                                     sunAmount.setColorRed(false);
-                                    Sound.playSingleSound("Sounds\\Not Enough Sun Sound Effect - Plants VS Zombies (Free To Use).wav", 20);
+                                    Sound.playSingleSound("Sounds\\x.wav", 20);
                                 } catch (Exception e) {
 
                                 }
@@ -198,7 +198,7 @@ public class Inventory {
                                     //play sound effect here
                                     Thread.sleep(200);
                                     sunAmount.setColorRed(false);
-                                    Sound.playSingleSound("Sounds\\Not Enough Sun Sound Effect - Plants VS Zombies (Free To Use).wav", 20);
+                                    Sound.playSingleSound("Sounds\\x.wav", 20);
                                 } catch (Exception e) {
 
                                 }

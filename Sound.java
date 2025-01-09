@@ -42,9 +42,9 @@ public class Sound {
                 clip.start(); //start playing music clip
                 GamePanel.soundPlayed = false;
                 return clip;
-            } else {
+            } /* else {
                 System.out.println("Error: Cannot locate file");
-            }
+            } */
         } catch(Exception e) {
             //file path invalid, print error
             System.out.println("Exception: Error with music playing.");
@@ -82,7 +82,7 @@ public class Sound {
     public static void playZombieGroans() {
         if(!playingZombieGroans && GamePanel.isRunning) {
             playingZombieGroans = true;
-            playRepeatSounds("Sounds\\Plants vs. Zombies - Groan 4 Sound Effect.wav"); //play repeatedly
+            playRepeatSounds("Sounds\\groan.wav"); //play repeatedly
             //note currently playingZombieGroans is never turned back to false
         }
     }
@@ -92,7 +92,7 @@ public class Sound {
         //check if requirements to play eating sound are valid
         if(!playingEatingSounds && GamePanel.isRunning) {
             //play the single eating sound as long as requirements are valid
-            playSingleSound("Sounds\\Plants vs Zombies eating sound - Made with Clipchamp.wav", -10);
+            playSingleSound("Sounds\\eat.wav", -10);
         }
     }
 
