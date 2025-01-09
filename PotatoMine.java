@@ -1,14 +1,16 @@
 //Alexander Zhang and Stanley Zhou
 //2025-01-09
-//Code for the GamePanel class that controls all the game logic and collisions`
+//Code for the potatomine class
 
+//imports
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 
+//potato mine class
 public class PotatoMine extends Plant {
-
+    //variables
     public final int POTATO_DURABILITY = 100;
     GamePanel game;
     BufferedImage unarmedPotatoMineImage;
@@ -24,6 +26,7 @@ public class PotatoMine extends Plant {
     boolean showExplosion = false;
     int positionX;
 
+    //constructor 
     PotatoMine(int col, int rw, GamePanel gme) {
         super(col, rw, 100, gme);
         game = gme;
@@ -37,21 +40,24 @@ public class PotatoMine extends Plant {
         positionX = Grid.colToX(col) + xOffset;
     }
 
+    //starts timer 
     public void startTimer(){
         potatoMineThread = new Thread(new Runnable(){
             @Override
             public void run(){
                 try{
-                    Thread.sleep(2500);
+                    Thread.sleep(10000);
                     arm();
                 }
                 catch(Exception e){
-        
+                    System.out.println("Error loading image files. Please check all files are saved properly.");
                 }
             }
         });
         potatoMineThread.start();
     }
+
+    //loads the images
     public void loadImage() {
         try {
             unarmedPotatoMineImage = ImageIO.read(getClass().getResource("Images\\unarmedPotatoMineImage.png"));
@@ -62,6 +68,7 @@ public class PotatoMine extends Plant {
         }
     }
 
+    //draws potatomine
     @Override
     public void draw(Graphics g) {
         if(showExplosion) {
@@ -76,22 +83,23 @@ public class PotatoMine extends Plant {
 
     }
 
+    //kills the potatomine
     @Override
     public void die() {
         isAlive = false;
     }
-    @Override
-    public String toString(){
-        return durability +"";
-    }
+
+    //arms potatomine
     public void arm(){
         isArmed = true;
     }
 
+    //returns if the mine is armed
     public boolean isArmed(){
         return isArmed;
     }
 
+    //returns hitbox
     public int getPosX() {
         return positionX;
     }

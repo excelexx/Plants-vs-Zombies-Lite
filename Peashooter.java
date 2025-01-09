@@ -45,7 +45,7 @@ public class Peashooter extends Plant {
             peashooterSprite3 = ImageIO.read(getClass().getResource("Images\\peashootert1.png"));
             peashooterSprite4 = ImageIO.read(getClass().getResource("Images\\peashootert3.png"));
         } catch (IOException e) {
-
+            System.out.println("Error loading image files. Please check all files are saved properly.");
         }
     }
 

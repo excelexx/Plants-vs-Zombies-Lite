@@ -1,11 +1,15 @@
+//Alexander Zhang and Stanley Zhou
+//2025-01-09
+//Code for walnut class
 
+//import
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 
 public class Walnut extends Plant {
-
+    //declares variables
     public final int WALNUT_DURABILITY = 1500;
     GamePanel game;
     BufferedImage walnutSprite1;
@@ -17,6 +21,7 @@ public class Walnut extends Plant {
     int spriteCounter = 0;
     int spriteToggle = 1;
 
+    //constructor code
     Walnut(int col, int rw, GamePanel gme) {
         super(col, rw, 1500, gme);
         game = gme;
@@ -27,16 +32,18 @@ public class Walnut extends Plant {
         loadImage();
     }
 
+    //loads images
     public void loadImage() {
         try {
             walnutSprite1 = ImageIO.read(getClass().getResource("Images\\walnutt1.png"));
             walnutSprite2 = ImageIO.read(getClass().getResource("Images\\walnutDamagedt1.png"));
             walnutSprite3 = ImageIO.read(getClass().getResource("Images\\walnutDamagedt2.png"));
         } catch (IOException e) {
-
+            System.out.println("Error loading image files. Please check all files are saved properly.");
         }
     }
 
+    //animates walnut
     public void draw(Graphics g) {
         if(durability >= 1000) {
             //not damaged
@@ -50,10 +57,9 @@ public class Walnut extends Plant {
         }
     }
 
+    //kills walnut
+    @Override
     public void die() {
         isAlive = false;
-    }
-    public String toString(){
-        return durability +"";
     }
 }

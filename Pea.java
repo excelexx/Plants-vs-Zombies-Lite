@@ -40,7 +40,7 @@ public class Pea extends Rectangle {
             projectileImage = ImageIO.read(getClass().getResource("Images\\peat1.png"));
             projectileSplatImage = ImageIO.read(getClass().getResource("Images\\peat2.png"));
         } catch (IOException e) {
-
+            System.out.println("Error loading image files. Please check all files are saved properly.");
         }
     }
 

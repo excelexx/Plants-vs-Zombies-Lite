@@ -23,7 +23,7 @@ public class Inventory {
     private int mouseY;
     private boolean isHolding = false;
     private Thread colorThread;
-    private GamePanel game;
+    private final GamePanel game;
     private Message sunAmount = new Message(34 + 40, 87 + 10, 50, 50, "50", 20);
     private int progress;
     private int progressBarWidth = 200;

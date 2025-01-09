@@ -1,11 +1,15 @@
+//Alexander Zhang and Stanley Zhou
+//2025-01-09
+//Code for sunflower class
 
+//imports
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 
 public class Sunflower extends Plant {
-
+    //declares variables
     public static final int SUNFLOWER_DURABILITY = 100;
     GamePanel game;
     BufferedImage sunflowerSprite1;
@@ -19,6 +23,7 @@ public class Sunflower extends Plant {
     int spriteCounter = 0;
     int spriteToggle = 1;
 
+    //constructor
     Sunflower(int col, int rw, GamePanel gme) {
         super(col, rw, SUNFLOWER_DURABILITY, gme);
         game = gme;
@@ -28,6 +33,7 @@ public class Sunflower extends Plant {
         loadImage();
     }
 
+    //loads images
     public void loadImage() {
         try {
             sunflowerSprite1 = ImageIO.read(getClass().getResource("Images\\sunflowert1.png"));
@@ -35,13 +41,16 @@ public class Sunflower extends Plant {
             sunflowerSprite3 = ImageIO.read(getClass().getResource("Images\\sunflowert1.png"));
             sunflowerSprite4 = ImageIO.read(getClass().getResource("Images\\sunflowert3.png"));
         } catch (IOException e) {
-
+            System.out.println("Error loading image files. Please check all files are saved properly.");
         }
     }
 
+    //moves the sunflower
+    @Override
     public void move() {
         if (isAlive && (sunThread == null || !sunThread.isAlive())) {
             sunThread = new Thread(new Runnable() {
+                @Override
                 public void run() {
                     try {
                         Thread.sleep(15000);
@@ -57,6 +66,8 @@ public class Sunflower extends Plant {
 
     }
 
+    //animates the sunflower
+    @Override
     public void draw(Graphics g) {
         if (sunflowerSprite1 != null) {
 
@@ -89,6 +100,8 @@ public class Sunflower extends Plant {
         }
     }
 
+    //kills the sunflower
+    @Override
     public void die() {
         isAlive = false;
     }

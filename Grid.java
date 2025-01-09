@@ -3,10 +3,6 @@
 //Code for the Grid class that converts grid coordinates to x and y coordinates
 
 public class Grid {
-    //empty constructor
-    Grid(){
-    }
-    
     //Returns the y coordinate based on the row number
     public static int rowToY(int ln){
         switch(ln){

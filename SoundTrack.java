@@ -1,7 +1,8 @@
-//Stanley Zhou
-//December 16, 2024
+//Alexander Zhang and Stanley Zhou
+//2025-01-09
 //Code for playing sounds for soundtrack
 
+//imports
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,8 +10,9 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 
+//soundtrack class code
 public class SoundTrack {
-    
+    //imports
     public static int volume; // 0 - 100
     static int length;
     static List<String> soundtrackList = new ArrayList<>();
@@ -52,11 +54,11 @@ public class SoundTrack {
                 }
             } catch (Exception e) {
                 System.out.println("Exception: Error with music playback.");
-                e.printStackTrace();
             }
         }).start();
     }
 
+    //refreshes the list of soundtracks
     private static void refreshSoundtrackList() {
         soundtrackList.clear();
         if (!GamePanel.isRunning) {
@@ -83,7 +85,7 @@ public class SoundTrack {
 
         length = soundtrackList.size();
     }
-
+    //plays music
     private static Clip playMusic(String location) {
         try{
             File musicPath = new File(location);

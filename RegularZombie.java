@@ -1,11 +1,15 @@
+//Alexander Zhang and Stanley Zhou
+//2025-01-09
+//Code for the regular zombie classs
 
+//imports
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 
 public class RegularZombie extends Zombie {
-
+    //declares all variables
     GamePanel game;
     BufferedImage zombieWalkingSprite1;
     BufferedImage zombieWalkingSprite2;
@@ -15,9 +19,9 @@ public class RegularZombie extends Zombie {
     int spriteToggle = 1;
     int offsetY = 30;
 
+    //constructor
     RegularZombie(int rw, GamePanel gme) {
         super(rw, 100, gme);
-        //System.out.println("spawned");
         game = gme;
         row = rw;
         loadImage();
@@ -27,6 +31,7 @@ public class RegularZombie extends Zombie {
         speed = 1;
     }
 
+    //loads images
     public void loadImage() {
         try {
             zombieWalkingSprite1 = ImageIO.read(getClass().getResource("Images\\regularZombieWalkingt1.1.png"));
@@ -34,14 +39,15 @@ public class RegularZombie extends Zombie {
             zombieEatingSprite1 = ImageIO.read(getClass().getResource("Images\\regularZombieEatingt1.1.png"));
             zombieEatingSprite2 = ImageIO.read(getClass().getResource("Images\\regularZombieEatingt2.1.png"));
         } catch (IOException e) {
-
+            System.out.println("Error loading image files. Please check all files are saved properly.");
         }
     }
 
+    //draws the zombie
     @Override
     public void draw(Graphics g) {
+        //animates the walking
         if (zombieWalkingSprite1 != null) {
-
             spriteCounter++;
             if (durability <= 0) {
                 //dead

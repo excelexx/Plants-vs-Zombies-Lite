@@ -1,4 +1,8 @@
+//Alexander Zhang and Stanley Zhou
+//2025-01-09
+//Code for sun class
 
+//imports
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
@@ -6,8 +10,9 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 
+//sun class
 public class Sun extends Rectangle {
-
+    //declares variables
     int positionX;
     int positionY;
     int row;
@@ -29,6 +34,7 @@ public class Sun extends Rectangle {
     int spriteCounter = 0;
     int spriteToggle = 1;
 
+    //constructor for when sun spawned by sunflower
     Sun(int x, int y, GamePanel gme) {
         super(x, y, DIAMETER, DIAMETER);
         game = gme;
@@ -45,6 +51,7 @@ public class Sun extends Rectangle {
         startTimer();
     }
 
+    //second constructor for when sun is spawned randomly
     Sun(int x, int y, GamePanel gme, boolean isFalling){
         super(x,y,DIAMETER, DIAMETER);
         game = gme;
@@ -55,8 +62,10 @@ public class Sun extends Rectangle {
         startTimer();
     }
 
+    //starts the sun timer
     public void startTimer(){
         sunThread = new Thread(new Runnable() {
+            @Override
             public void run() {
                 try {
                     Thread.sleep(10000);
@@ -69,29 +78,32 @@ public class Sun extends Rectangle {
         sunThread.start();
     }
 
+    //loads images
     public void loadImage() {
         try {
             sunSprite1 = ImageIO.read(getClass().getResource("Images\\sunt1.png"));
             sunSprite2 = ImageIO.read(getClass().getResource("Images\\sunt2.png"));
         } catch (IOException e) {
-
+            System.out.println("Error loading image files. Please check all files are saved properly.");
         }
     }
 
+    //returns the x coordinate
     public int getPosX() {
         return positionX;
     }
 
+    //returns the y coordinate
     public int getPosY() {
         return positionY;
     }
 
-    public void getHitbox(){
-
-    }
+    //returns if the sun is disappeared
     public boolean getIsGone(){
         return isGone;
     }
+
+    //makes sun fall
     public void move() {
         if(isFalling){
             if(positionY<=threshold){

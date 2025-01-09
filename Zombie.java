@@ -1,6 +1,6 @@
-//Alexander Zhang
-//2024-12-03
-//Code for the plant class that handles plants
+//Alexander Zhang and Stanley Zhou
+//2025-01-09
+//Code for playing sounds for soundtrack
 
 //imports
 import java.awt.Graphics;
@@ -27,20 +27,25 @@ public class Zombie extends Rectangle{
         positionX = GamePanel.GAME_WIDTH;
         positionY = Grid.rowToY(row) - 35 + (int)(Math.random() * -6 + 3);
     }
+    //draws zombie
     public void draw(Graphics g){
     }
+    //increments durability
     public void incrementDurability(int d){
         durability -= d;
     }
+    //kills zombie
     public void die(){
     }
+    //returns durability
     public int getDurability(){
         return durability;
     }
+    //damages zombie
     public void peaDamage(){
-        System.out.print(durability);
         durability -= GamePanel.PEA_DAMAGE;
     }
+    //moves zombie
     public void move(){
         if(!isStopped){
             state++;
@@ -50,33 +55,39 @@ public class Zombie extends Rectangle{
             }
         }
     }
+    //returns hitbox
     public int getXEat(){
         return positionX+xOffsetCenter;
     }
+    //returns hitbox
     public int getXEating(){
         return positionX+xOffsetFront;
     }
+    //stops zombie
     public void stop(){
         isStopped = true;
     }
+    //makes zombie go
     public void go(){
         isStopped= false;
     }
+    //returns row
     public int getRow(){
         return row;
     }
+    //returns if the zombie is stopped
     public synchronized boolean isStopped(){
         return isStopped;
     }
-    public String toString(){
-        return isStopped+"";
-    }
+    //returns x coordinate
     public int getXPosition(){
         return positionX;
     }
+    //returns y coordinate
     public int getYPosition(){
         return positionY;
     }
+    //checks durability
     public void potatoMineDamage(){
         durability -= GamePanel.POTATO_MINE_DAMAGE;
     }

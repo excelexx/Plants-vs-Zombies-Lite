@@ -1,5 +1,5 @@
-//Stanley Zhou and Alexander Zhang
-//18-12-2024
+//Alexander Zhang and Stanley Zhou
+//2025-01-09
 //Code for playing game action sounds
 
 // Credit to Max O'Didily and his youtube guide: https://www.youtube.com/watch?v=wJO_cq5XeSA&t=7s&ab_channel=MaxO%27Didily
@@ -10,14 +10,16 @@ import javax.sound.sampled.Clip;
 import javax.sound.sampled.FloatControl;
 
 public class Sound {
-
+    //declares all variables
     public static int volume; // 0 - 100
     static boolean playingZombieGroans = false;
     static boolean playingEatingSounds = false;
 
+    //sets the volume
     public void setVolume(int v){
         volume = v;
     }
+    //plays the sound
     public static Clip playSingleSound(String location, float volume) {
         try{
             File musicPath = new File(location);
@@ -46,6 +48,7 @@ public class Sound {
         return null;
     }
 
+    //repeats the sound
     public static void playRepeatSounds(String filePath) {
         try {
             File musicPath = new File(filePath);
@@ -68,6 +71,7 @@ public class Sound {
         }
     }
 
+    //plays zombie groans
     public static void playZombieGroans() {
         if(!playingZombieGroans && GamePanel.isRunning) {
             playingZombieGroans = true;
@@ -76,6 +80,7 @@ public class Sound {
         }
     }
 
+    //plays eating sounds
     public static void playEatingSounds() {
         if(!playingEatingSounds && GamePanel.isRunning) {
             playSingleSound("Sounds\\Plants vs Zombies eating sound - Made with Clipchamp.wav", -10);
