@@ -1,5 +1,5 @@
 //Stanley Zhou and Alexander Zhang
-//18-12-2024
+//12-08-2024
 //Code for playing game action sounds
 
 // Credit to Max O'Didily and his youtube guide: https://www.youtube.com/watch?v=wJO_cq5XeSA&t=7s&ab_channel=MaxO%27Didily
@@ -15,50 +15,61 @@ public class Sound {
     static boolean playingZombieGroans = false;
     static boolean playingEatingSounds = false;
 
+    //set volume class sets volume to new value
     public void setVolume(int v){
         volume = v;
     }
+
+    //play single sound class plays a single sound once. sound file to be specified
     public static Clip playSingleSound(String location, float volume) {
         try{
+            //take in filepath
             File musicPath = new File(location);
 
+            //check to ensure filepath is valid
             if(musicPath.exists()) {
+                //file path valid
+                //set up audio clip
                 AudioInputStream audioInput = AudioSystem.getAudioInputStream(musicPath);
                 Clip clip = AudioSystem.getClip();
-                clip.open(audioInput);
+                clip.open(audioInput); //open audio clip
 
                 // Adjust the volume
-                FloatControl volumeControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-                volume = Math.min(volume, 6.0206f); // Max volume in decibels (6 dB)
+                FloatControl volumeControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN); //also made with help of max o didily video above
+                volume = Math.min(volume, 6.0206f); // Max volume allowed by control
                 volume = Math.max(volume, volumeControl.getMinimum()); // Minimum volume allowed by control
                 volumeControl.setValue(volume);
 
-                clip.start();
+                clip.start(); //start playing music clip
                 GamePanel.soundPlayed = false;
                 return clip;
             } else {
                 System.out.println("Error: Cannot locate file");
             }
         } catch(Exception e) {
+            //file path invalid, print error
             System.out.println("Exception: Error with music playing.");
         }
         
         return null;
     }
 
+    // class play a sound repeatedly
     public static void playRepeatSounds(String filePath) {
         try {
+            //take in filepath
             File musicPath = new File(filePath);
 
+            //check if file path valid
             if(musicPath.exists()) {
                 // Plays music
                 AudioInputStream audioInput = AudioSystem.getAudioInputStream(musicPath);
-                Clip clip = AudioSystem.getClip();
-                clip.open(audioInput);
-                clip.start();
+                Clip clip = AudioSystem.getClip(); // load clip
+                clip.open(audioInput); //open clip
+                clip.start(); //start playing clip
                 clip.loop(Clip.LOOP_CONTINUOUSLY); //plays continuously, repeats when song ends 
             } else {
-                // Error: cannot find file path
+                // file path invalid
                 System.out.println("Cannot Find File: please ensure code has filepath correctly entered.");
             }
 
@@ -68,16 +79,20 @@ public class Sound {
         }
     }
 
+    //specific class to play zombie groan sounds repeatedly
     public static void playZombieGroans() {
         if(!playingZombieGroans && GamePanel.isRunning) {
             playingZombieGroans = true;
-            playRepeatSounds("Sounds\\Plants vs. Zombies - Groan 4 Sound Effect.wav");
+            playRepeatSounds("Sounds\\Plants vs. Zombies - Groan 4 Sound Effect.wav"); //play repeatedly
             //note currently playingZombieGroans is never turned back to false
         }
     }
 
+    //specific class to play zombie eating sounds
     public static void playEatingSounds() {
+        //check if requirements to play eating sound are valid
         if(!playingEatingSounds && GamePanel.isRunning) {
+            //play the single eating sound as long as requirements are valid
             playSingleSound("Sounds\\Plants vs Zombies eating sound - Made with Clipchamp.wav", -10);
         }
     }

@@ -11,6 +11,7 @@ import javax.sound.sampled.Clip;
 
 public class SoundTrack {
     
+    //static variable declaration
     public static int volume; // 0 - 100
     static int length;
     static List<String> soundtrackList = new ArrayList<>();
