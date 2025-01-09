@@ -23,6 +23,7 @@ public class PotatoMine extends Plant {
     boolean isArmed;
     Thread potatoMineThread;
     int spriteToggle = 1;
+    int state =0;
     boolean showExplosion = false;
     int positionX;
 
@@ -46,7 +47,7 @@ public class PotatoMine extends Plant {
             @Override
             public void run(){
                 try{
-                    Thread.sleep(10000);
+                    Thread.sleep(100);
                     arm();
                 }
                 catch(Exception e){
@@ -101,5 +102,16 @@ public class PotatoMine extends Plant {
     //returns hitbox
     public int getPosX() {
         return positionX;
+    }
+
+    public int getState(){
+        return state;
+    }
+    public void incrementState(){
+        state++;
+    }
+
+    public void showExplosion(){
+        showExplosion = true;
     }
 }

@@ -63,18 +63,13 @@ public class SoundTrack {
         soundtrackList.clear();
         if (!GamePanel.isRunning) {
             // Menu soundtrack
-            soundtrackList.add("Soundtracks\\Plants vs Zombies Soundtrack. [Main Menu].wav");
+            soundtrackList.add("Soundtracks\\Main Menu.wav");
         } else if(GamePanel.difficulty == 1){
             // In-game soundtrack
-            soundtrackList.add("Soundtracks\\Plants vs Zombies Soundtrack. [Day Stage].wav");
-            soundtrackList.add("Soundtracks\\Plants vs Zombies Soundtrack. [Night Stage].wav");
-            soundtrackList.add("Soundtracks\\Plants vs Zombies Soundtrack. [Pool Stage].wav");
-            soundtrackList.add("Soundtracks\\Plants vs Zombies Soundtrack. [Roof Stage].wav");
-            soundtrackList.add("Soundtracks\\Plants vs Zombies Soundtrack. [Fog Stage].wav");
-            soundtrackList.add("Soundtracks\\Plants vs Zombies Music - Daytime in Back Yard (Horde).wav");
-            soundtrackList.add("Soundtracks\\Plants vs Zombies Music - Night Time in Front Yard (Horde).wav");
-            soundtrackList.add("Soundtracks\\Plants VS. Zombies Music_ Ultimate Battle.wav");
-            soundtrackList.add("Soundtracks\\Plants vs Zombies Soundtrack. [Zomboss Stage].wav");
+            soundtrackList.add("Soundtracks\\Day Stage.wav");
+            soundtrackList.add("Soundtracks\\Night Stage.wav");
+            soundtrackList.add("Soundtracks\\Pool Stage.wav");
+            soundtrackList.add("Soundtracks\\Roof Stage.wav");
         } else{
             //jazzy soundtrack
             soundtrackList.add("Soundtracks\\Graze The Roof Jazz.wav");

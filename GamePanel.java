@@ -303,7 +303,7 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
                 public void run() {
                     try {
                         //spawns sun at random intervals using a thread
-                        Thread.sleep((int) (Math.random() * 5000 + 5000));
+                        Thread.sleep((int) (Math.random() * 1000 + 1000));
                         addSun(new Sun((int) (Math.random() * (GAME_WIDTH - 100) + 50), (int) (Math.random() * (GAME_HEIGHT - 300) + 50), GamePanel.this));
                         sunThread.interrupt();
                     } catch (Exception e) {
@@ -435,7 +435,7 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
                 while (peaIterator.hasNext()) {
                     tempPea = peaIterator.next();
                     for (Zombie z : zombieList.get(i)) {
-                        if (z.getXEat() <= tempPea.getPosX() && tempPea.getPosX() <= z.getXEat() + 60 ) {
+                        if (z.getXEat() <= tempPea.getPosX() && tempPea.getPosX() <= z.getXEat() + 60) {
 
                             peaListRemove.get(i).add(tempPea);
                             z.peaDamage();
@@ -449,21 +449,25 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
                 potatoMineIterator = potatoMineList.get(i).iterator();
                 while (potatoMineIterator.hasNext()) {
                     tempPotatoMine = potatoMineIterator.next();
+                    if(tempPotatoMine.showExplosion){
+                           
+                    }
                     if (tempPotatoMine.isArmed()) {
                         for (Zombie z : zombieList.get(i)) {
                             //if(!tempPotatoMine.showExplosion){
                             if (z.getXEat() - tempPotatoMine.getPosX() <= 51) {
                                 //show explosion
-                                tempPotatoMine.showExplosion = true;
+                                tempPotatoMine.showExplosion();
+                                potatoMineListRemove.get(i).add(tempPotatoMine);
+                                Sound.playSingleSound("Sounds\\Potato Mine Explosion - Plants vs Zombies Sound Effect - Made with Clipchamp.wav", 0);
+                                z.potatoMineDamage();
                             }
                             if (z.getXEat() - tempPotatoMine.getPosX() <= 50) {
                                 //play explosion sound
-                                Sound.playSingleSound("Sounds\\Potato Mine Explosion - Plants vs Zombies Sound Effect - Made with Clipchamp.wav", 0);
+
                             }
                             if (z.getXEat() >= tempPotatoMine.getXEat() + 10 && z.getXEat() <= tempPotatoMine.getXEat() + 70) {
-                                z.potatoMineDamage();
-                                potatoMineListRemove.get(i).add(tempPotatoMine);
-                                tempPotatoMine.showExplosion = true;
+
                             }
                             //}                            
                         }
@@ -877,7 +881,7 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
     @Override
     public void mousePressed(MouseEvent e) {
         //plays click sound effect
-        Sound.playSingleSound("Sounds\\Select Click V.2 - Sound Effect (HD).wav - Made with Clipchamp.wav", -60);
+        Sound.playSingleSound("Sounds\\clickSound.wav", -30);
     }
 
     //overrides mouseentered interface
