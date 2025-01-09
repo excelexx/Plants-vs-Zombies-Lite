@@ -11,9 +11,9 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 
 //code for menu class
-public class Menu extends JPanel{
+public class Menu extends JPanel {
 
-    //declares all variables
+    // declares all variables
     public static BufferedImage homeDefault;
     public static BufferedImage signPlay;
     public static BufferedImage signHelp;
@@ -38,117 +38,114 @@ public class Menu extends JPanel{
     public static boolean stillHovering = false;
     Thread soundThread;
 
-    //volume slider
-    public static boolean slidersVisible = false;
-        static JSlider soundtrackSlider = new JSlider(0, 100, 50);
-        static JSlider soundSlider = new JSlider(0, 100, 50);
-        
-        //constructor
-        public Menu() {
-            loadImage();
-            Sound.playSingleSound("Sounds\\Hover Click (Minecraft Sound) - Sound Effect for editing.wav - Made with Clipchamp.wav", 0);
-        }
+    // volume slider
 
-        //ends the game
-        public static void endGame(){
-            buttonState = 0;
-            stillHovering = false;
-            signState = 0;
-            mouseClickedX = -1;
-            mouseClickedY = -1;
-        }
-        
-        //loads all images
-        public void loadImage() {
-            try {
-                homeDefault = ImageIO.read(getClass().getResource("/Images/homeDefault.png"));
-                signPlay = ImageIO.read(getClass().getResource("/Images/homePlay.png"));
-                signHelp = ImageIO.read(getClass().getResource("/Images/homeHelp.png"));
-                signOptions = ImageIO.read(getClass().getResource("/Images/homeOptions.png"));
-                signQuit = ImageIO.read(getClass().getResource("/Images/homeQuit.png"));
-                levelsDefault = ImageIO.read(getClass().getResource("/Images/levelsDefault.png"));
-                levelsEasy = ImageIO.read(getClass().getResource("/Images/levelsEasy.png"));
-                levelsMedium = ImageIO.read(getClass().getResource("/Images/levelsMedium.png"));
-                levelsHard = ImageIO.read(getClass().getResource("/Images/levelsHard.png"));
-                levelsClose = ImageIO.read(getClass().getResource("/Images/levelsClose.png"));
-                helpDefault = ImageIO.read(getClass().getResource("/Images/helpDefault.png"));
-                helpClose = ImageIO.read(getClass().getResource("/Images/helpClose.png"));
-                optionsDefault = ImageIO.read(getClass().getResource("/Images/optionsDefault.png"));
-                optionsClose = ImageIO.read(getClass().getResource("/Images/optionsClose.png"));
-            } catch (IOException e) {
-                System.out.println("Error loading images. Please check the files were saved correctly.");
-            }
-        }
-        
-        // called from GamePanel when any key is released
-        public void keyReleased(KeyEvent e) {
-        }
-        
-        //checks where the mouse was released and sets the states of the buttons accordingly
-        public static void mouseReleased(MouseEvent e) {
-            mouseX = e.getX();
-            mouseY = e.getY();
-            if (signState == 1) {
-                buttonState = 1;
-                signState = 5;
-            }
-            if (signState == 2) {
-    
-            }
-            if (signState == 9) {
-                buttonState = 0;
-                signState = 0;
-            }
-            if (signState == 6) {
-                GamePanel.isRunning = true;
-                GamePanel.difficulty = 1;
-            }
-            if (signState == 7) {
-                GamePanel.isRunning = true;
-                GamePanel.difficulty = 2;
-            }
-            if (signState == 8) {
-                GamePanel.isRunning = true;
-                GamePanel.difficulty = 3;
-            }
-            if (signState == 4) {
-                System.exit(0);
-            }
-            if (signState == 2){
-                buttonState = 2;
-                signState = 10;
-            }
-            if (buttonState == 2 && signState == 11){
-                buttonState = 0;
-                signState = 0;
-            }
-        
-            if(signState == 3){
-                buttonState = 3;      
-                signState = 12;
-                slidersVisible = true; // Show sliders
-        }
+    // constructor
+    public Menu() {
+        loadImage();
+        Sound.playSingleSound(
+                "Sounds\\Hover Click (Minecraft Sound) - Sound Effect for editing.wav - Made with Clipchamp.wav", 0);
+    }
 
-        if(buttonState == 3 && signState == 13){
-            buttonState = 0;
-            signState = 0;
-            slidersVisible = false; // Hide sliders
+    // ends the game
+    public static void endGame() {
+        buttonState = 0;
+        stillHovering = false;
+        signState = 0;
+        mouseClickedX = -1;
+        mouseClickedY = -1;
+    }
+
+    // loads all images
+    public void loadImage() {
+        try {
+            homeDefault = ImageIO.read(getClass().getResource("/Images/homeDefault.png"));
+            signPlay = ImageIO.read(getClass().getResource("/Images/homePlay.png"));
+            signHelp = ImageIO.read(getClass().getResource("/Images/homeHelp.png"));
+            signOptions = ImageIO.read(getClass().getResource("/Images/homeOptions.png"));
+            signQuit = ImageIO.read(getClass().getResource("/Images/homeQuit.png"));
+            levelsDefault = ImageIO.read(getClass().getResource("/Images/levelsDefault.png"));
+            levelsEasy = ImageIO.read(getClass().getResource("/Images/levelsEasy.png"));
+            levelsMedium = ImageIO.read(getClass().getResource("/Images/levelsMedium.png"));
+            levelsHard = ImageIO.read(getClass().getResource("/Images/levelsHard.png"));
+            levelsClose = ImageIO.read(getClass().getResource("/Images/levelsClose.png"));
+            helpDefault = ImageIO.read(getClass().getResource("/Images/helpDefault.png"));
+            helpClose = ImageIO.read(getClass().getResource("/Images/helpClose.png"));
+            optionsDefault = ImageIO.read(getClass().getResource("/Images/optionsDefault.png"));
+            optionsClose = ImageIO.read(getClass().getResource("/Images/optionsClose.png"));
+        } catch (IOException e) {
+            System.out.println("Error loading images. Please check the files were saved correctly.");
         }
     }
 
-    //code to get coordinates of the last mouse click
+    // called from GamePanel when any key is released
+    public void keyReleased(KeyEvent e) {
+    }
+
+    // checks where the mouse was released and sets the states of the buttons
+    // accordingly
+    public static void mouseReleased(MouseEvent e) {
+        mouseX = e.getX();
+        mouseY = e.getY();
+        if (signState == 1) {
+            buttonState = 1;
+            signState = 5;
+        }
+        if (signState == 2) {
+
+        }
+        if (signState == 9) {
+            buttonState = 0;
+            signState = 0;
+        }
+        if (signState == 6) {
+            GamePanel.isRunning = true;
+            GamePanel.difficulty = 1;
+        }
+        if (signState == 7) {
+            GamePanel.isRunning = true;
+            GamePanel.difficulty = 2;
+        }
+        if (signState == 8) {
+            GamePanel.isRunning = true;
+            GamePanel.difficulty = 3;
+        }
+        if (signState == 4) {
+            System.exit(0);
+        }
+        if (signState == 2) {
+            buttonState = 2;
+            signState = 10;
+        }
+        if (buttonState == 2 && signState == 11) {
+            buttonState = 0;
+            signState = 0;
+        }
+
+        if (signState == 3) {
+            buttonState = 3;
+            signState = 12;
+        }
+
+        if (buttonState == 3 && signState == 13) {
+            buttonState = 0;
+            signState = 0;
+        }
+    }
+
+    // code to get coordinates of the last mouse click
     public static void mousePressed(MouseEvent e) {
         mouseClickedX = e.getX();
         mouseClickedY = e.getY();
     }
 
-    //checks where the mouse is and sets the state of the signs/buttons accordingly
+    // checks where the mouse is and sets the state of the signs/buttons accordingly
     public static void mouseMoved(MouseEvent e) {
         mouseX = e.getX();
         mouseY = e.getY();
-        //changes image according to where the signs/buttons are
+        // changes image according to where the signs/buttons are
         switch (buttonState) {
-            //code for if nothing has been pushed yet
+            // code for if nothing has been pushed yet
             case 0:
                 if (782 <= mouseX && mouseX <= 932 && 238 <= mouseY && mouseY <= 327) {
                     signState = 1;
@@ -167,7 +164,7 @@ public class Menu extends JPanel{
                     stillHovering = false;
                 }
                 break;
-            //code for if it is on the play page
+            // code for if it is on the play page
             case 1:
                 if (268 <= mouseX && mouseX <= 268 + 216 && 294 <= mouseY && mouseY <= 294 + 92) {
                     signState = 6;
@@ -178,7 +175,7 @@ public class Menu extends JPanel{
                 } else if (272 <= mouseX && mouseX <= 272 + 213 && 559 <= mouseY && mouseY <= 559 + 78) {
                     signState = 8;
                     tryPlayHoverMusic(stillHovering);
-                } else if (954 <= mouseX && mouseX <= 954+54 && 684 <= mouseY && mouseY <= 684 + 54) {
+                } else if (954 <= mouseX && mouseX <= 954 + 54 && 684 <= mouseY && mouseY <= 684 + 54) {
                     signState = 9;
                     tryPlayHoverMusic(stillHovering);
                 } else {
@@ -186,24 +183,22 @@ public class Menu extends JPanel{
                     stillHovering = false;
                 }
                 break;
-            //code for if it is on the help page
+            // code for if it is on the help page
             case 2:
-                if(954<=mouseX && mouseX<= 954+54 && 684<=mouseY && mouseY <= 684+54){
+                if (954 <= mouseX && mouseX <= 954 + 54 && 684 <= mouseY && mouseY <= 684 + 54) {
                     signState = 11;
                     tryPlayHoverMusic(stillHovering);
-                }
-                else{
+                } else {
                     signState = 10;
                     stillHovering = false;
                 }
                 break;
-            //code for if it is on the options page
+            // code for if it is on the options page
             case 3:
-                if(954<= mouseX && mouseX<=954+55 && 683<=mouseY && mouseY<=683+54){
+                if (954 <= mouseX && mouseX <= 954 + 55 && 683 <= mouseY && mouseY <= 683 + 54) {
                     signState = 13;
                     tryPlayHoverMusic(stillHovering);
-                }
-                else{
+                } else {
                     signState = 12;
                     stillHovering = false;
                 }
@@ -211,20 +206,22 @@ public class Menu extends JPanel{
         }
     }
 
-    //plays the sound when mouse is hovering
+    // plays the sound when mouse is hovering
     public static void tryPlayHoverMusic(boolean isHovering) {
-        if(!stillHovering) {
+        if (!stillHovering) {
             stillHovering = true;
-            Sound.playSingleSound("Sounds\\Hover Click (Minecraft Sound) - Sound Effect for editing.wav - Made with Clipchamp.wav", 0);
+            Sound.playSingleSound(
+                    "Sounds\\Hover Click (Minecraft Sound) - Sound Effect for editing.wav - Made with Clipchamp.wav",
+                    0);
         }
     }
 
-    //draws the background depending on what the current state it
+    // draws the background depending on what the current state it
     public static void draw(Graphics g) {
 
         if (homeDefault != null && signPlay != null && signHelp != null && signOptions != null && signQuit != null) {
             switch (buttonState) {
-                //code for if it is on the default page
+                // code for if it is on the default page
                 case 0:
                     switch (signState) {
                         case 0:
@@ -244,7 +241,7 @@ public class Menu extends JPanel{
                             break;
                     }
                     break;
-                //code for if it is on the play page
+                // code for if it is on the play page
                 case 1:
                     switch (signState) {
                         case 5:
@@ -264,9 +261,9 @@ public class Menu extends JPanel{
                             break;
                     }
                     break;
-                //code for if it is on the help page
+                // code for if it is on the help page
                 case 2:
-                    switch(signState){
+                    switch (signState) {
                         case 10:
                             g.drawImage(helpDefault, 0, 0, GamePanel.GAME_WIDTH, GamePanel.GAME_HEIGHT, null);
                             break;
@@ -275,9 +272,9 @@ public class Menu extends JPanel{
                             break;
                     }
                     break;
-                //code for if it is on the options page
+                // code for if it is on the options page
                 case 3:
-                    switch(signState){
+                    switch (signState) {
                         case 12:
                             g.drawImage(optionsDefault, 0, 0, GamePanel.GAME_WIDTH, GamePanel.GAME_HEIGHT, null);
                             break;
@@ -288,7 +285,7 @@ public class Menu extends JPanel{
                     break;
             }
         }
-        
+
     }
 
 }
