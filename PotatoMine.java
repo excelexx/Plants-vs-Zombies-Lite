@@ -73,7 +73,6 @@ public class PotatoMine extends Plant {
     public void draw(Graphics g) {
         if(showExplosion) {
             g.drawImage(explodedPotatoMineImage, Grid.colToX(column), Grid.rowToY(row), null);
-            System.out.println("showing explosion");
         } else if(isArmed){
             g.drawImage(armedPotatoMineImage, Grid.colToX(column), Grid.rowToY(row), null);
         } 
