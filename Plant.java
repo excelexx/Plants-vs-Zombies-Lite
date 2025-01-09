@@ -1,5 +1,5 @@
 //Alexander Zhang
-//2024-12-03
+//2025-01-09
 //Code for the plant class that handles plants
 
 //imports
@@ -33,27 +33,35 @@ public class Plant extends Rectangle{
         //make plant being planted noise
         Sound.playSingleSound("Sounds\\Plant being Planted Sample 1 -Plants vs Zombies Sound Effect - Made with Clipchamp.wav", 0);
     }
+    //draws plant
     public void draw(Graphics g){
     }
+    //returns the row
     public int getRow(){
         return row;
     }
+    //returns the column
     public int getCol(){
         return column;
     }
+    //sets durability
     public void setDurability(int d){
         durability = d;
     }
+    //returns the durability
     public int getDurability(){
         return durability;
     }
+    //kills the plant
     public void die(){
         //make plant being eated noise (same as being planted)
         Sound.playSingleSound("Sounds\\Plant being Planted Sample 1 -Plants vs Zombies Sound Effect - Made with Clipchamp.wav", 0);
     }
+    //makes plant move
     public void move(){
 
     }
+    //increments durability from plant
     public void regularEatPlant(){
         state++;
             if(state>=2){
@@ -62,9 +70,11 @@ public class Plant extends Rectangle{
             }
         
     }
+    //returns hitbox
     public int getXEat(){
         return positionX+xOffsetEat;
     }
+    //subtracts gargantuar damage from plant
     public void gargantuarEatPlant(){
         durability -= GamePanel.GARGANTUAR_DAMAGE;
     }

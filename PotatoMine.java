@@ -1,3 +1,6 @@
+//Alexander Zhang and Stanley Zhou
+//2025-01-09
+//Code for the GamePanel class that controls all the game logic and collisions`
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
@@ -61,18 +64,16 @@ public class PotatoMine extends Plant {
 
     @Override
     public void draw(Graphics g) {
-        if(!isArmed){
-            if(!showExplosion) {
-                g.drawImage(unarmedPotatoMineImage, Grid.colToX(column), Grid.rowToY(row), null);
-            } else {
-                g.drawImage(explodedPotatoMineImage, Grid.colToX(column), Grid.rowToY(row), null);
-            }
-        }
-        else if(!showExplosion){
-            g.drawImage(armedPotatoMineImage, Grid.colToX(column), Grid.rowToY(row), null);
-        } else {
+        if(showExplosion) {
             g.drawImage(explodedPotatoMineImage, Grid.colToX(column), Grid.rowToY(row), null);
+            System.out.println("showing explosion");
+        } else if(isArmed){
+            g.drawImage(armedPotatoMineImage, Grid.colToX(column), Grid.rowToY(row), null);
+        } 
+        else {
+            g.drawImage(unarmedPotatoMineImage, Grid.colToX(column), Grid.rowToY(row), null);
         }
+
     }
 
     @Override

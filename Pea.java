@@ -1,12 +1,15 @@
-
+//Alexander Zhang and Stanley Zhou
+//2025-01-09
+//Code for the Pea class that controls and draws the peas
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 
+//code for pea class
 public class Pea extends Rectangle {
-
+    //declares all variables
     int positionX;
     int positionY;
     int row;
@@ -20,6 +23,7 @@ public class Pea extends Rectangle {
     public boolean showPeaSplat = false;
     Peashooter peashooter;
 
+    //constructor
     Pea(int col, int rw, GamePanel gme, Peashooter p) {
         super(Grid.colToX(col), Grid.rowToY(rw), DIAMETER, DIAMETER);
         game = gme;
@@ -30,6 +34,7 @@ public class Pea extends Rectangle {
         row = rw;
     }
 
+    //loads images
     public void loadImage() {
         try {
             projectileImage = ImageIO.read(getClass().getResource("Images\\peat1.png"));
@@ -39,27 +44,27 @@ public class Pea extends Rectangle {
         }
     }
 
+    //returns x coordinate of pea
     public int getPosX() {
         return positionX+DIAMETER;
     }
 
+    //returns row of pea
     public int getRow() {
         return row;
     }
 
+    //returns y coordinate of pea
     public int getPosY() {
         return positionY;
     }
 
+    //makes pea move
     public void move() {
         positionX += SPEED;
         if (positionX > GamePanel.GAME_WIDTH) {
             this.die();
         }
-    }
-
-    public void checkHit(){
-
     }
 
     public void draw(Graphics g) {

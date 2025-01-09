@@ -1,5 +1,5 @@
 //Alexander Zhang and Stanley Zhou
-//2024-12-17
+//2025-01-09
 //Code for the gameframe class that defines information about the window
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
@@ -23,7 +23,7 @@ public class ConeZombie extends RegularZombie{
     int spriteCounter = 0;
     int spriteToggle = 1;
 
-
+    //Constructor
     ConeZombie(int rw, GamePanel gme){
         super(rw,gme);
         offsetY = 40;
@@ -34,6 +34,7 @@ public class ConeZombie extends RegularZombie{
         speed = 1;
     }
 
+    //Loading the image files
     public void loadImage() {
         try {
             coneZombieWalkingSprite1 = ImageIO.read(getClass().getResource("Images\\coneZombieWalkingt1.png"));
@@ -49,12 +50,13 @@ public class ConeZombie extends RegularZombie{
             zombieEatingSprite1 = ImageIO.read(getClass().getResource("Images\\regularZombieEatingt1.1.png"));
             zombieEatingSprite2 = ImageIO.read(getClass().getResource("Images\\regularZombieEatingt2.1.png"));
         } catch (IOException e) {
+            System.out.println("Image files not loaded. Please check they were saved correctly.");
         }
     }
 
+    //drawing the zombies
     public void draw(Graphics g){
         if (zombieWalkingSprite1 != null) {
-
             spriteCounter++;
             if(isStopped) {
                 //display eating
@@ -90,6 +92,7 @@ public class ConeZombie extends RegularZombie{
                 //dead zombie
             }
 
+            //drawing the animations for the zombie
             if(spriteToggle == 1) {
                 g.drawImage(coneZombieWalkingSprite1, positionX, positionY, null);
             }

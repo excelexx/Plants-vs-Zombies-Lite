@@ -38,6 +38,7 @@ public class Zombie extends Rectangle{
         return durability;
     }
     public void peaDamage(){
+        System.out.print(durability);
         durability -= GamePanel.PEA_DAMAGE;
     }
     public void move(){

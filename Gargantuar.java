@@ -1,16 +1,25 @@
+//Alexander Zhang and Stanley Zhou
+//2025-01-09
+//Code for the Gargantuar class which holds information about the gargantuar zombie
 
+
+//imports
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 
+
+//gargantuar class
 public class Gargantuar extends Zombie{
+    //declares all variables
     BufferedImage gargantuarSprite1;
     BufferedImage gargantuarSprite2;
     int spriteCounter = 0;
     int spriteToggle = 1;
     GamePanel game;
-
+    
+    //code for constructor
     public Gargantuar(int rw, GamePanel gme){
         super(rw,1000,gme);
         xOffsetCenter = 20;
@@ -21,16 +30,19 @@ public class Gargantuar extends Zombie{
         speed = 1;
     }
 
+    //loads sprites
     public void loadImage() {
         try {
             gargantuarSprite1 = ImageIO.read(getClass().getResource("Images\\gargantuarWalkingt1.png"));
             gargantuarSprite2 = ImageIO.read(getClass().getResource("Images\\gargantuarWalkingt2.png"));
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Error loading image files. Please ensure they are saved correctly");
         }
     }
 
+    //draws the sprites
     public void draw(Graphics g){
+        //animates the sprites 
         if (gargantuarSprite1 != null) {
 
             spriteCounter++;

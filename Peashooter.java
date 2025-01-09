@@ -1,4 +1,8 @@
+//Alexander Zhang and Stanley Zhou
+//2025-01-09
+//Code for the Peashooter class that controls game logic with the peashooter
 
+//imports
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -6,6 +10,7 @@ import javax.imageio.ImageIO;
 
 public class Peashooter extends Plant {
 
+    //declares all variables
     public static final int PEA_DURABILITY = 100;
     GamePanel game;
     BufferedImage peashooterSprite1;
@@ -21,6 +26,7 @@ public class Peashooter extends Plant {
     int spriteCounter = 0;
     int spriteToggle = 1;
 
+    //peashooter constructor
     Peashooter(int col, int rw, GamePanel gme) {
         super(col, rw, PEA_DURABILITY, gme);
         game = gme;
@@ -31,6 +37,7 @@ public class Peashooter extends Plant {
         durability = PEA_DURABILITY;
     }
 
+    //loads image
     public void loadImage() {
         try {
             peashooterSprite1 = ImageIO.read(getClass().getResource("Images\\peashootert1.png"));
@@ -42,6 +49,7 @@ public class Peashooter extends Plant {
         }
     }
 
+    //makes pea shoot and move
     public void move() {
         if (isZombie && isAlive && (peaThread == null || !peaThread.isAlive())) {
             peaThread = new Thread(new Runnable() {
@@ -50,7 +58,6 @@ public class Peashooter extends Plant {
                     try {
                         Thread.sleep(2000);
                         game.addPea(new Pea(column, row, game, Peashooter.this), row);
-                        Sound.playSingleSound("Sounds\\pea shooter sound effects 1# - Made with Clipchamp.wav", -20);
                         peaThread.interrupt();
                     } catch (Exception e) {
 
@@ -66,6 +73,7 @@ public class Peashooter extends Plant {
 
     }
 
+    //draws sprites
     @Override
     public void draw(Graphics g) {
         if (peashooterSprite1 != null) {
@@ -99,20 +107,19 @@ public class Peashooter extends Plant {
         }
     }
 
+    //indicates if there is a zombie in the lane
     public void yesZombie() {
         isZombie = true;
     }
 
+    //indicates if there is no zombie in the lane
     public void noZombie() {
         isZombie = false;
     }
 
+    //kills the peashooter
     @Override
     public void die() {
         isAlive = false;
-    }
-    @Override
-    public String toString(){
-        return durability+"";
     }
 }
