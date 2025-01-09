@@ -10,23 +10,25 @@ import javax.sound.sampled.Clip;
 import javax.sound.sampled.FloatControl;
 
 public class Sound {
+
     //declares all variables
     public static int volume; // 0 - 100
     static boolean playingZombieGroans = false;
     static boolean playingEatingSounds = false;
 
     //sets the volume
-    public void setVolume(int v){
+    public void setVolume(int v) {
         volume = v;
     }
+
     //plays the sound
     public static Clip playSingleSound(String location, float volume) {
-        try{
+        try {
             //take in filepath
             File musicPath = new File(location);
 
             //check to ensure filepath is valid
-            if(musicPath.exists()) {
+            if (musicPath.exists()) {
                 //file path valid
                 //set up audio clip
                 AudioInputStream audioInput = AudioSystem.getAudioInputStream(musicPath);
@@ -42,14 +44,15 @@ public class Sound {
                 clip.start(); //start playing music clip
                 GamePanel.soundPlayed = false;
                 return clip;
-            } /* else {
+            }
+            /* else {
                 System.out.println("Error: Cannot locate file");
             } */
-        } catch(Exception e) {
+        } catch (Exception e) {
             //file path invalid, print error
             System.out.println("Exception: Error with music playing.");
         }
-        
+
         return null;
     }
 
@@ -60,7 +63,7 @@ public class Sound {
             File musicPath = new File(filePath);
 
             //check if file path valid
-            if(musicPath.exists()) {
+            if (musicPath.exists()) {
                 // Plays music
                 AudioInputStream audioInput = AudioSystem.getAudioInputStream(musicPath);
                 Clip clip = AudioSystem.getClip(); // load clip
@@ -72,7 +75,7 @@ public class Sound {
                 System.out.println("Cannot Find File: please ensure code has filepath correctly entered.");
             }
 
-        } catch(Exception e) {
+        } catch (Exception e) {
             // All other errors
             System.out.println("Exception: Error with music playing.");
         }
@@ -80,7 +83,7 @@ public class Sound {
 
     //plays zombie groans
     public static void playZombieGroans() {
-        if(!playingZombieGroans && GamePanel.isRunning) {
+        if (!playingZombieGroans && GamePanel.isRunning) {
             playingZombieGroans = true;
             playRepeatSounds("Sounds\\groan.wav"); //play repeatedly
             //note currently playingZombieGroans is never turned back to false
@@ -90,7 +93,7 @@ public class Sound {
     //plays eating sounds
     public static void playEatingSounds() {
         //check if requirements to play eating sound are valid
-        if(!playingEatingSounds && GamePanel.isRunning) {
+        if (!playingEatingSounds && GamePanel.isRunning) {
             //play the single eating sound as long as requirements are valid
             playSingleSound("Sounds\\eat.wav", -10);
         }
