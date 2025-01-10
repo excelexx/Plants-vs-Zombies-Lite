@@ -47,7 +47,7 @@ public class PotatoMine extends Plant {
             @Override
             public void run(){
                 try{
-                    Thread.sleep(100);
+                    Thread.sleep(game.getMineTime());
                     arm();
                 }
                 catch(Exception e){

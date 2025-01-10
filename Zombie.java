@@ -18,12 +18,14 @@ public class Zombie extends Rectangle{
     int xOffsetCenter;
     int fps = 4;
     int xOffsetFront;
+    GamePanel game;
     boolean isStopped=false;
     //constructor
     Zombie(int rw, int dur, GamePanel gme){
         super(GamePanel.GAME_WIDTH,Grid.rowToY(rw),110,110);
         row = rw;
         durability = dur;
+        game = gme;
         positionX = GamePanel.GAME_WIDTH;
         positionY = Grid.rowToY(row) - 35 + (int)(Math.random() * -6 + 3);
     }
@@ -43,7 +45,7 @@ public class Zombie extends Rectangle{
     }
     //damages zombie
     public void peaDamage(){
-        durability -= GamePanel.PEA_DAMAGE;
+        durability -= game.getPeaDamage();
     }
     //moves zombie
     public void move(){

@@ -26,7 +26,7 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
     public BufferedImage endScreenLoseHover;
     boolean isLost = false;
     public BufferedImage endScreenWinHover;
-    public static final int PEA_DAMAGE = 20;
+    public int PEA_DAMAGE = 20;
     Iterator<Zombie> zombieIterator;
     Iterator<Peashooter> peashooterIterator;
     Iterator<Sun> sunIterator;
@@ -87,10 +87,11 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
     Walnut tempWalnut;
     public static int mouseX;
     public static int mouseY;
+    public int MINE_RELOAD = 10000;
     Zombie tempZombie;
     Sunflower tempSunflower;
-    public int[][][] zombieSpawnList = {{{30, 2, 2, 3, 3, 3, 3, 0}, {0, 0, 1, 1, 1, 2, 1, 0}, {0, 0, 0, 0, 0, 0, 0, 0}}, {{1, 1, 2, 2, 3, 5, 5, 0}, {0, 1, 1, 2, 3, 3, 3, 0}, {0, 0, 0, 0, 1, 0, 1, 0}}, {{10, 2, 5, 5, 5, 8, 10, 0}, {10, 2, 2, 4, 5, 5, 7, 0}, {0, 0, 1, 2, 2, 3, 10, 0}}};
-    int[][] zombieTimes = {{500, 2000, 2000, 2000, 2000, 2000, 2000, 100000}, {5000, 2000, 3000, 6000, 7000, 8000, 10000, 100000}, {5000, 2000, 3000, 6000, 7000, 8000, 10000, 100000}};
+    public int[][][] zombieSpawnList = {{{30, 2, 2, 3, 3, 3, 3, 0}, {0, 0, 1, 1, 1, 2, 1, 0}, {0, 0, 0, 0, 0, 0, 0, 0}}, {{1, 1, 2, 2, 3, 5, 5, 0}, {0, 1, 1, 2, 3, 3, 3, 0}, {0, 0, 0, 0, 1, 0, 1, 0}}, {{1, 3, 9, 27, 64, 64, 64, 0}, {1, 2, 4, 8, 16, 32, 64, 0}, {1, 2, 4, 8, 16, 32, 64, 0}}};
+    int[][] zombieTimes = {{500, 2000, 2000, 2000, 2000, 2000, 2000, 100000}, {5000, 2000, 3000, 6000, 7000, 8000, 10000, 100000}, {5000, 2000, 3000, 6000, 7000, 8000, 40000, 100000}};
 
     //Constructor for gamepanel class 
     public GamePanel() {
@@ -351,7 +352,15 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
                                 RegularZombie zombie = new RegularZombie(tempInt, GamePanel.this);
                                 zombieListAdd.get(tempInt - 1).add(zombie);
                             }
-                            Thread.sleep((int) (Math.random() * 5000 + 1000));
+                            if(difficulty == 1){
+                                Thread.sleep((int) (Math.random() * 5000 + 1000));
+                            }
+                            else if(difficulty == 2){
+                                Thread.sleep((int) (Math.random() * 3000 + 1000));
+                            }
+                            else if(difficulty == 3){
+                                Thread.sleep((int) (Math.random() * 500));
+                            }
                         }
 
                         // Spawn Cone Zombies
@@ -361,7 +370,15 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
                                 ConeZombie zombie = new ConeZombie(tempInt, GamePanel.this);
                                 zombieListAdd.get(tempInt - 1).add(zombie);
                             }
-                            Thread.sleep((int) (Math.random() * 5000 + 1000));
+                            if(difficulty == 1){
+                                Thread.sleep((int) (Math.random() * 5000 + 1000));
+                            }
+                            else if(difficulty == 2){
+                                Thread.sleep((int) (Math.random() * 3000 + 1000));
+                            }
+                            else if(difficulty == 3){
+                                Thread.sleep((int) (Math.random() * 500));
+                            }
                         }
 
                         // Spawn Gargantuars
@@ -371,7 +388,15 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
                                 Gargantuar zombie = new Gargantuar(tempInt, GamePanel.this);
                                 zombieListAdd.get(tempInt - 1).add(zombie);
                             }
-                            Thread.sleep((int) (Math.random() * 5000 + 1000));
+                            if(difficulty == 1){
+                                Thread.sleep((int) (Math.random() * 5000 + 1000));
+                            }
+                            else if(difficulty == 2){
+                                Thread.sleep((int) (Math.random() * 3000 + 1000));
+                            }
+                            else if(difficulty == 3){
+                                Thread.sleep((int) (Math.random() * 1000));
+                            }
                         }
 
                         // Advance level progress
@@ -994,6 +1019,7 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
         Menu.endGame();
         //resets the inventory
         inventory = new Inventory(this);
+        inventory.endGame();
     }
 
     //removes a plant in a row/column by adding to to the remove list
@@ -1037,5 +1063,21 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
 
     public void removePea(Pea p) {
         peaListRemove.get(p.getRow() - 1).add(p);
+    }
+
+    public int getMineTime(){
+        return MINE_RELOAD;
+    }
+
+    public void setMineTime(int a){
+        MINE_RELOAD = a;
+    }
+
+    public void setPeaDamage(int a){
+        PEA_DAMAGE = a;
+    }
+
+    public int getPeaDamage(){
+        return PEA_DAMAGE;
     }
 }
