@@ -116,6 +116,7 @@ public class Sun extends Rectangle {
         }
     }
 
+    //draws the sprites
     public void draw(Graphics g) {
         if (sunSprite1 != null && sunSprite2 != null && !isGone) {
             spriteCounter++;
@@ -138,10 +139,12 @@ public class Sun extends Rectangle {
         }
     }
 
+    //kills the sun
     public void die() {
         isGone = true;
     }
 
+    //tracks when sun is collected
     public void mouseReleased(MouseEvent e){
         mouseX = e.getX();
         mouseY = e.getY();

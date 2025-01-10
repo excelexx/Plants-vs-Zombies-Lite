@@ -17,6 +17,8 @@ public class Inventory {
     private BufferedImage zombieHead;
     private BufferedImage shovelImage;
     private BufferedImage shovelOnlyImage;
+    private BufferedImage peaUpgradeImage;
+    private BufferedImage mineUpgradeImage;
     BufferedImage sunflowerImage;
     BufferedImage peashooterImage;
     BufferedImage mineImage;
@@ -37,8 +39,8 @@ public class Inventory {
     int[] peaUpgradeCosts = {200, 250, 500, 1000, 2500, 5000, 7500, 10000};
     int[] peaUpgradeDamage = {10, 25, 40, 50, 70, 85, 100, 200};
     int peaUpgradeState = 0;
-    Message peaUpgradeMessage = new Message(600, 100, 50, 50, peaUpgradeCosts[0] + "", 20);
-    Message mineUpgradeMessage = new Message(720, 100, 50, 50, mineUpgradeCosts[0] + "", 20);
+    Message peaUpgradeMessage = new Message(595, 92, 50, 50, peaUpgradeCosts[0] + "", 17);
+    Message mineUpgradeMessage = new Message(715, 92, 50, 50, mineUpgradeCosts[0] + "", 17);
 
     //code for constructor
     Inventory(GamePanel gme) {
@@ -58,6 +60,8 @@ public class Inventory {
             peashooterImage = ImageIO.read(getClass().getResource("/Images/peashootert1.png"));
             mineImage = ImageIO.read(getClass().getResource("/Images/armedPotatoMineImage.png"));
             walnutImage = ImageIO.read(getClass().getResource("/Images/walnutt1.png"));
+            peaUpgradeImage = ImageIO.read(getClass().getResource("/Images/peaUpgrade.png"));
+            mineUpgradeImage = ImageIO.read(getClass().getResource("/Images/potatoMineUpgrade.png"));
 
         } catch (IOException e) {
             System.out.println("Error loading image files. Please check all files are saved properly.");
@@ -88,9 +92,9 @@ public class Inventory {
                 state = 4;
             } else if (465 < mouseX && mouseX < 465 + 107 && 8 < mouseY && mouseY < 108) {
                 state = 5;
-            } else if (570 < mouseX && mouseX < 570 + 110 && 0 < mouseY && mouseY < 108) {
+            } else if (565 < mouseX && mouseX < 565 + 110 && 0 < mouseY && mouseY < 108) {
                 state = 6;
-            } else if (685 < mouseX && mouseX < 685 + 110 && 0 < mouseY && mouseY < 108) {
+            } else if (675 < mouseX && mouseX < 675 + 110 && 0 < mouseY && mouseY < 108) {
                 state = 7;
             } else {
                 state = 0;
@@ -125,11 +129,13 @@ public class Inventory {
                         selectedState = 5;
                         break;
                     case 6:
-                        if (peaUpgradeState + 1 < peaUpgradeCosts.length && game.getSun() >= peaUpgradeCosts[peaUpgradeState + 1]) {
-                            peaUpgradeState++;
+                        if (peaUpgradeState + 1 < peaUpgradeCosts.length && game.getSun() >= peaUpgradeCosts[peaUpgradeState]) {
+                            Sound.playSingleSound("Sounds\\chaching.wav", 0);
                             game.changeSun(-peaUpgradeCosts[peaUpgradeState]);
                             game.setPeaDamage(peaUpgradeDamage[peaUpgradeState]);
-                            System.out.print(peaUpgradeState);
+                            if (peaUpgradeState < peaUpgradeCosts.length - 2) {
+                                peaUpgradeState++;
+                            }
                         } else {
                             colorThread = new Thread(new Runnable() {
                                 public void run() {
@@ -148,11 +154,13 @@ public class Inventory {
                         }
                         break;
                     case 7:
-                        if (mineUpgradeState + 1 < mineUpgradeCosts.length && game.getSun() >= mineUpgradeCosts[mineUpgradeState + 1]) {
-                            mineUpgradeState++;
+                        if (mineUpgradeState + 1 < mineUpgradeCosts.length && game.getSun() >= mineUpgradeCosts[mineUpgradeState]) {
+                            Sound.playSingleSound("Sounds\\chaching.wav", 0);
                             game.changeSun(-mineUpgradeCosts[mineUpgradeState]);
                             game.setMineTime(mineUpgradeTimes[mineUpgradeState]);
-                            System.out.print(mineUpgradeState);
+                            if (mineUpgradeState < mineUpgradeCosts.length - 2) {
+                                mineUpgradeState++;
+                            }
                         } else {
                             colorThread = new Thread(new Runnable() {
                                 public void run() {
@@ -306,6 +314,10 @@ public class Inventory {
             g.setColor(new Color(75, 190, 68));
             g.fillRect(850, 755, progress - 10, 25);
             g.drawImage(zombieHead, 820 + progress, 745, null);
+            g.drawImage(mineUpgradeImage, 675, 0, null);
+            g.drawImage(peaUpgradeImage, 565, 0, null);
+            peaUpgradeMessage.draw(g);
+            mineUpgradeMessage.draw(g);
             //draws plants/shovel if it is being held on mouse
             switch (selectedState) {
                 case 1:
@@ -324,11 +336,6 @@ public class Inventory {
                     g.drawImage(shovelOnlyImage, mouseX - 20, mouseY - 20, null);
                     break;
             }
-            g.fillRect(685, 0, 110, 110);
-
-            g.fillRect(570, 0, 110, 110);
-            peaUpgradeMessage.draw(g);
-            mineUpgradeMessage.draw(g);
         }
     }
 

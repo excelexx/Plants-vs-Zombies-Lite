@@ -23,6 +23,7 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
     public BufferedImage gameBackground;
     public BufferedImage endScreenWinDefault;
     public BufferedImage endScreenLoseDefault;
+    Thread potatoMineThread;
     public BufferedImage endScreenLoseHover;
     boolean isLost = false;
     public BufferedImage endScreenWinHover;
@@ -70,7 +71,7 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
     public static ArrayList<ArrayList<PotatoMine>> potatoMineListRemove = new ArrayList<>();
     public static int[] furthestZombies = new int[5];
     Iterator<Sunflower> sunflowerIterator;
-    public static int sunCount = 50000;
+    public static int sunCount = 50;
     public boolean zombiesAllDead = true;
     Zombie secondTempZombie;
     public static Thread zombieSpawnThread;
@@ -352,13 +353,11 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
                                 RegularZombie zombie = new RegularZombie(tempInt, GamePanel.this);
                                 zombieListAdd.get(tempInt - 1).add(zombie);
                             }
-                            if(difficulty == 1){
+                            if (difficulty == 1) {
                                 Thread.sleep((int) (Math.random() * 5000 + 1000));
-                            }
-                            else if(difficulty == 2){
+                            } else if (difficulty == 2) {
                                 Thread.sleep((int) (Math.random() * 3000 + 1000));
-                            }
-                            else if(difficulty == 3){
+                            } else if (difficulty == 3) {
                                 Thread.sleep((int) (Math.random() * 500));
                             }
                         }
@@ -370,13 +369,11 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
                                 ConeZombie zombie = new ConeZombie(tempInt, GamePanel.this);
                                 zombieListAdd.get(tempInt - 1).add(zombie);
                             }
-                            if(difficulty == 1){
+                            if (difficulty == 1) {
                                 Thread.sleep((int) (Math.random() * 5000 + 1000));
-                            }
-                            else if(difficulty == 2){
+                            } else if (difficulty == 2) {
                                 Thread.sleep((int) (Math.random() * 3000 + 1000));
-                            }
-                            else if(difficulty == 3){
+                            } else if (difficulty == 3) {
                                 Thread.sleep((int) (Math.random() * 500));
                             }
                         }
@@ -388,13 +385,11 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
                                 Gargantuar zombie = new Gargantuar(tempInt, GamePanel.this);
                                 zombieListAdd.get(tempInt - 1).add(zombie);
                             }
-                            if(difficulty == 1){
+                            if (difficulty == 1) {
                                 Thread.sleep((int) (Math.random() * 5000 + 1000));
-                            }
-                            else if(difficulty == 2){
+                            } else if (difficulty == 2) {
                                 Thread.sleep((int) (Math.random() * 3000 + 1000));
-                            }
-                            else if(difficulty == 3){
+                            } else if (difficulty == 3) {
                                 Thread.sleep((int) (Math.random() * 1000));
                             }
                         }
@@ -474,27 +469,18 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
                 potatoMineIterator = potatoMineList.get(i).iterator();
                 while (potatoMineIterator.hasNext()) {
                     tempPotatoMine = potatoMineIterator.next();
-                    if(tempPotatoMine.showExplosion){
-                           
+                    if (tempPotatoMine.showExplosion) {
+
                     }
                     if (tempPotatoMine.isArmed()) {
                         for (Zombie z : zombieList.get(i)) {
-                            //if(!tempPotatoMine.showExplosion){
                             if (z.getXEat() - tempPotatoMine.getPosX() <= 51) {
                                 //show explosion
                                 tempPotatoMine.showExplosion();
-                                potatoMineListRemove.get(i).add(tempPotatoMine);
                                 Sound.playSingleSound("Sounds\\boom.wav", 0);
+                                potatoMineListRemove.get(i).add(tempPotatoMine);
                                 z.potatoMineDamage();
                             }
-                            if (z.getXEat() - tempPotatoMine.getPosX() <= 50) {
-                                //play explosion sound
-
-                            }
-                            if (z.getXEat() >= tempPotatoMine.getXEat() + 10 && z.getXEat() <= tempPotatoMine.getXEat() + 70) {
-
-                            }
-                            //}                            
                         }
                     }
                 }
@@ -885,7 +871,7 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
     //increments the sun count
     public void changeSun(int s) {
         if (s > 0) {
-            Sound.playSingleSound("Sounds\\sunCollect.wav", 0);
+            Sound.playSingleSound("Sounds\\sunCollect.wav", 20);
         }
         sunCount += s;
     }
@@ -1065,19 +1051,19 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
         peaListRemove.get(p.getRow() - 1).add(p);
     }
 
-    public int getMineTime(){
+    public int getMineTime() {
         return MINE_RELOAD;
     }
 
-    public void setMineTime(int a){
+    public void setMineTime(int a) {
         MINE_RELOAD = a;
     }
 
-    public void setPeaDamage(int a){
+    public void setPeaDamage(int a) {
         PEA_DAMAGE = a;
     }
 
-    public int getPeaDamage(){
+    public int getPeaDamage() {
         return PEA_DAMAGE;
     }
 }
