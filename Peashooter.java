@@ -24,6 +24,7 @@ public class Peashooter extends Plant {
     int xOffset = 40;
     int yOffset = 40;
     int spriteCounter = 0;
+    double multiplier;
     int spriteToggle = 1;
 
     //peashooter constructor
@@ -51,12 +52,13 @@ public class Peashooter extends Plant {
 
     //makes pea shoot and move
     public void move() {
+        multiplier = game.getSpeed();
         if (isZombie && isAlive && (peaThread == null || !peaThread.isAlive())) {
             peaThread = new Thread(new Runnable() {
                 @Override
                 public void run() {
                     try {
-                        Thread.sleep(2000);
+                        Thread.sleep((int)((2000)*multiplier));
                         game.addPea(new Pea(column, row, game, Peashooter.this), row);
                         peaThread.interrupt();
                     } catch (Exception e) {
@@ -64,11 +66,11 @@ public class Peashooter extends Plant {
                     }
                 }
             });
-            if(spriteToggle == 2) {
+            if (spriteToggle == 2) {
                 //only shoot once in next shooting sprite 
                 peaThread.start();
             }
-            
+
         }
 
     }
@@ -80,28 +82,28 @@ public class Peashooter extends Plant {
 
             spriteCounter++;
 
-            if(spriteCounter > 0 && spriteCounter <= 30) {
+            if (spriteCounter > 0 && spriteCounter <= ((int)(30*multiplier))) {
                 spriteToggle = 1;
-            } else if(spriteCounter > 30 && spriteCounter < 60) {
+            } else if (spriteCounter > ((int)(30*multiplier)) && spriteCounter < ((int)(60*multiplier))) {
                 spriteToggle = 2;
-            } else if(spriteCounter > 60 && spriteCounter < 90) {
+            } else if (spriteCounter > ((int)(60*multiplier)) && spriteCounter < ((int)(90*multiplier))) {
                 spriteToggle = 3;
-            } else if(spriteCounter > 90 && spriteCounter < 120) {
+            } else if (spriteCounter > ((int)(90*multiplier)) && spriteCounter < ((int)(120*multiplier))) {
                 spriteToggle = 4;
-            } else if(spriteCounter > 120) {
+            } else if (spriteCounter > ((int)(90*multiplier))) {
                 spriteCounter = 0;
             }
 
-            if(spriteToggle == 1) {
+            if (spriteToggle == 1) {
                 g.drawImage(peashooterSprite1, Grid.colToX(column), Grid.rowToY(row), null);
             }
-            if(spriteToggle == 2) {
+            if (spriteToggle == 2) {
                 g.drawImage(peashooterSprite2, Grid.colToX(column), Grid.rowToY(row), null);
             }
-            if(spriteToggle == 3) {
+            if (spriteToggle == 3) {
                 g.drawImage(peashooterSprite3, Grid.colToX(column), Grid.rowToY(row), null);
             }
-            if(spriteToggle == 4) {
+            if (spriteToggle == 4) {
                 g.drawImage(peashooterSprite4, Grid.colToX(column), Grid.rowToY(row), null);
             }
         }

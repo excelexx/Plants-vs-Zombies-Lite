@@ -27,7 +27,6 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
     public BufferedImage endScreenLoseHover;
     boolean isLost = false;
     public BufferedImage endScreenWinHover;
-    public int PEA_DAMAGE = 20;
     Iterator<Zombie> zombieIterator;
     Iterator<Peashooter> peashooterIterator;
     Iterator<Sun> sunIterator;
@@ -71,7 +70,7 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
     public static ArrayList<ArrayList<PotatoMine>> potatoMineListRemove = new ArrayList<>();
     public static int[] furthestZombies = new int[5];
     Iterator<Sunflower> sunflowerIterator;
-    public static int sunCount = 50;
+    public static int sunCount = 5000;
     public boolean zombiesAllDead = true;
     Zombie secondTempZombie;
     public static Thread zombieSpawnThread;
@@ -88,11 +87,13 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
     Walnut tempWalnut;
     public static int mouseX;
     public static int mouseY;
-    public int MINE_RELOAD = 10000;
     Zombie tempZombie;
     Sunflower tempSunflower;
     public int[][][] zombieSpawnList = {{{30, 2, 2, 3, 3, 3, 3, 0}, {0, 0, 1, 1, 1, 2, 1, 0}, {0, 0, 0, 0, 0, 0, 0, 0}}, {{1, 1, 2, 2, 3, 5, 5, 0}, {0, 1, 1, 2, 3, 3, 3, 0}, {0, 0, 0, 0, 1, 0, 1, 0}}, {{1, 3, 9, 27, 64, 64, 64, 0}, {1, 2, 4, 8, 16, 32, 64, 0}, {1, 2, 4, 8, 16, 32, 64, 0}}};
     int[][] zombieTimes = {{500, 2000, 2000, 2000, 2000, 2000, 2000, 100000}, {5000, 2000, 3000, 6000, 7000, 8000, 10000, 100000}, {5000, 2000, 3000, 6000, 7000, 8000, 40000, 100000}};
+    double speedMultiplier;
+    public int PEA_DAMAGE;
+    public int MINE_RELOAD;
 
     //Constructor for gamepanel class 
     public GamePanel() {
@@ -125,11 +126,8 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
             public void mouseMoved(MouseEvent e) {
                 if (!isRunning) {
                     Menu.mouseMoved(e);
-                } else {
-                    inventory.mouseMoved(e);
                 }
-                mouseX = e.getX();
-                mouseY = e.getY();
+                    inventory.mouseMoved(e);
             }
         });
         //sets window size
@@ -160,6 +158,10 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
             walnutListAdd.add(new ArrayList<>());
             potatoMineListAdd.add(new ArrayList<>());
         }
+        
+        speedMultiplier = inventory.speedUpgradeTimes[0];
+        PEA_DAMAGE = inventory.peaUpgradeDamage[0];
+        MINE_RELOAD = inventory.mineUpgradeTimes[0];
     }
 
     //loads all images
@@ -819,17 +821,12 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
     //overrides MouseMotionListener interface
     @Override
     public void mouseDragged(MouseEvent e) {
-
     }
 
     //overrides MouseMotionListener interface
     @Override
     public void mouseMoved(MouseEvent e) {
-
-        mouseX = e.getX();
-        mouseY = e.getY();
     }
-
     //overrides mousereleased interface, and checks if any sun has been clicked on.
     @Override
     public void mouseReleased(MouseEvent e) {
@@ -839,8 +836,6 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
             }
         } catch (Exception h) {
         }
-        mouseClickedX = e.getX();
-        mouseClickedY = e.getY();
     }
 
     @Override
@@ -949,6 +944,9 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
     //ends game
     public void endGame() {
         //resets all booleans and values
+        speedMultiplier = inventory.speedUpgradeTimes[0];
+        PEA_DAMAGE = inventory.peaUpgradeDamage[0];
+        MINE_RELOAD = inventory.mineUpgradeTimes[0];
         gameEnded = false;
         isRunning = false;
         isGameDone = false;
@@ -1065,5 +1063,11 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
 
     public int getPeaDamage() {
         return PEA_DAMAGE;
+    }
+    public double getSpeed(){
+        return speedMultiplier;
+    }
+    public void setSpeed(double a){
+        speedMultiplier = a;
     }
 }
