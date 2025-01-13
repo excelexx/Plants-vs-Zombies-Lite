@@ -59,11 +59,11 @@ public class Menu extends JPanel {
     // loads all images
     public void loadImage() {
         try {
-            homeDefault = ImageIO.read(getClass().getResource("/Images/homeDefault.png"));
-            signPlay = ImageIO.read(getClass().getResource("/Images/homePlay.png"));
-            signHelp = ImageIO.read(getClass().getResource("/Images/homeHelp.png"));
-            signOptions = ImageIO.read(getClass().getResource("/Images/homeOptions.png"));
-            signQuit = ImageIO.read(getClass().getResource("/Images/homeQuit.png"));
+            homeDefault = ImageIO.read(getClass().getResource("/Images/homeDefaultNew.png"));
+            signPlay = ImageIO.read(getClass().getResource("/Images/homePlayNew.png"));
+            signHelp = ImageIO.read(getClass().getResource("/Images/homeHelpNew.png"));
+            signOptions = ImageIO.read(getClass().getResource("/Images/homeInfoNew.png"));
+            signQuit = ImageIO.read(getClass().getResource("/Images/homeQuitNew.png"));
             levelsDefault = ImageIO.read(getClass().getResource("/Images/levelsDefault.png"));
             levelsEasy = ImageIO.read(getClass().getResource("/Images/levelsEasy.png"));
             levelsMedium = ImageIO.read(getClass().getResource("/Images/levelsMedium.png"));
