@@ -21,7 +21,7 @@ public class Gargantuar extends Zombie{
     
     //code for constructor
     public Gargantuar(int rw, GamePanel gme){
-        super(rw,1000,gme);
+        super(rw,1500,gme);
         xOffsetCenter = 20;
         xOffsetFront = -40;
         game = gme;

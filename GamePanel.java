@@ -70,7 +70,7 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
     public static ArrayList<ArrayList<PotatoMine>> potatoMineListRemove = new ArrayList<>();
     public static int[] furthestZombies = new int[5];
     Iterator<Sunflower> sunflowerIterator;
-    public static int sunCount = 5000;
+    public static int sunCount = 50;
     public boolean zombiesAllDead = true;
     Zombie secondTempZombie;
     public static Thread zombieSpawnThread;
@@ -126,8 +126,11 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
             public void mouseMoved(MouseEvent e) {
                 if (!isRunning) {
                     Menu.mouseMoved(e);
-                }
+                } else {
                     inventory.mouseMoved(e);
+                }
+                mouseX = e.getX();
+                mouseY = e.getY();
             }
         });
         //sets window size
@@ -158,7 +161,7 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
             walnutListAdd.add(new ArrayList<>());
             potatoMineListAdd.add(new ArrayList<>());
         }
-        
+
         speedMultiplier = inventory.speedUpgradeTimes[0];
         PEA_DAMAGE = inventory.peaUpgradeDamage[0];
         MINE_RELOAD = inventory.mineUpgradeTimes[0];
@@ -307,7 +310,7 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
                 public void run() {
                     try {
                         //spawns sun at random intervals using a thread
-                        Thread.sleep((int) (Math.random() * 1000 + 1000));
+                        Thread.sleep((int) (Math.random() * 5000 + 3000));
                         addSun(new Sun((int) (Math.random() * (GAME_WIDTH - 100) + 50), (int) (Math.random() * (GAME_HEIGHT - 300) + 50), GamePanel.this));
                         sunThread.interrupt();
                     } catch (Exception e) {
@@ -826,7 +829,10 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
     //overrides MouseMotionListener interface
     @Override
     public void mouseMoved(MouseEvent e) {
+        mouseX = e.getX();
+        mouseY = e.getY();
     }
+
     //overrides mousereleased interface, and checks if any sun has been clicked on.
     @Override
     public void mouseReleased(MouseEvent e) {
@@ -1064,10 +1070,12 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
     public int getPeaDamage() {
         return PEA_DAMAGE;
     }
-    public double getSpeed(){
+
+    public double getSpeed() {
         return speedMultiplier;
     }
-    public void setSpeed(double a){
+
+    public void setSpeed(double a) {
         speedMultiplier = a;
     }
 }

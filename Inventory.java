@@ -41,7 +41,7 @@ public class Inventory {
     int[] peaUpgradeDamage = {10, 25, 40, 50, 70, 85, 100, 200};
     int peaUpgradeState = 0;
     int[] speedUpgradeCosts = {50, 100, 200, 400, 600, 1000, 2000};
-    double[] speedUpgradeTimes = {1.3, 1.0, 0.8, 0.7, 0.55, 0.4,0.3};
+    double[] speedUpgradeTimes = {1.3, 1.0, 0.8, 0.7, 0.55, 0.4, 0.3};
     int speedUpgradeState = 0;
     Message peaUpgradeMessage = new Message(595, 92, 50, 50, peaUpgradeCosts[0] + "", 17);
     Message mineUpgradeMessage = new Message(715, 92, 50, 50, mineUpgradeCosts[0] + "", 17);
@@ -80,6 +80,15 @@ public class Inventory {
         peaUpgradeMessage.setMessage(peaUpgradeCosts[peaUpgradeState] + "");
         mineUpgradeMessage.setMessage(mineUpgradeCosts[mineUpgradeState] + "");
         peaSpeedMessage.setMessage(speedUpgradeCosts[speedUpgradeState] + "");
+        if(peaUpgradeState== peaUpgradeCosts.length-1){
+            peaUpgradeMessage.setMessage("Max Lvl");
+        }
+        if(mineUpgradeState== mineUpgradeCosts.length-1){
+            mineUpgradeMessage.setMessage("Max Lvl");
+        }
+        if(speedUpgradeState == speedUpgradeCosts.length-1){
+            peaSpeedMessage.setMessage("Max Lvl");
+        }
         progress = (int) (1.0 * game.levelProgressState / totalProgress * (progressBarWidth - 30)) + 30;
     }
 
@@ -142,10 +151,10 @@ public class Inventory {
                             Sound.playSingleSound("Sounds\\chaching.wav", 0);
                             game.changeSun(-peaUpgradeCosts[peaUpgradeState]);
                             game.setPeaDamage(peaUpgradeDamage[peaUpgradeState]);
-                            if (peaUpgradeState < peaUpgradeCosts.length - 2) {
+                            if (peaUpgradeState < peaUpgradeCosts.length - 1) {
                                 peaUpgradeState++;
                             }
-                        } else {
+                        } else if(!(game.getSun() >= peaUpgradeCosts[peaUpgradeState])) {
                             colorThread = new Thread(new Runnable() {
                                 public void run() {
                                     try {
@@ -167,10 +176,10 @@ public class Inventory {
                             Sound.playSingleSound("Sounds\\chaching.wav", 0);
                             game.changeSun(-mineUpgradeCosts[mineUpgradeState]);
                             game.setMineTime(mineUpgradeTimes[mineUpgradeState]);
-                            if (mineUpgradeState < mineUpgradeCosts.length - 2) {
+                            if (mineUpgradeState < mineUpgradeCosts.length - 1) {
                                 mineUpgradeState++;
                             }
-                        } else {
+                        } else if(!(game.getSun() >= mineUpgradeCosts[mineUpgradeState])){
                             colorThread = new Thread(new Runnable() {
                                 public void run() {
                                     try {
@@ -192,10 +201,10 @@ public class Inventory {
                             Sound.playSingleSound("Sounds\\chaching.wav", 0);
                             game.changeSun(-speedUpgradeCosts[speedUpgradeState]);
                             game.setSpeed(speedUpgradeTimes[speedUpgradeState]);
-                            if (speedUpgradeState < speedUpgradeCosts.length - 2) {
+                            if (speedUpgradeState < speedUpgradeCosts.length - 1) {
                                 speedUpgradeState++;
                             }
-                        } else {
+                        } else if (!(game.getSun() >= speedUpgradeCosts[speedUpgradeState])) {
                             colorThread = new Thread(new Runnable() {
                                 public void run() {
                                     try {
@@ -205,7 +214,7 @@ public class Inventory {
                                         sunAmount.setColorRed(false);
                                         Sound.playSingleSound("Sounds\\x.wav", 0);
                                     } catch (Exception e) {
-
+                                        
                                     }
                                 }
                             });
