@@ -387,5 +387,6 @@ public class Inventory {
     public void endGame() {
         mineUpgradeState = 0;
         peaUpgradeState = 0;
+        speedUpgradeState = 0;
     }
 }
