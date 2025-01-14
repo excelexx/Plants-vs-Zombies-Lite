@@ -46,7 +46,7 @@ public class Inventory {
     Message peaUpgradeMessage = new Message(595, 92, 50, 50, peaUpgradeCosts[0] + "", 17);
     Message mineUpgradeMessage = new Message(715, 92, 50, 50, mineUpgradeCosts[0] + "", 17);
     Message peaSpeedMessage = new Message(820, 92, 50, 50, speedUpgradeCosts[0] + "", 17);
-    Message dmgLevel = new Message(620, 73, 50, 50, peaUpgradeDamage[0] + "hp", 14);
+    Message dmgLevel = new Message(600, 73, 50, 50, peaUpgradeDamage[0] + "hp", 14);
     Message timeLevel = new Message(720, 73, 50, 50, mineUpgradeTimes[0] / 1000 + "s", 14);
     Message speedLevel = new Message(835, 73, 50, 50,  (Math.round((100.0 / speedUpgradeTimes[speedUpgradeState])) / 100.0) + "x", 14);
 
@@ -68,7 +68,7 @@ public class Inventory {
             peashooterImage = ImageIO.read(getClass().getResource("/Images/peashootert1.png"));
             mineImage = ImageIO.read(getClass().getResource("/Images/armedPotatoMineImage.png"));
             walnutImage = ImageIO.read(getClass().getResource("/Images/walnutt1.png"));
-            peaUpgradeImage = ImageIO.read(getClass().getResource("/Images/peaUpgrade.png"));
+            peaUpgradeImage = ImageIO.read(getClass().getResource("/Images/peaUpgradeNew.png"));
             mineUpgradeImage = ImageIO.read(getClass().getResource("/Images/potatoMineUpgrade.png"));
             peaSpeedImage = ImageIO.read(getClass().getResource("/Images/peashooterUpgradeSpeed.png"));
 
@@ -83,7 +83,7 @@ public class Inventory {
         peaUpgradeMessage.setMessage(peaUpgradeCosts[peaUpgradeState] + "");
         mineUpgradeMessage.setMessage(mineUpgradeCosts[mineUpgradeState] + "");
         peaSpeedMessage.setMessage(speedUpgradeCosts[speedUpgradeState] + "");
-        dmgLevel.setMessage(peaUpgradeDamage[peaUpgradeState] + "hp");
+        dmgLevel.setMessage(peaUpgradeDamage[peaUpgradeState] + "dmg");
         timeLevel.setMessage(mineUpgradeTimes[mineUpgradeState] / 1000 + "s");
         speedLevel.setMessage( (Math.round((100 / speedUpgradeTimes[speedUpgradeState])) / 100.0) + "x");
         if (peaUpgradeState == peaUpgradeCosts.length - 1) {
