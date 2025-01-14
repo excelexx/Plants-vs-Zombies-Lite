@@ -17,7 +17,7 @@ public class Menu extends JPanel {
     public static BufferedImage homeDefault;
     public static BufferedImage signPlay;
     public static BufferedImage signHelp;
-    public static BufferedImage signOptions;
+    public static BufferedImage signInfo;
     public static BufferedImage signQuit;
     public static BufferedImage levelsDefault;
     public static BufferedImage levelsEasy;
@@ -26,8 +26,8 @@ public class Menu extends JPanel {
     public static BufferedImage levelsClose;
     public static BufferedImage helpDefault;
     public static BufferedImage helpClose;
-    public static BufferedImage optionsDefault;
-    public static BufferedImage optionsClose;
+    public static BufferedImage infoDefault;
+    public static BufferedImage infoClose;
     public static int level;
     public static int signState = 0;
     public static int mouseX;
@@ -62,17 +62,17 @@ public class Menu extends JPanel {
             homeDefault = ImageIO.read(getClass().getResource("/Images/homeDefaultNew.png"));
             signPlay = ImageIO.read(getClass().getResource("/Images/homePlayNew.png"));
             signHelp = ImageIO.read(getClass().getResource("/Images/homeHelpNew.png"));
-            signOptions = ImageIO.read(getClass().getResource("/Images/homeInfoNew.png"));
+            signInfo = ImageIO.read(getClass().getResource("/Images/homeInfoNew.png"));
             signQuit = ImageIO.read(getClass().getResource("/Images/homeQuitNew.png"));
             levelsDefault = ImageIO.read(getClass().getResource("/Images/levelsDefault.png"));
             levelsEasy = ImageIO.read(getClass().getResource("/Images/levelsEasy.png"));
             levelsMedium = ImageIO.read(getClass().getResource("/Images/levelsMedium.png"));
             levelsHard = ImageIO.read(getClass().getResource("/Images/levelsHard.png"));
             levelsClose = ImageIO.read(getClass().getResource("/Images/levelsClose.png"));
-            helpDefault = ImageIO.read(getClass().getResource("/Images/helpDefault.png"));
-            helpClose = ImageIO.read(getClass().getResource("/Images/helpClose.png"));
-            optionsDefault = ImageIO.read(getClass().getResource("/Images/optionsDefault.png"));
-            optionsClose = ImageIO.read(getClass().getResource("/Images/optionsClose.png"));
+            helpDefault = ImageIO.read(getClass().getResource("/Images/helpDefaultNew.png"));
+            helpClose = ImageIO.read(getClass().getResource("/Images/helpCloseNew.png"));
+            infoDefault = ImageIO.read(getClass().getResource("/Images/infoDefault.png"));
+            infoClose = ImageIO.read(getClass().getResource("/Images/infoClose.png"));
         } catch (IOException e) {
             System.out.println("Error loading images. Please check the files were saved correctly.");
         }
@@ -219,7 +219,7 @@ public class Menu extends JPanel {
     // draws the background depending on what the current state it
     public static void draw(Graphics g) {
 
-        if (homeDefault != null && signPlay != null && signHelp != null && signOptions != null && signQuit != null) {
+        if (homeDefault != null && signPlay != null && signHelp != null && signInfo != null && signQuit != null) {
             switch (buttonState) {
                 // code for if it is on the default page
                 case 0:
@@ -234,7 +234,7 @@ public class Menu extends JPanel {
                             g.drawImage(signHelp, 0, 0, GamePanel.GAME_WIDTH, GamePanel.GAME_HEIGHT, null);
                             break;
                         case 3:
-                            g.drawImage(signOptions, 0, 0, GamePanel.GAME_WIDTH, GamePanel.GAME_HEIGHT, null);
+                            g.drawImage(signInfo, 0, 0, GamePanel.GAME_WIDTH, GamePanel.GAME_HEIGHT, null);
                             break;
                         case 4:
                             g.drawImage(signQuit, 0, 0, GamePanel.GAME_WIDTH, GamePanel.GAME_HEIGHT, null);
@@ -276,10 +276,10 @@ public class Menu extends JPanel {
                 case 3:
                     switch (signState) {
                         case 12:
-                            g.drawImage(optionsDefault, 0, 0, GamePanel.GAME_WIDTH, GamePanel.GAME_HEIGHT, null);
+                            g.drawImage(infoDefault, 0, 0, GamePanel.GAME_WIDTH, GamePanel.GAME_HEIGHT, null);
                             break;
                         case 13:
-                            g.drawImage(optionsClose, 0, 0, GamePanel.GAME_WIDTH, GamePanel.GAME_HEIGHT, null);
+                            g.drawImage(infoClose, 0, 0, GamePanel.GAME_WIDTH, GamePanel.GAME_HEIGHT, null);
                             break;
                     }
                     break;
