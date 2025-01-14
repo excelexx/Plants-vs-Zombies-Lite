@@ -43,7 +43,7 @@ public class Inventory {
     int[] speedUpgradeCosts = {50, 100, 200, 400, 600, 1000, 2000};
     double[] speedUpgradeTimes = {1.0, 0.75, 0.6, 0.5, 0.32, 0.25, 0.2};
     int speedUpgradeState = 0;
-    Message peaUpgradeMessage = new Message(595, 92, 50, 50, peaUpgradeCosts[0] + "", 17);
+    Message peaUpgradeMessage = new Message(605, 92, 50, 50, peaUpgradeCosts[0] + "", 17);
     Message mineUpgradeMessage = new Message(715, 92, 50, 50, mineUpgradeCosts[0] + "", 17);
     Message peaSpeedMessage = new Message(820, 92, 50, 50, speedUpgradeCosts[0] + "", 17);
     Message dmgLevel = new Message(600, 73, 50, 50, peaUpgradeDamage[0] + "dmg", 14);
