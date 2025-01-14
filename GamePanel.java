@@ -70,7 +70,7 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
     public static ArrayList<ArrayList<PotatoMine>> potatoMineListRemove = new ArrayList<>();
     public static int[] furthestZombies = new int[5];
     Iterator<Sunflower> sunflowerIterator;
-    public static int sunCount = 50000;
+    public static int sunCount = 50;
     public boolean zombiesAllDead = true;
     Zombie secondTempZombie;
     public static Thread zombieSpawnThread;
@@ -90,7 +90,7 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
     Zombie tempZombie;
     Sunflower tempSunflower;
     public int[][][] zombieSpawnList = {{{30, 2, 2, 3, 3, 3, 3, 0}, {0, 0, 1, 1, 1, 2, 1, 0}, {0, 0, 0, 0, 0, 0, 0, 0}}, {{1, 1, 2, 2, 3, 5, 5, 0}, {0, 1, 1, 2, 3, 3, 3, 0}, {0, 0, 0, 0, 1, 0, 1, 0}}, {{1, 3, 9, 27, 64, 128, 256, 0}, {1, 2, 4, 8, 16, 32, 128, 0}, {2, 4, 8, 16, 32, 64, 128, 0}}};
-    int[][] zombieTimes = {{500, 2000, 2000, 2000, 2000, 2000, 2000, 100000}, {5000, 2000, 3000, 6000, 7000, 8000, 10000, 100000}, {5000, 2000, 3000, 6000, 7000, 8000, 40000, 100000}};
+    int[][] zombieTimes = {{5000, 2000, 2000, 2000, 2000, 2000, 2000, 1000000000}, {5000, 2000, 3000, 5000, 5000, 5000, 5000, 1000000000}, {5000, 2000, 2000, 2000, 2000, 2000, 2000, 1000000000}};
     double speedMultiplier;
     public int PEA_DAMAGE;
     public int MINE_RELOAD;
@@ -401,6 +401,7 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
 
                         // Advance level progress
                         levelProgressState++;
+                        System.out.println(levelProgressState);
                         if (levelProgressState > zombieSpawnList[difficulty - 1][0].length - 2) {
                             while (!zombiesAllDead) {
                                 try {
@@ -425,6 +426,7 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
 
     //handles all collision detection and responds accordingly
     public void checkCollision() {
+        System.out.println(levelProgressState);
         //finds the furthest zombie
         for (int i = 0; i < 5; i++) {
             if (zombieList.get(i).isEmpty()) {
@@ -1060,6 +1062,7 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
     }
 
     public int getMineTime() {
+        System.out.println(MINE_RELOAD);
         return MINE_RELOAD;
     }
 
