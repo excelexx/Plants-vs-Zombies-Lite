@@ -401,7 +401,6 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
 
                         // Advance level progress
                         levelProgressState++;
-                        System.out.println(levelProgressState);
                         if (levelProgressState > zombieSpawnList[difficulty - 1][0].length - 2) {
                             while (!zombiesAllDead) {
                                 try {
@@ -426,7 +425,6 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
 
     //handles all collision detection and responds accordingly
     public void checkCollision() {
-        System.out.println(levelProgressState);
         //finds the furthest zombie
         for (int i = 0; i < 5; i++) {
             if (zombieList.get(i).isEmpty()) {
