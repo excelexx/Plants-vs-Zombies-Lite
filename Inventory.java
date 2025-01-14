@@ -35,17 +35,20 @@ public class Inventory {
     private int progressBarWidth = 200;
     private int totalProgress;
     int[] mineUpgradeCosts = {50, 100, 200, 400, 600, 1000, 2000};
-    int[] mineUpgradeTimes = {20000, 15000, 9000, 5000, 2000, 1000};
+    int[] mineUpgradeTimes = {20000, 15000, 9000, 5000, 2000, 1000,10};
     int mineUpgradeState = 0;
     int[] peaUpgradeCosts = {50, 100, 200, 400, 600, 1000, 2000};
-    int[] peaUpgradeDamage = {10, 25, 40, 50, 70, 85, 100, 200};
+    int[] peaUpgradeDamage = {20, 40, 75, 100, 150, 200, 250};
     int peaUpgradeState = 0;
     int[] speedUpgradeCosts = {50, 100, 200, 400, 600, 1000, 2000};
-    double[] speedUpgradeTimes = {1.3, 1.0, 0.8, 0.7, 0.55, 0.4, 0.3};
+    double[] speedUpgradeTimes = {1.0, 0.75, 0.6, 0.5, 0.32, 0.25, 0.2};
     int speedUpgradeState = 0;
     Message peaUpgradeMessage = new Message(595, 92, 50, 50, peaUpgradeCosts[0] + "", 17);
     Message mineUpgradeMessage = new Message(715, 92, 50, 50, mineUpgradeCosts[0] + "", 17);
     Message peaSpeedMessage = new Message(820, 92, 50, 50, speedUpgradeCosts[0] + "", 17);
+    Message dmgLevel = new Message(620, 73, 50, 50, peaUpgradeDamage[0] + "hp", 14);
+    Message timeLevel = new Message(720, 73, 50, 50, mineUpgradeTimes[0] / 1000 + "s", 14);
+    Message speedLevel = new Message(835, 73, 50, 50,  (Math.round((100.0 / speedUpgradeTimes[speedUpgradeState])) / 100.0) + "x", 14);
 
     //code for constructor
     Inventory(GamePanel gme) {
@@ -80,14 +83,17 @@ public class Inventory {
         peaUpgradeMessage.setMessage(peaUpgradeCosts[peaUpgradeState] + "");
         mineUpgradeMessage.setMessage(mineUpgradeCosts[mineUpgradeState] + "");
         peaSpeedMessage.setMessage(speedUpgradeCosts[speedUpgradeState] + "");
-        if(peaUpgradeState== peaUpgradeCosts.length-1){
-            peaUpgradeMessage.setMessage("Max Lvl");
+        dmgLevel.setMessage(peaUpgradeDamage[peaUpgradeState] + "hp");
+        timeLevel.setMessage(mineUpgradeTimes[mineUpgradeState] / 1000 + "s");
+        speedLevel.setMessage( (Math.round((100 / speedUpgradeTimes[speedUpgradeState])) / 100.0) + "x");
+        if (peaUpgradeState == peaUpgradeCosts.length - 1) {
+            peaUpgradeMessage.setMessage("Max");
         }
-        if(mineUpgradeState== mineUpgradeCosts.length-1){
-            mineUpgradeMessage.setMessage("Max Lvl");
+        if (mineUpgradeState == mineUpgradeCosts.length - 1) {
+            mineUpgradeMessage.setMessage("Max");
         }
-        if(speedUpgradeState == speedUpgradeCosts.length-1){
-            peaSpeedMessage.setMessage("Max Lvl");
+        if (speedUpgradeState == speedUpgradeCosts.length - 1) {
+            peaSpeedMessage.setMessage("Max");
         }
         progress = (int) (1.0 * game.levelProgressState / totalProgress * (progressBarWidth - 30)) + 30;
     }
@@ -154,7 +160,7 @@ public class Inventory {
                             if (peaUpgradeState < peaUpgradeCosts.length - 1) {
                                 peaUpgradeState++;
                             }
-                        } else if(!(game.getSun() >= peaUpgradeCosts[peaUpgradeState])) {
+                        } else if (!(game.getSun() >= peaUpgradeCosts[peaUpgradeState])) {
                             colorThread = new Thread(new Runnable() {
                                 public void run() {
                                     try {
@@ -179,7 +185,7 @@ public class Inventory {
                             if (mineUpgradeState < mineUpgradeCosts.length - 1) {
                                 mineUpgradeState++;
                             }
-                        } else if(!(game.getSun() >= mineUpgradeCosts[mineUpgradeState])){
+                        } else if (!(game.getSun() >= mineUpgradeCosts[mineUpgradeState])) {
                             colorThread = new Thread(new Runnable() {
                                 public void run() {
                                     try {
@@ -214,7 +220,7 @@ public class Inventory {
                                         sunAmount.setColorRed(false);
                                         Sound.playSingleSound("Sounds\\x.wav", 0);
                                     } catch (Exception e) {
-                                        
+
                                     }
                                 }
                             });
@@ -363,6 +369,9 @@ public class Inventory {
             peaUpgradeMessage.draw(g);
             mineUpgradeMessage.draw(g);
             peaSpeedMessage.draw(g);
+            dmgLevel.draw(g);
+            timeLevel.draw(g);
+            speedLevel.draw(g);
             //draws plants/shovel if it is being held on mouse
             switch (selectedState) {
                 case 1:
@@ -381,7 +390,7 @@ public class Inventory {
                     g.drawImage(shovelOnlyImage, mouseX - 20, mouseY - 20, null);
                     break;
             }
-            
+
         }
     }
 

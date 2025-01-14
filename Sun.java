@@ -105,6 +105,9 @@ public class Sun extends Rectangle {
 
     //makes sun fall
     public void move() {
+        if(!game.getIsRunning()){
+            die();
+        }
         if(isFalling){
             if(positionY<=threshold){
                 state++;

@@ -70,7 +70,7 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
     public static ArrayList<ArrayList<PotatoMine>> potatoMineListRemove = new ArrayList<>();
     public static int[] furthestZombies = new int[5];
     Iterator<Sunflower> sunflowerIterator;
-    public static int sunCount = 50;
+    public static int sunCount = 50000;
     public boolean zombiesAllDead = true;
     Zombie secondTempZombie;
     public static Thread zombieSpawnThread;
@@ -78,7 +78,7 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
     int minimum;
     int tempInt;
     public static boolean hasStartedSun = false;
-    public int levelProgressState = 0;
+    public int levelProgressState = 5;
     Peashooter tempPeashooter;
     public static boolean soundPlayed = false;
     Iterator<Walnut> walnutIterator;
@@ -89,7 +89,7 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
     public static int mouseY;
     Zombie tempZombie;
     Sunflower tempSunflower;
-    public int[][][] zombieSpawnList = {{{30, 2, 2, 3, 3, 3, 3, 0}, {0, 0, 1, 1, 1, 2, 1, 0}, {0, 0, 0, 0, 0, 0, 0, 0}}, {{1, 1, 2, 2, 3, 5, 5, 0}, {0, 1, 1, 2, 3, 3, 3, 0}, {0, 0, 0, 0, 1, 0, 1, 0}}, {{1, 3, 9, 27, 64, 64, 64, 0}, {1, 2, 4, 8, 16, 32, 64, 0}, {1, 2, 4, 8, 16, 32, 64, 0}}};
+    public int[][][] zombieSpawnList = {{{30, 2, 2, 3, 3, 3, 3, 0}, {0, 0, 1, 1, 1, 2, 1, 0}, {0, 0, 0, 0, 0, 0, 0, 0}}, {{1, 1, 2, 2, 3, 5, 5, 0}, {0, 1, 1, 2, 3, 3, 3, 0}, {0, 0, 0, 0, 1, 0, 1, 0}}, {{1, 3, 9, 27, 64, 128, 256, 0}, {1, 2, 4, 8, 16, 32, 128, 0}, {2, 4, 8, 16, 32, 64, 128, 0}}};
     int[][] zombieTimes = {{500, 2000, 2000, 2000, 2000, 2000, 2000, 100000}, {5000, 2000, 3000, 6000, 7000, 8000, 10000, 100000}, {5000, 2000, 3000, 6000, 7000, 8000, 40000, 100000}};
     double speedMultiplier;
     public int PEA_DAMAGE;
@@ -363,7 +363,7 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
                             } else if (difficulty == 2) {
                                 Thread.sleep((int) (Math.random() * 3000 + 1000));
                             } else if (difficulty == 3) {
-                                Thread.sleep((int) (Math.random() * 500));
+                                Thread.sleep((int) (Math.random() * 100));
                             }
                         }
 
@@ -379,7 +379,7 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
                             } else if (difficulty == 2) {
                                 Thread.sleep((int) (Math.random() * 3000 + 1000));
                             } else if (difficulty == 3) {
-                                Thread.sleep((int) (Math.random() * 500));
+                                Thread.sleep((int) (Math.random() * 100));
                             }
                         }
 
@@ -395,7 +395,7 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
                             } else if (difficulty == 2) {
                                 Thread.sleep((int) (Math.random() * 3000 + 1000));
                             } else if (difficulty == 3) {
-                                Thread.sleep((int) (Math.random() * 1000));
+                                Thread.sleep((int) (Math.random() * 300));
                             }
                         }
 
@@ -780,7 +780,7 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
             //only move objects around and update screen if enough time has passed
             if (delta >= 1) {
                 move();
-                if(!gameEnded){
+                if (!gameEnded) {
                     try {
                         //tries to check for collisions
                         checkCollision();
@@ -1081,5 +1081,9 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
 
     public void setSpeed(double a) {
         speedMultiplier = a;
+    }
+
+    public boolean getIsRunning() {
+        return isRunning;
     }
 }

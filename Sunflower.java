@@ -54,7 +54,9 @@ public class Sunflower extends Plant {
                 public void run() {
                     try {
                         Thread.sleep(15000);
-                        game.addSun(new Sun(positionX+xOffset, positionY+yOffset, game, false));
+                        if(game.isRunning){
+                            game.addSun(new Sun(positionX+xOffset, positionY+yOffset, game, false));
+                        }
                         sunThread.interrupt();
                     } catch (Exception e) {
 
