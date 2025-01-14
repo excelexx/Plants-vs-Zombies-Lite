@@ -89,8 +89,8 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
     public static int mouseY;
     Zombie tempZombie;
     Sunflower tempSunflower;
-    public int[][][] zombieSpawnList = {{{30, 2, 2, 3, 3, 3, 3, 0}, {0, 0, 1, 1, 1, 2, 1, 0}, {0, 0, 0, 0, 0, 0, 0, 0}}, {{1, 1, 2, 2, 3, 5, 5, 0}, {0, 1, 1, 2, 3, 3, 3, 0}, {0, 0, 0, 0, 1, 0, 1, 0}}, {{1, 3, 9, 27, 64, 128, 256, 0}, {1, 2, 4, 8, 16, 32, 128, 0}, {2, 4, 8, 16, 32, 64, 128, 0}}};
-    int[][] zombieTimes = {{5000, 2000, 2000, 2000, 2000, 2000, 2000, 1000000000}, {5000, 2000, 3000, 5000, 5000, 5000, 5000, 1000000000}, {5000, 2000, 2000, 2000, 2000, 2000, 2000, 1000000000}};
+    public int[][][] zombieSpawnList = {{{30, 2, 2, 3, 3, 3, 3, 0}, {0, 0, 1, 1, 1, 2, 1, 0}, {0, 0, 0, 0, 0, 0, 0, 0}}, {{1, 1, 2, 2, 3, 5, 5, 0}, {0, 1, 1, 2, 3, 3, 3, 0}, {0, 0, 0, 0, 1, 0, 1, 0}}, {{1, 3, 9, 27, 64, 64, 64, 0}, {1, 2, 4, 8, 16, 32, 64, 0}, {2, 4, 8, 16, 32, 64, 64, 0}}};
+    int[][] zombieTimes = {{5000, 2000, 2000, 2000, 2000, 2000, 2000, 1000000000}, {5000, 2000, 3000, 5000, 5000, 5000, 5000, 1000000000}, {15000, 20000, 10000, 2000, 2000, 2000, 2000, 1000000000}};
     double speedMultiplier;
     public int PEA_DAMAGE;
     public int MINE_RELOAD;
@@ -199,6 +199,7 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
                 if (gameBackground != null) {
                     g.drawImage(gameBackground, 0, 0, GAME_WIDTH, GAME_HEIGHT, null);
                 }
+
                 //draws plants and zombies
                 for (int i = 0; i < 5; i++) {
                     for (Peashooter peashooter : peashooterList.get(i)) {
@@ -213,6 +214,9 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
                     for (PotatoMine potatoMine : potatoMineList.get(i)) {
                         potatoMine.draw(g);
                     }
+                }
+                inventory.draw(g);
+                for (int i = 0; i < 5; i++) {
                     for (Zombie zombie : new ArrayList<>(zombieList.get(i))) {
                         zombie.draw(g);
                     }
@@ -221,7 +225,6 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
                     }
                 }
                 //draws inventory
-                inventory.draw(g);
                 //draws sun
                 for (Sun sun : new ArrayList<>(sunList)) {
                     sun.draw(g);
@@ -354,48 +357,48 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
                         // Spawn Regular Zombies
                         for (int i = 0; i < zombieSpawnList[difficulty - 1][0][levelProgressState]; i++) {
                             tempInt = (int) (Math.random() * 5) + 1;
-                            synchronized (zombieListAdd) {
-                                RegularZombie zombie = new RegularZombie(tempInt, GamePanel.this);
-                                zombieListAdd.get(tempInt - 1).add(zombie);
-                            }
+                            RegularZombie zombie = new RegularZombie(tempInt, GamePanel.this);
+                            zombieListAdd.get(tempInt - 1).add(zombie);
                             if (difficulty == 1) {
                                 Thread.sleep((int) (Math.random() * 5000 + 1000));
                             } else if (difficulty == 2) {
                                 Thread.sleep((int) (Math.random() * 3000 + 1000));
                             } else if (difficulty == 3) {
-                                Thread.sleep((int) (Math.random() * 100));
+                                Thread.sleep((int) (Math.random() * 400 + 200));
+                                Gargantuar gzombie = new Gargantuar(tempInt, GamePanel.this);
+                                zombieListAdd.get(tempInt - 1).add(gzombie);
+                                Thread.sleep((int) (Math.random() * 400 + 200));
                             }
                         }
 
                         // Spawn Cone Zombies
                         for (int i = 0; i < zombieSpawnList[difficulty - 1][1][levelProgressState]; i++) {
                             tempInt = (int) (Math.random() * 5) + 1;
-                            synchronized (zombieListAdd) {
-                                ConeZombie zombie = new ConeZombie(tempInt, GamePanel.this);
-                                zombieListAdd.get(tempInt - 1).add(zombie);
-                            }
+                            ConeZombie zombie = new ConeZombie(tempInt, GamePanel.this);
+                            zombieListAdd.get(tempInt - 1).add(zombie);
                             if (difficulty == 1) {
                                 Thread.sleep((int) (Math.random() * 5000 + 1000));
                             } else if (difficulty == 2) {
                                 Thread.sleep((int) (Math.random() * 3000 + 1000));
                             } else if (difficulty == 3) {
-                                Thread.sleep((int) (Math.random() * 100));
+                                Thread.sleep((int) (Math.random() * 400 + 200));
+                                Gargantuar gzombie = new Gargantuar(tempInt, GamePanel.this);
+                                zombieListAdd.get(tempInt - 1).add(gzombie);
+                                Thread.sleep((int) (Math.random() * 400 + 200));
                             }
                         }
 
                         // Spawn Gargantuars
                         for (int i = 0; i < zombieSpawnList[difficulty - 1][2][levelProgressState]; i++) {
                             tempInt = (int) (Math.random() * 5) + 1;
-                            synchronized (zombieListAdd) {
-                                Gargantuar zombie = new Gargantuar(tempInt, GamePanel.this);
-                                zombieListAdd.get(tempInt - 1).add(zombie);
-                            }
+                            Gargantuar zombie = new Gargantuar(tempInt, GamePanel.this);
+                            zombieListAdd.get(tempInt - 1).add(zombie);
                             if (difficulty == 1) {
                                 Thread.sleep((int) (Math.random() * 5000 + 1000));
                             } else if (difficulty == 2) {
                                 Thread.sleep((int) (Math.random() * 3000 + 1000));
                             } else if (difficulty == 3) {
-                                Thread.sleep((int) (Math.random() * 300));
+                                Thread.sleep((int) (Math.random() * 400 + 200));
                             }
                         }
 
