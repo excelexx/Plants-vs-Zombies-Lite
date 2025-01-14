@@ -70,7 +70,7 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
     public static ArrayList<ArrayList<PotatoMine>> potatoMineListRemove = new ArrayList<>();
     public static int[] furthestZombies = new int[5];
     Iterator<Sunflower> sunflowerIterator;
-    public static int sunCount = 50000;
+    public static int sunCount = 50;
     public boolean zombiesAllDead = true;
     Zombie secondTempZombie;
     public static Thread zombieSpawnThread;
@@ -89,8 +89,8 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
     public static int mouseY;
     Zombie tempZombie;
     Sunflower tempSunflower;
-    public int[][][] zombieSpawnList = {{{30, 2, 2, 3, 3, 3, 3, 0}, {0, 0, 1, 1, 1, 2, 1, 0}, {0, 0, 0, 0, 0, 0, 0, 0}}, {{1, 1, 2, 2, 3, 5, 5, 0}, {0, 1, 1, 2, 3, 3, 3, 0}, {0, 0, 0, 0, 1, 0, 1, 0}}, {{1, 3, 9, 27, 64, 64, 64, 0}, {1, 2, 4, 8, 16, 32, 64, 0}, {2, 4, 8, 16, 32, 64, 64, 0}}};
-    int[][] zombieTimes = {{5000, 2000, 2000, 2000, 2000, 2000, 2000, 1000000000}, {5000, 2000, 3000, 5000, 5000, 5000, 5000, 1000000000}, {15000, 20000, 10000, 2000, 2000, 2000, 2000, 1000000000}};
+    public int[][][] zombieSpawnList = {{{30, 2, 2, 3, 3, 3, 3, 0}, {0, 0, 1, 1, 1, 2, 1, 0}, {0, 0, 0, 0, 0, 0, 0, 1}}, {{1, 1, 2, 2, 3, 5, 5, 0}, {0, 1, 1, 2, 3, 3, 4, 0}, {0, 0, 1, 2, 3, 5, 10, 0}}, {{1, 2, 4, 8, 16, 32, 64, 0}, {1, 2, 4, 8, 16, 32, 64, 0}, {1, 2, 4, 8, 16, 32, 64, 0}}};
+    int[][] zombieTimes = {{5000, 5000, 5000, 5000, 5000, 5000, 5000, 1000000000}, {5000, 5000, 5000, 5000, 5000, 5000, 5000, 1000000000}, {20000, 30000, 25000, 25000, 20000, 15000, 10000, 1000000000}};
     double speedMultiplier;
     public int PEA_DAMAGE;
     public int MINE_RELOAD;
