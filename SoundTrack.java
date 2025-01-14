@@ -5,6 +5,7 @@
 //imports
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -78,6 +79,8 @@ public class SoundTrack {
             soundtrackList.add("Soundtracks\\Battle For Brains Jazz.wav");
         }
 
+        //shuffle soundtracks
+        Collections.shuffle(soundtrackList); 
         length = soundtrackList.size();
     }
     //plays music
