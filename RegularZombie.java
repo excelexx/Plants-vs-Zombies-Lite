@@ -28,7 +28,7 @@ public class RegularZombie extends Zombie {
         durability = 100;
         xOffsetCenter = 20;
         xOffsetFront = -40;
-        speed = 1;
+        speed = 13;
     }
 
     //loads images

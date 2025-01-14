@@ -324,7 +324,7 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
 
     //spawns zombies
     public void spawnZombie() {
-        if (levelProgressState < zombieSpawnList[difficulty - 1][0].length - 1 && isRunning
+        if (levelProgressState < zombieSpawnList[difficulty - 1][0].length - 1 && isRunning && !gameEnded
                 && (zombieSpawnThread == null || !zombieSpawnThread.isAlive())) {
 
             // Initialize zombieListAdd only if it's empty
@@ -404,7 +404,7 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
                         if (levelProgressState > zombieSpawnList[difficulty - 1][0].length - 2) {
                             while (!zombiesAllDead) {
                                 try {
-                                    Thread.sleep(300);
+                                    Thread.sleep(50);
                                 } catch (Exception e) {
 
                                 }
@@ -445,7 +445,7 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
             if (furthestZombies[i] != -1) {
                 if (zombieList.get(i).get(furthestZombies[i]).getXEat() <= 0) {
                     try {
-                        Thread.sleep(500);
+                        Thread.sleep(50);
                     } catch (Exception e) {
 
                     }
@@ -780,10 +780,12 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
             //only move objects around and update screen if enough time has passed
             if (delta >= 1) {
                 move();
-                try {
-                    //tries to check for collisions
-                    checkCollision();
-                } catch (Exception e) {
+                if(!gameEnded){
+                    try {
+                        //tries to check for collisions
+                        checkCollision();
+                    } catch (Exception e) {
+                    }
                 }
                 while (true) {
                     try {
@@ -842,6 +844,8 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
             }
         } catch (Exception h) {
         }
+        mouseClickedX = e.getX();
+        mouseClickedY = e.getY();
     }
 
     @Override

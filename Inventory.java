@@ -381,6 +381,7 @@ public class Inventory {
                     g.drawImage(shovelOnlyImage, mouseX - 20, mouseY - 20, null);
                     break;
             }
+            
         }
     }
 
