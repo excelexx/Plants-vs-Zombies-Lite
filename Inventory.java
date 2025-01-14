@@ -35,7 +35,7 @@ public class Inventory {
     private int progressBarWidth = 200;
     private int totalProgress;
     int[] mineUpgradeCosts = {50, 100, 200, 400, 600, 1000, 2000};
-    int[] mineUpgradeTimes = {20000, 15000, 9000, 5000, 2000, 1000,10};
+    int[] mineUpgradeTimes = {20000, 15000, 9000, 5000, 3000, 2000,1000};
     int mineUpgradeState = 0;
     int[] peaUpgradeCosts = {50, 100, 200, 400, 600, 1000, 2000};
     int[] peaUpgradeDamage = {20, 40, 75, 100, 150, 200, 250};
@@ -46,7 +46,7 @@ public class Inventory {
     Message peaUpgradeMessage = new Message(595, 92, 50, 50, peaUpgradeCosts[0] + "", 17);
     Message mineUpgradeMessage = new Message(715, 92, 50, 50, mineUpgradeCosts[0] + "", 17);
     Message peaSpeedMessage = new Message(820, 92, 50, 50, speedUpgradeCosts[0] + "", 17);
-    Message dmgLevel = new Message(620, 73, 50, 50, peaUpgradeDamage[0] + "hp", 14);
+    Message dmgLevel = new Message(620, 73, 50, 50, peaUpgradeDamage[0] + "dmg", 14);
     Message timeLevel = new Message(720, 73, 50, 50, mineUpgradeTimes[0] / 1000 + "s", 14);
     Message speedLevel = new Message(835, 73, 50, 50,  (Math.round((100.0 / speedUpgradeTimes[speedUpgradeState])) / 100.0) + "x", 14);
 
