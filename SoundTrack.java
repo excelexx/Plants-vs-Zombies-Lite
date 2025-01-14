@@ -80,6 +80,7 @@ public class SoundTrack {
         }
 
         //shuffle soundtracks
+        //Credit to this post: https://www.geeksforgeeks.org/collections-shuffle-method-in-java-with-examples/ for explaining collections shuffle
         Collections.shuffle(soundtrackList); 
         length = soundtrackList.size();
     }
