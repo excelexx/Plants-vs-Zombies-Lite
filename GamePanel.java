@@ -78,7 +78,7 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
     int minimum;
     int tempInt;
     public static boolean hasStartedSun = false;
-    public int levelProgressState = 5;
+    public int levelProgressState = 0;
     Peashooter tempPeashooter;
     public static boolean soundPlayed = false;
     Iterator<Walnut> walnutIterator;
@@ -1060,7 +1060,6 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
     }
 
     public int getMineTime() {
-        System.out.println(MINE_RELOAD);
         return MINE_RELOAD;
     }
 
