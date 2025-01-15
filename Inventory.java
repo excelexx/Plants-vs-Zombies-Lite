@@ -37,11 +37,11 @@ public class Inventory {
     int[] mineUpgradeCosts = {50, 100, 200, 400, 600, 1000, 2000};
     int[] mineUpgradeTimes = {20000, 15000, 9000, 5000, 3000, 2000, 1000};
     int mineUpgradeState = 0;
-    int[] peaUpgradeCosts = {50, 100, 200, 400, 600, 1000, 2000};
-    int[] peaUpgradeDamage = {20, 40, 75, 125, 175, 225, 300};
+    int[] peaUpgradeCosts = {50, 100, 300, 600, 1000, 1500, 2000};
+    int[] peaUpgradeDamage = {20, 35, 50, 65, 80, 100, 125};
     int peaUpgradeState = 0;
-    int[] speedUpgradeCosts = {50, 100, 200, 400, 600, 1000, 2000};
-    double[] speedUpgradeTimes = {1.0, 0.75, 0.5, 0.35, 0.3, 0.25, 0.2};
+    int[] speedUpgradeCosts = {50, 100, 300, 600, 1000, 1500, 2000};
+    double[] speedUpgradeTimes = {1.0, 0.75, 0.5, 0.45, 0.4, 0.35, 0.25};
     int speedUpgradeState = 0;
     Message peaUpgradeMessage = new Message(605, 92, 50, 50, peaUpgradeCosts[0] + "", 17);
     Message mineUpgradeMessage = new Message(715, 92, 50, 50, mineUpgradeCosts[0] + "", 17);
