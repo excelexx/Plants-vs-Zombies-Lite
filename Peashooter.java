@@ -17,7 +17,6 @@ public class Peashooter extends Plant {
     BufferedImage peashooterSprite2;
     BufferedImage peashooterSprite3;
     BufferedImage peashooterSprite4;
-    //public final int SHOOTER_DIAMETER = 90;
     Thread peaThread;
     boolean isZombie = false;
     boolean isAlive = true;
@@ -94,7 +93,6 @@ public class Peashooter extends Plant {
                 spriteCounter = 0;
             }
 
-            //toggles sprite
             if (spriteToggle == 1) {
                 g.drawImage(peashooterSprite1, Grid.colToX(column), Grid.rowToY(row), null);
             }
