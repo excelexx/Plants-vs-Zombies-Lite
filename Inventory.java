@@ -176,7 +176,6 @@ public class Inventory {
                             });
                             colorThread.start();
                         }
-                        System.out.println(peaUpgradeState);
                         break;
                     case 7:
                         if (mineUpgradeState + 1 < mineUpgradeCosts.length && game.getSun() >= mineUpgradeCosts[mineUpgradeState]) {
