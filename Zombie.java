@@ -8,6 +8,7 @@ import java.awt.Rectangle;
 
 //code for plant class
 public class Zombie extends Rectangle{
+
     //declares all variables
     int durability;
     int positionX;
@@ -20,6 +21,7 @@ public class Zombie extends Rectangle{
     int xOffsetFront;
     GamePanel game;
     boolean isStopped=false;
+    
     //constructor
     Zombie(int rw, int dur, GamePanel gme){
         super(GamePanel.GAME_WIDTH,Grid.rowToY(rw),110,110);
