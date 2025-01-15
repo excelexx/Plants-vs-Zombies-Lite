@@ -38,10 +38,10 @@ public class Inventory {
     int[] mineUpgradeTimes = {20000, 15000, 9000, 5000, 3000, 2000,1000};
     int mineUpgradeState = 0;
     int[] peaUpgradeCosts = {50, 100, 200, 400, 600, 1000, 2000};
-    int[] peaUpgradeDamage = {20, 40, 75, 100, 150, 200, 250};
+    int[] peaUpgradeDamage = {20, 40, 75, 125, 175, 225, 300};
     int peaUpgradeState = 0;
     int[] speedUpgradeCosts = {50, 100, 200, 400, 600, 1000, 2000};
-    double[] speedUpgradeTimes = {1.0, 0.75, 0.6, 0.5, 0.32, 0.25, 0.2};
+    double[] speedUpgradeTimes = {1.0, 0.75, 0.5, 0.35, 0.3, 0.25, 0.2};
     int speedUpgradeState = 0;
     Message peaUpgradeMessage = new Message(605, 92, 50, 50, peaUpgradeCosts[0] + "", 17);
     Message mineUpgradeMessage = new Message(715, 92, 50, 50, mineUpgradeCosts[0] + "", 17);
@@ -86,13 +86,13 @@ public class Inventory {
         dmgLevel.setMessage(peaUpgradeDamage[peaUpgradeState] + "dmg");
         timeLevel.setMessage(mineUpgradeTimes[mineUpgradeState] / 1000 + "s");
         speedLevel.setMessage( (Math.round((100 / speedUpgradeTimes[speedUpgradeState])) / 100.0) + "x");
-        if (peaUpgradeState == peaUpgradeCosts.length - 1) {
+        if (peaUpgradeState == peaUpgradeCosts.length-1) {
             peaUpgradeMessage.setMessage("Max");
         }
-        if (mineUpgradeState == mineUpgradeCosts.length - 1) {
+        if (mineUpgradeState == mineUpgradeCosts.length-1) {
             mineUpgradeMessage.setMessage("Max");
         }
-        if (speedUpgradeState == speedUpgradeCosts.length - 1) {
+        if (speedUpgradeState == speedUpgradeCosts.length-1) {
             peaSpeedMessage.setMessage("Max");
         }
         progress = (int) (1.0 * game.levelProgressState / totalProgress * (progressBarWidth - 30)) + 30;
@@ -153,14 +153,14 @@ public class Inventory {
                         selectedState = 5;
                         break;
                     case 6:
-                        if (peaUpgradeState + 1 < peaUpgradeCosts.length && game.getSun() >= peaUpgradeCosts[peaUpgradeState]) {
+                        if (peaUpgradeState < peaUpgradeCosts.length -1 && game.getSun() >= peaUpgradeCosts[peaUpgradeState]) {
                             Sound.playSingleSound("Sounds\\chaching.wav", 0);
                             game.changeSun(-peaUpgradeCosts[peaUpgradeState]);
                             game.setPeaDamage(peaUpgradeDamage[peaUpgradeState]);
-                            if (peaUpgradeState < peaUpgradeCosts.length - 1) {
+                            if (peaUpgradeState < peaUpgradeCosts.length) {
                                 peaUpgradeState++;
                             }
-                        } else if (!(game.getSun() >= peaUpgradeCosts[peaUpgradeState])) {
+                        } else if (peaUpgradeState < peaUpgradeCosts.length -1 &&!(game.getSun() >= peaUpgradeCosts[peaUpgradeState])) {
                             colorThread = new Thread(new Runnable() {
                                 public void run() {
                                     try {
@@ -176,16 +176,17 @@ public class Inventory {
                             });
                             colorThread.start();
                         }
+                        System.out.println(peaUpgradeState);
                         break;
                     case 7:
                         if (mineUpgradeState + 1 < mineUpgradeCosts.length && game.getSun() >= mineUpgradeCosts[mineUpgradeState]) {
                             Sound.playSingleSound("Sounds\\chaching.wav", 0);
                             game.changeSun(-mineUpgradeCosts[mineUpgradeState]);
                             game.setMineTime(mineUpgradeTimes[mineUpgradeState]);
-                            if (mineUpgradeState < mineUpgradeCosts.length - 1) {
+                            if (mineUpgradeState < mineUpgradeCosts.length) {
                                 mineUpgradeState++;
                             }
-                        } else if (!(game.getSun() >= mineUpgradeCosts[mineUpgradeState])) {
+                        } else if (mineUpgradeState + 1 < mineUpgradeCosts.length && !(game.getSun() >= mineUpgradeCosts[mineUpgradeState])) {
                             colorThread = new Thread(new Runnable() {
                                 public void run() {
                                     try {
@@ -210,7 +211,7 @@ public class Inventory {
                             if (speedUpgradeState < speedUpgradeCosts.length - 1) {
                                 speedUpgradeState++;
                             }
-                        } else if (!(game.getSun() >= speedUpgradeCosts[speedUpgradeState])) {
+                        } else if (speedUpgradeState + 1 < speedUpgradeCosts.length && !(game.getSun() >= speedUpgradeCosts[speedUpgradeState])) {
                             colorThread = new Thread(new Runnable() {
                                 public void run() {
                                     try {
