@@ -94,6 +94,7 @@ public class Peashooter extends Plant {
                 spriteCounter = 0;
             }
 
+            //toggles sprite
             if (spriteToggle == 1) {
                 g.drawImage(peashooterSprite1, Grid.colToX(column), Grid.rowToY(row), null);
             }

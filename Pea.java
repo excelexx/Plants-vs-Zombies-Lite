@@ -67,6 +67,7 @@ public class Pea extends Rectangle {
         }
     }
 
+    //draws pea
     public void draw(Graphics g) {
         if (projectileImage != null) {
             if(showPeaSplat) {
@@ -80,9 +81,11 @@ public class Pea extends Rectangle {
         }
     }
 
+    //kills the pea
     public void die() {
         game.removePea(this);
     }
+    //returns peashooter hitbox
     public int getPeashooterX(){
         return peashooter.getXEat();
     }

@@ -54,6 +54,7 @@ public class Gargantuar extends Zombie{
                 spriteCounter = 0;
             }
 
+            //toggles
             if(spriteToggle == 1) {
                 g.drawImage(gargantuarSprite1, positionX, Grid.rowToY(row)-100, null);
             } else {

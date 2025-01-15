@@ -83,13 +83,13 @@ public class PotatoMine extends Plant {
 
     }
 
-    //kills the potatomine
+    //kills the potato mine
     @Override
     public void die() {
         isAlive = false;
     }
 
-    //arms potatomine
+    //arms potato mine
     public void arm(){
         isArmed = true;
     }
@@ -104,13 +104,15 @@ public class PotatoMine extends Plant {
         return positionX;
     }
 
+    //returns the state
     public int getState(){
         return state;
     }
+    //increments the state
     public void incrementState(){
         state++;
     }
-
+    //shows the explosion
     public void showExplosion(){
         showExplosion = true;
     }

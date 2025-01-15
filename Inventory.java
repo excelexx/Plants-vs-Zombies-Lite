@@ -35,7 +35,7 @@ public class Inventory {
     private int progressBarWidth = 200;
     private int totalProgress;
     int[] mineUpgradeCosts = {50, 100, 200, 400, 600, 1000, 2000};
-    int[] mineUpgradeTimes = {20000, 15000, 9000, 5000, 3000, 2000,1000};
+    int[] mineUpgradeTimes = {20000, 15000, 9000, 5000, 3000, 2000, 1000};
     int mineUpgradeState = 0;
     int[] peaUpgradeCosts = {50, 100, 200, 400, 600, 1000, 2000};
     int[] peaUpgradeDamage = {20, 40, 75, 100, 150, 200, 250};
@@ -48,7 +48,9 @@ public class Inventory {
     Message peaSpeedMessage = new Message(820, 92, 50, 50, speedUpgradeCosts[0] + "", 17);
     Message dmgLevel = new Message(600, 73, 50, 50, peaUpgradeDamage[0] + "dmg", 14);
     Message timeLevel = new Message(720, 73, 50, 50, mineUpgradeTimes[0] / 1000 + "s", 14);
-    Message speedLevel = new Message(835, 73, 50, 50,  (Math.round((100.0 / speedUpgradeTimes[speedUpgradeState])) / 100.0) + "x", 14);
+    Message speedLevel = new Message(835, 73, 50, 50, (Math.round((100.0 / speedUpgradeTimes[speedUpgradeState])) / 100.0) + "x", 14);
+    int mouseMovedX;
+    int mouseMovedY;
 
     //code for constructor
     Inventory(GamePanel gme) {
@@ -73,6 +75,7 @@ public class Inventory {
             peaSpeedImage = ImageIO.read(getClass().getResource("/Images/peashooterUpgradeSpeed.png"));
 
         } catch (IOException e) {
+            //prints error message
             System.out.println("Error loading image files. Please check all files are saved properly.");
         }
     }
@@ -85,7 +88,7 @@ public class Inventory {
         peaSpeedMessage.setMessage(speedUpgradeCosts[speedUpgradeState] + "");
         dmgLevel.setMessage(peaUpgradeDamage[peaUpgradeState] + "dmg");
         timeLevel.setMessage(mineUpgradeTimes[mineUpgradeState] / 1000 + "s");
-        speedLevel.setMessage( (Math.round((100 / speedUpgradeTimes[speedUpgradeState])) / 100.0) + "x");
+        speedLevel.setMessage((Math.round((100 / speedUpgradeTimes[speedUpgradeState])) / 100.0) + "x");
         if (peaUpgradeState == peaUpgradeCosts.length - 1) {
             peaUpgradeMessage.setMessage("Max");
         }
@@ -98,8 +101,106 @@ public class Inventory {
         progress = (int) (1.0 * game.levelProgressState / totalProgress * (progressBarWidth - 30)) + 30;
     }
 
-    //checks where the mouse is
+    //stuff for key released
+    public void keyReleased(KeyEvent e) {
+        if (selectedState == 0) {
+            //checks which key was pressed
+            if (e.getKeyChar() == '1') {
+                state = 1;
+            } else if (e.getKeyChar() == '2') {
+                state = 2;
+            } else if (e.getKeyChar() == '3') {
+                state = 3;
+            } else if (e.getKeyChar() == '4') {
+                state = 4;
+            } else if (e.getKeyChar() == '5') {
+                state = 5;
+            } else if (e.getKeyChar() == '6') {
+                state = 6;
+            } else if (e.getKeyChar() == '7') {
+                state = 7;
+            } else if (e.getKeyChar() == '8') {
+                state = 8;
+            } else {
+                state = 0;
+            }
+        }
+        //depending on where it was clicked, it changes
+        if (selectedState  == 0) {
+                switch (state) {
+                    case 0:
+                        selectedState = 0;
+                        break;
+                    case 1:
+                        selectedState = 1;
+                        break;
+                    case 2:
+                        selectedState = 2;
+                        break;
+                    case 3:
+                        selectedState = 3;
+                        break;
+                    case 4:
+                        selectedState = 4;
+                        break;
+                    case 5:
+                        selectedState = 5;
+                        break;
+                    //upgrade pea
+                    case 6:
+                        if (peaUpgradeState + 1 < peaUpgradeCosts.length && game.getSun() >= peaUpgradeCosts[peaUpgradeState]) {
+                            Sound.playSingleSound("Sounds\\chaching.wav", 0);
+                            game.changeSun(-peaUpgradeCosts[peaUpgradeState]);
+                            game.setPeaDamage(peaUpgradeDamage[peaUpgradeState]);
+                            if (peaUpgradeState < peaUpgradeCosts.length - 1) {
+                                peaUpgradeState++;
+                            }
+                        } else if (!(game.getSun() >= peaUpgradeCosts[peaUpgradeState])) {
+                            sunRed();
+                        }
+                        break;
+                    case 7:
+                    //upgrade mine
+                        if (mineUpgradeState + 1 < mineUpgradeCosts.length && game.getSun() >= mineUpgradeCosts[mineUpgradeState]) {
+                            Sound.playSingleSound("Sounds\\chaching.wav", 0);
+                            game.changeSun(-mineUpgradeCosts[mineUpgradeState]);
+                            game.setMineTime(mineUpgradeTimes[mineUpgradeState]);
+                            if (mineUpgradeState < mineUpgradeCosts.length - 1) {
+                                mineUpgradeState++;
+                            }
+                        } else if (!(game.getSun() >= mineUpgradeCosts[mineUpgradeState])) {
+                            sunRed();
+                        }
+                        break;
+                    case 8:
+                    //upgrade speed
+                        if (speedUpgradeState + 1 < speedUpgradeCosts.length && game.getSun() >= speedUpgradeCosts[speedUpgradeState]) {
+                            Sound.playSingleSound("Sounds\\chaching.wav", 0);
+                            game.changeSun(-speedUpgradeCosts[speedUpgradeState]);
+                            game.setSpeed(speedUpgradeTimes[speedUpgradeState]);
+                            if (speedUpgradeState < speedUpgradeCosts.length - 1) {
+                                speedUpgradeState++;
+                            }
+                        } else if (!(game.getSun() >= speedUpgradeCosts[speedUpgradeState])) {
+                            sunRed();
+                        }
+                        break;
+                }
+        }
+        //makes selected state 0
+        else{
+            selectedState = 0;
+        }
+    }
+
+    //checks where the mouse is moved
     public void mouseMoved(MouseEvent e) {
+        mouseMovedX = e.getX();
+        mouseMovedY = e.getY();
+    }
+
+    //checks where the mouse was clicked
+    public void mouseReleased(MouseEvent e) {
         mouseX = e.getX();
         mouseY = e.getY();
         //checks what state the mouse is in and changes it accordingly
@@ -124,35 +225,37 @@ public class Inventory {
                 state = 0;
             }
         }
-    }
 
-    //checks where the mouse was clicked
-    public void mouseReleased(MouseEvent e) {
-        mouseX = e.getX();
-        mouseY = e.getY();
         //depending on where it was clicked, it changes
         switch (selectedState) {
             case 0:
                 switch (state) {
                     case 0:
+                    //makes state 0
                         selectedState = 0;
                         break;
                     case 1:
+                    //makes state 1
                         selectedState = 1;
                         break;
                     case 2:
+                    //makes state 2
                         selectedState = 2;
                         break;
                     case 3:
+                    //makes state 3
                         selectedState = 3;
                         break;
                     case 4:
+                    //makes case 4
                         selectedState = 4;
                         break;
                     case 5:
+                    //makes case 5
                         selectedState = 5;
                         break;
                     case 6:
+                    //upgrades pea
                         if (peaUpgradeState + 1 < peaUpgradeCosts.length && game.getSun() >= peaUpgradeCosts[peaUpgradeState]) {
                             Sound.playSingleSound("Sounds\\chaching.wav", 0);
                             game.changeSun(-peaUpgradeCosts[peaUpgradeState]);
@@ -161,23 +264,11 @@ public class Inventory {
                                 peaUpgradeState++;
                             }
                         } else if (!(game.getSun() >= peaUpgradeCosts[peaUpgradeState])) {
-                            colorThread = new Thread(new Runnable() {
-                                public void run() {
-                                    try {
-                                        sunAmount.setColorRed(true);
-                                        //play sound effect here
-                                        Thread.sleep(200);
-                                        sunAmount.setColorRed(false);
-                                        Sound.playSingleSound("Sounds\\x.wav", 0);
-                                    } catch (Exception e) {
-
-                                    }
-                                }
-                            });
-                            colorThread.start();
+                            sunRed();
                         }
                         break;
                     case 7:
+                    //upgrades mine
                         if (mineUpgradeState + 1 < mineUpgradeCosts.length && game.getSun() >= mineUpgradeCosts[mineUpgradeState]) {
                             Sound.playSingleSound("Sounds\\chaching.wav", 0);
                             game.changeSun(-mineUpgradeCosts[mineUpgradeState]);
@@ -186,23 +277,11 @@ public class Inventory {
                                 mineUpgradeState++;
                             }
                         } else if (!(game.getSun() >= mineUpgradeCosts[mineUpgradeState])) {
-                            colorThread = new Thread(new Runnable() {
-                                public void run() {
-                                    try {
-                                        sunAmount.setColorRed(true);
-                                        //play sound effect here
-                                        Thread.sleep(200);
-                                        sunAmount.setColorRed(false);
-                                        Sound.playSingleSound("Sounds\\x.wav", 0);
-                                    } catch (Exception e) {
-
-                                    }
-                                }
-                            });
-                            colorThread.start();
+                            sunRed();
                         }
                         break;
                     case 8:
+                    //upgrades pea speed
                         if (speedUpgradeState + 1 < speedUpgradeCosts.length && game.getSun() >= speedUpgradeCosts[speedUpgradeState]) {
                             Sound.playSingleSound("Sounds\\chaching.wav", 0);
                             game.changeSun(-speedUpgradeCosts[speedUpgradeState]);
@@ -211,20 +290,7 @@ public class Inventory {
                                 speedUpgradeState++;
                             }
                         } else if (!(game.getSun() >= speedUpgradeCosts[speedUpgradeState])) {
-                            colorThread = new Thread(new Runnable() {
-                                public void run() {
-                                    try {
-                                        sunAmount.setColorRed(true);
-                                        //play sound effect here
-                                        Thread.sleep(200);
-                                        sunAmount.setColorRed(false);
-                                        Sound.playSingleSound("Sounds\\x.wav", 0);
-                                    } catch (Exception e) {
-
-                                    }
-                                }
-                            });
-                            colorThread.start();
+                            sunRed();
                         }
                         break;
                 }
@@ -236,23 +302,11 @@ public class Inventory {
                         game.plantSunflower(mouseX, mouseY);
                         game.changeSun(-50);
                     } else {
-                        colorThread = new Thread(new Runnable() {
-                            public void run() {
-                                try {
-                                    sunAmount.setColorRed(true);
-                                    //play sound effect here
-                                    Thread.sleep(200);
-                                    sunAmount.setColorRed(false);
-                                    Sound.playSingleSound("Sounds\\x.wav", 0);
-                                } catch (Exception e) {
-
-                                }
-                            }
-                        });
-                        colorThread.start();
+                        sunRed();
                     }
 
                 }
+                //makes selected state 0
                 selectedState = 0;
                 break;
             case 2:
@@ -262,23 +316,11 @@ public class Inventory {
                         game.plantPeashooter(mouseX, mouseY);
                         game.changeSun(-100);
                     } else {
-                        colorThread = new Thread(new Runnable() {
-                            public void run() {
-                                try {
-                                    sunAmount.setColorRed(true);
-                                    //play sound effect here
-                                    Thread.sleep(200);
-                                    sunAmount.setColorRed(false);
-                                    Sound.playSingleSound("Sounds\\x.wav", 20);
-                                } catch (Exception e) {
-
-                                }
-                            }
-                        });
-                        colorThread.start();
+                        sunRed();
                     }
 
                 }
+                //makes selected state 0
                 selectedState = 0;
                 break;
             case 3:
@@ -288,20 +330,7 @@ public class Inventory {
                         game.plantPotatoMine(mouseX, mouseY);
                         game.changeSun(-25);
                     } else {
-                        colorThread = new Thread(new Runnable() {
-                            public void run() {
-                                try {
-                                    sunAmount.setColorRed(true);
-                                    //play sound effect here
-                                    Thread.sleep(200);
-                                    sunAmount.setColorRed(false);
-                                    Sound.playSingleSound("Sounds\\x.wav", 20);
-                                } catch (Exception e) {
-
-                                }
-                            }
-                        });
-                        colorThread.start();
+                        sunRed();
                     }
 
                 }
@@ -314,20 +343,7 @@ public class Inventory {
                         game.plantWalnut(mouseX, mouseY);
                         game.changeSun(-50);
                     } else {
-                        colorThread = new Thread(new Runnable() {
-                            public void run() {
-                                try {
-                                    sunAmount.setColorRed(true);
-                                    //play sound effect here
-                                    Thread.sleep(200);
-                                    sunAmount.setColorRed(false);
-                                    Sound.playSingleSound("Sounds\\x.wav", 20);
-                                } catch (Exception e) {
-
-                                }
-                            }
-                        });
-                        colorThread.start();
+                        sunRed();
                     }
 
                 }
@@ -341,6 +357,24 @@ public class Inventory {
                 selectedState = 0;
                 break;
         }
+    }
+
+    //makes sun red
+    public void sunRed(){
+        colorThread = new Thread(new Runnable() {
+            public void run() {
+                try {
+                    sunAmount.setColorRed(true);
+                    //play sound effect here
+                    Thread.sleep(200);
+                    sunAmount.setColorRed(false);
+                    Sound.playSingleSound("Sounds\\x.wav", 20);
+                } catch (Exception e) {
+
+                }
+            }
+        });
+        colorThread.start();
     }
 
     //draws all relevent images
@@ -366,6 +400,7 @@ public class Inventory {
             g.drawImage(mineUpgradeImage, 675, 0, null);
             g.drawImage(peaUpgradeImage, 565, 0, null);
             g.drawImage(peaSpeedImage, 675 + 110, 0, null);
+            //draws message
             peaUpgradeMessage.draw(g);
             mineUpgradeMessage.draw(g);
             peaSpeedMessage.draw(g);
@@ -375,25 +410,26 @@ public class Inventory {
             //draws plants/shovel if it is being held on mouse
             switch (selectedState) {
                 case 1:
-                    g.drawImage(sunflowerImage, mouseX - 50, mouseY - 40, null);
+                    g.drawImage(sunflowerImage, mouseMovedX - 50, mouseMovedY - 40, null);
                     break;
                 case 2:
-                    g.drawImage(peashooterImage, mouseX - 50, mouseY - 40, null);
+                    g.drawImage(peashooterImage, mouseMovedX - 50, mouseMovedY - 40, null);
                     break;
                 case 3:
-                    g.drawImage(mineImage, mouseX - 50, mouseY - 40, null);
+                    g.drawImage(mineImage, mouseMovedX - 50, mouseMovedY - 40, null);
                     break;
                 case 4:
-                    g.drawImage(walnutImage, mouseX - 50, mouseY - 40, null);
+                    g.drawImage(walnutImage, mouseMovedX - 50, mouseMovedY - 40, null);
                     break;
                 case 5:
-                    g.drawImage(shovelOnlyImage, mouseX - 20, mouseY - 20, null);
+                    g.drawImage(shovelOnlyImage, mouseMovedX - 20, mouseMovedY - 20, null);
                     break;
             }
 
         }
     }
 
+    //ends the game by resetting everything
     public void endGame() {
         mineUpgradeState = 0;
         peaUpgradeState = 0;

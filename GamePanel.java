@@ -70,7 +70,7 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
     public static ArrayList<ArrayList<PotatoMine>> potatoMineListRemove = new ArrayList<>();
     public static int[] furthestZombies = new int[5];
     Iterator<Sunflower> sunflowerIterator;
-    public static int sunCount = 50;
+    public static int sunCount = 5000;
     public boolean zombiesAllDead = true;
     Zombie secondTempZombie;
     public static Thread zombieSpawnThread;
@@ -818,7 +818,7 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
     @Override
     public void keyReleased(KeyEvent e) {
         menu.keyReleased(e);
-
+        inventory.keyReleased(e);
     }
 
     //overrides KeyListener interface
@@ -1058,34 +1058,42 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
         }
     }
 
+    //removes pea
     public void removePea(Pea p) {
         peaListRemove.get(p.getRow() - 1).add(p);
     }
 
+    //gets mine time
     public int getMineTime() {
         return MINE_RELOAD;
     }
 
+    //sets mine time
     public void setMineTime(int a) {
         MINE_RELOAD = a;
     }
 
+    //sets pea damage
     public void setPeaDamage(int a) {
         PEA_DAMAGE = a;
     }
 
+    //get pea damage
     public int getPeaDamage() {
         return PEA_DAMAGE;
     }
 
+    //gets speed
     public double getSpeed() {
         return speedMultiplier;
     }
 
+    //sets speed
     public void setSpeed(double a) {
         speedMultiplier = a;
     }
 
+    //gets if it is running
     public boolean getIsRunning() {
         return isRunning;
     }

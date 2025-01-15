@@ -74,6 +74,7 @@ public class RegularZombie extends Zombie {
                 }
             }
 
+            //draws sprites
             if (spriteToggle == 1) {
                 g.drawImage(zombieWalkingSprite1, positionX, positionY, null);
             }

@@ -53,6 +53,7 @@ public class Sound {
             System.out.println("Exception: Error with music playing.");
         }
 
+        //returns null
         return null;
     }
 
