@@ -74,7 +74,7 @@ public class SoundTrack {
         } else{
             //jazzy soundtrack
             soundtrackList.add("Soundtracks\\Graze The Roof Jazz.wav");
-            soundtrackList.add("Soundtracks\\Grasswalk and Moongrains Jazz.wav");
+            soundtrackList.add("Soundtracks\\Grasswalk-and-Moongrains-Jazz-New.wav");
             soundtrackList.add("Soundtracks\\Loonboon Jazz.wav");
             soundtrackList.add("Soundtracks\\Battle For Brains Jazz.wav");
         }
