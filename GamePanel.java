@@ -556,11 +556,6 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
                             tempZombie.stop();
                             exists = true;
 
-                            //eating
-                            if (!soundPlayed) {
-                                Sound.playEatingSounds();
-                                soundPlayed = true; // Set the flag to true after the sound is played
-                            }
                         }
                     }
                     //iterates through sunflowers to see if they are being eaten
@@ -576,12 +571,6 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
                             }
                             tempZombie.stop();
                             exists = true;
-
-                            //eating
-                            if (!soundPlayed) {
-                                Sound.playEatingSounds();
-                                soundPlayed = true; // Set the flag to true after the sound is played
-                            }
                         }
                     }
                     //iterates through walnuts to see if they are being eaten
@@ -597,12 +586,6 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
                             }
                             tempZombie.stop();
                             exists = true;
-
-                            //eating
-                            if (!soundPlayed) {
-                                Sound.playEatingSounds();
-                                soundPlayed = true; // Set the flag to true after the sound is played
-                            }
                         }
                     }
                     //iterates through potato mines to see if they are being eaten
