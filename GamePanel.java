@@ -1,5 +1,5 @@
 //Alexander Zhang and Stanley Zhou
-//2025-01-09
+//2025-01-17
 //Code for the GamePanel class that controls all the game logic and collisions`
 
 //imports
@@ -834,6 +834,7 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
         mouseClickedY = e.getY();
     }
 
+    //overrides mouseclicked interface
     @Override
     public void mouseClicked(MouseEvent e) {
 

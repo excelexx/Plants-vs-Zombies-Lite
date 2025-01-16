@@ -1,5 +1,5 @@
 //Alexander Zhang
-//2025-01-09
+//2025-01-17
 //Code for the plant class that handles plants
 
 //imports
