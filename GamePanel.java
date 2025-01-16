@@ -92,8 +92,8 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
     public int[][][] zombieSpawnList = {{{30, 2, 2, 3, 3, 3, 3, 0}, {0, 0, 1, 1, 1, 2, 1, 0}, {0, 0, 0, 0, 0, 0, 0, 1}}, {{1, 1, 2, 2, 3, 5, 5, 0}, {0, 1, 1, 2, 3, 3, 4, 0}, {0, 0, 1, 2, 3, 5, 10, 0}}, {{1, 2, 4, 8, 16, 32, 64, 0}, {1, 2, 4, 8, 16, 32, 64, 0}, {1, 2, 4, 8, 16, 32, 64, 0}}};
     int[][] zombieTimes = {{5000, 5000, 5000, 5000, 5000, 5000, 5000, 1000000000}, {5000, 5000, 5000, 5000, 5000, 5000, 5000, 1000000000}, {30000, 30000, 30000, 25000, 20000, 3000, 3000, 1000000000}};
     double speedMultiplier;
-    public int PEA_DAMAGE;
-    public int MINE_RELOAD;
+    public int peaDamage;
+    public int mineReload;
 
     //Constructor for gamepanel class 
     public GamePanel() {
@@ -163,8 +163,8 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
         }
 
         speedMultiplier = inventory.speedUpgradeTimes[0];
-        PEA_DAMAGE = inventory.peaUpgradeDamage[0];
-        MINE_RELOAD = inventory.mineUpgradeTimes[0];
+        peaDamage = inventory.peaUpgradeDamage[0];
+        mineReload = inventory.mineUpgradeTimes[0];
     }
 
     //loads all images
@@ -941,8 +941,8 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
     public void endGame() {
         //resets all booleans and values
         speedMultiplier = inventory.speedUpgradeTimes[0];
-        PEA_DAMAGE = inventory.peaUpgradeDamage[0];
-        MINE_RELOAD = inventory.mineUpgradeTimes[0];
+        peaDamage = inventory.peaUpgradeDamage[0];
+        mineReload = inventory.mineUpgradeTimes[0];
         gameEnded = false;
         isRunning = false;
         isGameDone = false;
@@ -1048,22 +1048,22 @@ public class GamePanel extends JLayeredPane implements Runnable, KeyListener, Mo
 
     //gets mine time
     public int getMineTime() {
-        return MINE_RELOAD;
+        return mineReload;
     }
 
     //sets mine time
     public void setMineTime(int a) {
-        MINE_RELOAD = a;
+        mineReload = a;
     }
 
     //sets pea damage
     public void setPeaDamage(int a) {
-        PEA_DAMAGE = a;
+        peaDamage = a;
     }
 
     //get pea damage
     public int getPeaDamage() {
-        return PEA_DAMAGE;
+        return peaDamage;
     }
 
     //gets speed
