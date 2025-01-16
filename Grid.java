@@ -1,5 +1,5 @@
 //Alexander Zhang and Stanley Zhou
-//2025-01-09
+//2025-01-17
 //Code for the Grid class that converts grid coordinates to x and y coordinates
 
 public class Grid {

@@ -1,5 +1,5 @@
 //Alexander Zhang and Stanley Zhou
-//2025-01-09
+//2025-01-17
 //Code for the Main Menu class that handles rules and instructions
 
 //imports
@@ -37,8 +37,6 @@ public class Menu extends JPanel {
     public static int buttonState = 0;
     public static boolean stillHovering = false;
     Thread soundThread;
-
-    // volume slider
 
     // constructor
     public Menu() {

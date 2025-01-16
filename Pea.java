@@ -1,5 +1,5 @@
 //Alexander Zhang and Stanley Zhou
-//2025-01-09
+//2025-01-17
 //Code for the Pea class that controls and draws the peas
 import java.awt.Graphics;
 import java.awt.Rectangle;

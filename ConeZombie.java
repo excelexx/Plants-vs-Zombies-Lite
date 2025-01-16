@@ -1,5 +1,5 @@
 //Alexander Zhang and Stanley Zhou
-//2025-01-09
+//2025-01-17
 //Code for the gameframe class that defines information about the window
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
@@ -23,7 +23,7 @@ public class ConeZombie extends RegularZombie{
     int spriteCounter = 0;
     int spriteToggle = 1;
 
-    //Constructor
+    //Constructor method
     ConeZombie(int rw, GamePanel gme){
         super(rw,gme);
         offsetY = 40;
