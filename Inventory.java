@@ -20,10 +20,10 @@ public class Inventory {
     private BufferedImage peaUpgradeImage;
     private BufferedImage mineUpgradeImage;
     private BufferedImage peaSpeedImage;
-    BufferedImage sunflowerImage;
-    BufferedImage peashooterImage;
-    BufferedImage mineImage;
-    BufferedImage walnutImage;
+    private BufferedImage sunflowerImage;
+    private BufferedImage peashooterImage;
+    private BufferedImage mineImage;
+    private BufferedImage walnutImage;
     private int state;
     private int selectedState;
     private int mouseX;
