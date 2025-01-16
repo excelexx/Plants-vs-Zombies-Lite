@@ -29,7 +29,7 @@ public class Inventory {
     private int mouseX;
     private int mouseY;
     private Thread colorThread;
-    private final GamePanel game;
+    private GamePanel game;
     private Message sunAmount = new Message(34 + 40, 87 + 10, 50, 50, "50", 20);
     private int progress;
     private int progressBarWidth = 200;
